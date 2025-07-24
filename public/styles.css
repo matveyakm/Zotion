@@ -1,0 +1,5 @@
+#color-picker {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100px;
+}

@@ -1,0 +1,95 @@
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- Description of the concept of SimplyVisualExtension -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+==== Description of the search for attributed text ====
+We are searching parts of hyperlinked text in:
+    1. TextBlock (Class: notion-selectable notion-text-block)
+    2. ToggleList (Class: notion-selectable notion-toggle-block)
+    3. BulletedList (Class: notion-selectable notion-bulleted_list-block)
+    4. NumberedList (Class: notion-selectable notion-numbered_list-block)
+    5. Quote (Class: notion-selectable notion-quote-block)
+    6. Callout (Class: notion-selectable notion-callout-block)
+    7. Heading1 (Class: notion-selectable notion-header-block)
+    8. Heading2 (Class: notion-selectable notion-sub_header-block)
+    9. Heading3 (Class: notion-selectable notion-sub_sub_header-block)
+    10. ToggleHeading1 (Class: notion-selectable notion-header-block)
+    11. ToggleHeading2 (Class: notion-selectable notion-sub_header-block)
+    12. ToggleHeading3 (Class: notion-selectable notion-sub_sub_header-block)
+    13. Table (Class: notion-selectable notion-table-block)
+
+Apply visual attributes to the relevant parts of the text using special format
+
+---- End of the description ----
+
+
+==== Description of the format for specifying attributes in a hyperlink ====
+
+[before]: link that must be hidden (need to make it non-clickable)
+[0]. type: 0 -- text,  1 -- annotation-link (INFO), 2 -- annotation-content, 3+ -- text
+[1]: size: 0 -- tiny ... 8 -- normal ... F -- huge, empty -- default
+[2]: color: XXXXXX -- #xxxxxx , empty -- default
+[3]: backgroundColor: #xxxxxx, empty -- no background
+[4]: textDecoration: 0 -- none, 1 -- underline, 2 -- overline, 3 -- line-through, 4 -- underline+overline, 5+ -- none, empty -- none
+[5]: textDecorationColor: #xxxxxx, empty -- default
+[6]: fontStyle: 0 -- normal, 1 -- italic, 2 -- oblique, 3+ -- normal, empty -- normal
+[7]: fontWeight: 0 -- normal, 1 -- bold, 2 -- lighter, 3 -- bolder, 4+ -- normal, empty -- normal
+[8]: letterSpacing: n -- (n - 5)px, empty -- default
+[9]: wordSpacing: n -- (n - 5)px, empty -- defaul
+[10]: whiteSpace: 0 -- normal, 1 -- nowrap, 2 -- pre, 3+ -- normal, empty -- defalt
+[11]: direction: 0 -- ltr, 1 -- rtl, 2+ -- ltr,empty -- default
+[12]: vericalAlign: 0 -- baseline, 1 -- sub, 2 -- super, 3 -- middle, 4 -- top, 5 -- bottom, 6+ -- baseline,empty -- default
+[after]: 
+    if type = 0 then nothing 
+    if type = 1 then a tag if type = 1 in hex-format: "0" = 0, ... , "F" = 15, "10" = 16 , ...
+
+---- End of the description ----
+
+
+==== "INFO" description ====
+
+(If type = 1 then we replace this part of a text to symbol "info" like (i))
+If the user hovers the cursor over the symbol, an annotation window appears on top of the page below:
+a window with a small-scale text block (the text size is reduced). All types of formatting and TeX in "in-line equation" format are possible in the text block.
+
+Content for annotation: a text block on this page, starting text hyperlinked with "{link}/#2.............{Tag}#"
+
+If a text block with such a tag is not found, then in the annotation window write in red text "Text block with such number ({Tag}) not found"
+
+---- End of the description ----
+
+
+==== Note ====
+
+So, we are interested in hyperlinkes of the form: {linkWeHide}#{textAttributes}.{Tag}#
+Alphabet of [0] ... [12] is ".0123456789aAbBcCdDeEfF"
+Alphabet of [after] is "0123456789aAbBcCdDeEfF"
+Note:  a = A, b = B, c = C, d = D, e = E, f = F
+
+---- End of the note ----
+
+
+==== Examples ====
+
+Example4Text_1: www.link.net/#0.8.aaffff.440000.1.ffaaff.0.1.6.9.0.0.0#
+Example4Text_2: www.google.com/#0.a.ddaadd..4........#
+Example4Text_3: youtube.com/#0..ffaaaa..3..1.2...2..3# 
+Example4Text_4: info.cern.ch/#0.a.aaddaa..0..2..f.f.1.1.2#
+
+Example4Info_1: www.google.com/#1..aaaaff..........0.1# 
+    --> Note 1: [href=www.google.com/#2..aaaaff..........0.1#]  True only for positive numbers"
+
+Example4Info_2: www.anylink.su/#1..ffffff..........0.2B# 
+    --> Note 27: [href=www.google.com/#2..aaaaff..........0.2B#] Remember the definition of $aleph_0$"
+
+---- End of the examples ----
+
+==== Description of custom UI element for assigning attributes to text ====
+
+// Now is not so important
+
+---- End of the description ----
+
+==== Description of custom UI element for creating "INFO"-annotations ====
+
+// Now is not so important
+
+---- End of the description ----

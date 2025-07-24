@@ -1,0 +1,24 @@
+{
+    "name": "Zotion",
+    "description": "Изменяет вид элементов в Notion",
+    "version": "1.0.1",
+    "manifest_version": 3,
+    "permissions": ["activeTab","scripting"],
+    "host_permissions": [
+      "https://*.notion.so/*",
+      "https://*.notion.site/*"
+    ],
+    "content_scripts": [
+      {
+        "matches": [
+          "https://*.notion.so/*",
+          "https://*.notion.site/*"
+        ],
+        "js": ["content.js"],
+        "type": "module",
+        "css": ["styles.css"],
+        "run_at": "document_idle"
+      }
+    ]
+  }
+  

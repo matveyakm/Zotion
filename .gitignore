@@ -1,0 +1,50 @@
+# Node.js dependencies
+node_modules/
+
+# Build
+dist/
+
+# Logs
+*.log
+log/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# temp files
+.temp/
+.temp-*
+*.tmp
+
+# IDE config
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# System files
+.DS_Store
+Thumbs.db
+
+# npm cache
+.pnpm-debug.log*
+
+# Vite cache
+node_modules/.vite/
+
+# Builder' files
+*.map
+
+# Local settings
+.env.local
+.env.*.local
+
+# Hidden system dirs
+._*
+
+# Debug files
+*.pid
+*.seed
