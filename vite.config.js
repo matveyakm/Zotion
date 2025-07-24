@@ -4,7 +4,7 @@ import path from 'path';
 export default defineConfig({
   build: {
     rollupOptions: {
-      input: path.resolve(__dirname, 'src/content.js'),
+      input: path.resolve(__dirname, 'src/content.ts'),
       output: {
         entryFileNames: 'content.js',
         chunkFileNames: '[name].js',
@@ -18,7 +18,7 @@ export default defineConfig({
     sourcemap: false, 
     minify: false, 
     lib: {
-      entry: path.resolve(__dirname, 'src/content.js'),
+      entry: path.resolve(__dirname, 'src/content.ts'),
       formats: ['iife'], 
       name: 'contentScript', 
       fileName: 'content',

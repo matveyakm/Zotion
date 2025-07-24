@@ -1,7 +1,10 @@
-export const processedLinks = new WeakSet();
+// constant.ts
 
-export function injectStyles() {
+export const processedLinks = new WeakSet<Element>();
+
+export function injectStyles(): void {
   console.log('Content script loaded successfully at', new Date().toISOString());
+
   const styleSheet = document.createElement('style');
   styleSheet.textContent = `
     a[data-styled="true"][data-icon="true"]::before {
@@ -17,5 +20,6 @@ export function injectStyles() {
       cursor: text !important;
     }
   `;
+
   document.head.appendChild(styleSheet);
 }
