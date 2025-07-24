@@ -3,16 +3,21 @@
   "version": "1.0.0",
   "main": "content.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .ts,.tsx --max-warnings=0",
     "build": "vite build"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "MIT",
   "description": "",
   "devDependencies": {
     "@types/node": "^24.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "eslint": "^9.31.0",
     "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0",
     "vite": "^7.0.5"
   }
 }

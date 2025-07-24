@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ESNext",                // Целевая версия JS
-    "module": "ESNext",                // Модульная система для Vite (ES модули)
+    "target": "ESNext",                // JS
+    "module": "ESNext",                // Vite (ES modules)
     "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
-    "outDir": "dist",                  // Опционально — куда компилировать, если отдельно
+    "outDir": "dist",                  
     "sourceMap": true
   },
-  "include": ["src/**/*", "modules/**/*", "content.ts"],  // пути к TS/JS файлам
+  "include": ["src/**/*", "modules/**/*", "content.ts"],  
   "exclude": ["node_modules", "dist"]
 }
