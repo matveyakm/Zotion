@@ -7,8 +7,6 @@ export function setupMutationObserver(): void {
     const debouncedProcess = debounce((...args: unknown[]) => {
     // args[0] — mutations, args[1] — observer
     const mutations = args[0] as MutationRecord[];
-    // const observer = args[1] as MutationObserver;
-    
       mutations.forEach((mutation) => {
         const target = mutation.target as HTMLElement;
         const targetBlock =
