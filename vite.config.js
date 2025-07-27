@@ -24,4 +24,15 @@ export default defineConfig({
       fileName: 'content',
     },
   },
+  test: {
+    globals: true, 
+    environment: 'jsdom',  
+    include: ['test/**/*.test.ts'], 
+    css: false, 
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
 });

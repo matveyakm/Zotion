@@ -21,12 +21,14 @@ export function processTextStyleLinks(container: ParentNode = document): void {
     if (!href) return;
 
     const parsedData = parseLinkAttributes(href);
-    if (parsedData) {
-      if ('attributes' in parsedData && parsedData.attributes?.[0] === "1") {
-        applyLinkStylesToInfoBlock(link, parsedData, index);
-      } else {
-        applyLinkStylesToText(link, parsedData, index);
-      }
+    if (!parsedData || ('attributes' in parsedData && !parsedData.attributes)) return;
+
+    processedLinks.add(link);
+
+    if ('attributes' in parsedData && parsedData.attributes?.[0] === "1") {
+      applyLinkStylesToInfoBlock(link, parsedData, index);
+    } else {
+      applyLinkStylesToText(link, parsedData, index);
     }
   });
 }

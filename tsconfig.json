@@ -9,7 +9,8 @@
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "outDir": "dist",                  
-    "sourceMap": true
+    "sourceMap": true,
+    "types": ["vitest", "node"], // Include Vitest and Node types
   },
   "include": ["src/**/*", "modules/**/*", "content.ts"],  
   "exclude": ["node_modules", "dist"]

@@ -4,7 +4,8 @@
   "main": "content.js",
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx --max-warnings=0",
-    "build": "vite build"
+    "build": "vite build",
+    "test": "vitest"
   },
   "type": "module",
   "keywords": [],
@@ -12,12 +13,16 @@
   "license": "MIT",
   "description": "",
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
     "@types/node": "^24.1.0",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
+    "@vitest/ui": "^3.2.4",
     "eslint": "^9.31.0",
+    "jsdom": "^26.1.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
-    "vite": "^7.0.5"
+    "vite": "^7.0.5",
+    "vitest": "^3.2.4"
   }
 }
