@@ -3,7 +3,6 @@
 import { processedLinks } from './constants';
 
 interface ParsedData {
-  legacyColor?: string;
   attributes?: string[];
 }
 
@@ -25,13 +24,6 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
   if (span) {
     span.style.borderBottom = 'none';
     span.style.opacity = '1';
-  }
-
-  if (parsedData.legacyColor) {
-    console.log(`Applying legacy color: #${parsedData.legacyColor}`);
-    link.style.color = `#${parsedData.legacyColor}`;
-    console.log(`Processed legacy color link ${index + 1}`);
-    return;
   }
 
   const attributes = parsedData.attributes;
@@ -162,12 +154,6 @@ export function applyLinkStylesToInfoBlock(link: HTMLAnchorElement, parsedData: 
   if (link.href !== originalHref) {
     link.href = originalHref;
     console.log(`Restored href for link ${index + 1}: ${link.href}`);
-  }
-
-  if (parsedData.legacyColor) {
-    link.style.color = `#${parsedData.legacyColor}`;
-    console.log(`Applied legacy color #${parsedData.legacyColor} to link ${index + 1}`);
-    return;
   }
 
   const attributes = parsedData.attributes;

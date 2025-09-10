@@ -43,16 +43,6 @@ describe('style.ts — Link styling functions', () => {
       expect(link.style.wordSpacing).toBe('4px');
     });
 
-    it('should apply legacy color if provided', () => {
-      const parsedData = { legacyColor: 'ff0000' };
-
-      applyLinkStylesToText(link, parsedData, 0);
-
-      expect(link.style.color).toBe('rgb(255, 0, 0)');
-      expect(processedLinks.add).toHaveBeenCalledWith(link);
-      expect(link.getAttribute('data-styled')).toBe('true');
-    });
-
     it('should not apply styles if attributes are missing', () => {
       const parsedData = { attributes: null };
 
