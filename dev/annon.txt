@@ -39,7 +39,7 @@ Apply visual attributes to the relevant parts of the text using special format
 [12]: vericalAlign: 0 -- baseline, 1 -- sub, 2 -- super, 3 -- middle, 4 -- top, 5 -- bottom, 6+ -- baseline,empty -- default
 [after]: 
     if type = 0 then nothing 
-    if type = 1 then a tag if type = 1 in hex-format: "0" = 0, ... , "F" = 15, "10" = 16 , ...
+    if type = 1 or 2 then a tag in hex-format: "0" = 0, ... , "F" = 15, "10" = 16 , ...
 
 ---- End of the description ----
 
@@ -81,15 +81,3 @@ Example4Info_2: www.anylink.su/#1..ffffff..........0.2B#
     --> Note 27: [href=www.google.com/#2..aaaaff..........0.2B#] Remember the definition of $aleph_0$"
 
 ---- End of the examples ----
-
-==== Description of custom UI element for assigning attributes to text ====
-
-// Now is not so important
-
----- End of the description ----
-
-==== Description of custom UI element for creating "INFO"-annotations ====
-
-// Now is not so important
-
----- End of the description ----
