@@ -27,13 +27,11 @@ describe('scanner.ts — Notion-like DOM case', () => {
 
     vi.spyOn(parser, 'parseLinkAttributes').mockReturnValue(mockParsedData);
     vi.spyOn(styler, 'applyLinkStylesToText').mockImplementation(() => {});
-    vi.spyOn(styler, 'applyLinkStylesToInfoBlock').mockImplementation(() => {});
   });
 
   it('findStyledLinks > should find matching links for processing', () => {
     processTextStyleLinks(container);
     expect(styler.applyLinkStylesToText).toHaveBeenCalledWith(link, mockParsedData, expect.any(Number));
-    expect(styler.applyLinkStylesToInfoBlock).not.toHaveBeenCalled();
   });
 
   it('processTextStyleLinks > should skip already processed links', () => {
@@ -46,6 +44,5 @@ describe('scanner.ts — Notion-like DOM case', () => {
     vi.spyOn(parser, 'parseLinkAttributes').mockReturnValueOnce({attributes: null, info: null });
     processTextStyleLinks(container);
     expect(styler.applyLinkStylesToText).not.toHaveBeenCalled();
-    expect(styler.applyLinkStylesToInfoBlock).not.toHaveBeenCalled();
   });
 });

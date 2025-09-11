@@ -1,7 +1,7 @@
 // scanner.ts
 
 import { parseLinkAttributes } from './parser';
-import { applyLinkStylesToText, applyLinkStylesToInfoBlock } from './style';
+import { applyLinkStylesToText } from './style';
 import { processedLinks } from './constants';
 
 export function findStyledLinks(container: ParentNode = document): HTMLAnchorElement[] {
@@ -25,9 +25,7 @@ export function processTextStyleLinks(container: ParentNode = document): void {
 
     processedLinks.add(link);
 
-    if ('attributes' in parsedData && parsedData.attributes?.[0] === "1") {
-      applyLinkStylesToInfoBlock(link, parsedData, index);
-    } else {
+    if ('attributes' in parsedData) {
       applyLinkStylesToText(link, parsedData, index);
     }
   });
