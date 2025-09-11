@@ -47,7 +47,7 @@ export function processTextStyleLinks(container: ParentNode = document): void {
         return;
       }
 
-      const block = link.closest('[data-block-id]');
+      const block = link.closest('[data-block-id]') as HTMLElement | null;
       if (!block) {
         console.warn(`No block with data-block-id found for link ${index + 1}`);
         return;
