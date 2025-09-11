@@ -86,8 +86,6 @@ export function processTextStyleLinks(container: ParentNode = document): void {
         applyTooltipStyles(tooltip, parentBlock); 
         document.body.appendChild(tooltip);
 
-        let hideTimeout: number | null = null; 
-
         console.log(`Adding mouseenter/mouseleave listeners for link ${index + 1}, link element:`, link);
         link.style.pointerEvents = 'auto';
         
