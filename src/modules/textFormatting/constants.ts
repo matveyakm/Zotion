@@ -1,6 +1,7 @@
 // constant.ts
 
 export const processedLinks = new WeakSet<Element>();
+export const hiddenBlocks = new Map<string, string>();
 
 export function injectStyles(): void {
   console.log('Content script loaded successfully at', new Date().toISOString());
