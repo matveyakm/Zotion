@@ -25,8 +25,26 @@ export function processTextStyleLinks(container: ParentNode = document): void {
 
     processedLinks.add(link);
 
-    if ('attributes' in parsedData) {
-      applyLinkStylesToText(link, parsedData, index);
+    if (!('attributes' in parsedData)) return;
+    
+    applyLinkStylesToText(link, parsedData, index);
+
+    switch (parsedData.attributes[0]) {
+      case '1':
+        break;
+      case '2':
+        const block = link.closest('[data-block-id]');
+        if (block) {
+          block.setAttribute('data-original-html', block.outerHTML);
+          block.style.display = 'none';
+          console.log(`Hidden block with data-block-id=${block.getAttribute('data-block-id')} for link ${index + 1}`);
+        } else {
+          console.warn(`No block with data-block-id found for link ${index + 1}`);
+        }
+        break;
+      default:
+        break;
     }
+    
   });
 }
