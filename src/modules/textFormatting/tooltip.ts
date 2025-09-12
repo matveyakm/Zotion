@@ -1,4 +1,5 @@
 export function addTooltipListeners(link: HTMLAnchorElement, tooltip: HTMLDivElement, index: number): void {
+    // Блокируем переход по ссылке через click
     link.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -11,6 +12,7 @@ export function addTooltipListeners(link: HTMLAnchorElement, tooltip: HTMLDivEle
       console.log(`Mouseover prevented for link ${index + 1}`);
     }, { capture: true });
   
+    // Позиционируем и показываем тултип через mouseenter
     link.addEventListener('mouseenter', (e) => {
       console.log(`Mouseenter triggered for link ${index + 1}, event:`, e);
   
@@ -45,7 +47,8 @@ export function addTooltipListeners(link: HTMLAnchorElement, tooltip: HTMLDivEle
         console.log(`Tooltip positioned at left=${left}, top=${top} for link ${index + 1}`);
       });
     }, { capture: true });
-  
+    
+    // Скрываем тултип через mouseleave
     link.addEventListener('mouseleave', (e) => {
       console.log(`Mouseleave triggered for link ${index + 1}, event:`, e);
       tooltip.style.display = 'none';
