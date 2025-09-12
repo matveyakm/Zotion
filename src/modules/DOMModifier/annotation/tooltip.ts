@@ -1,3 +1,5 @@
+// tooltip.ts
+
 export function addTooltipListeners(link: HTMLAnchorElement, tooltip: HTMLDivElement, index: number): void {
     // Блокируем переход по ссылке через click
     link.addEventListener('click', (e) => {

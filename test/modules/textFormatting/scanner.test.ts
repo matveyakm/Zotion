@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { processTextStyleLinks } from '../../../src/modules/textFormatting/scanner';
-import * as parser from '../../../src/modules/textFormatting/parser';
-import * as styler from '../../../src/modules/textFormatting/style';
+import { processAttributedLinks } from '../../../src/modules/DOMModifier/scanner';
+import * as parser from '../../../src/modules/DOMModifier/parser';
+import * as styler from '../../../src/modules/DOMModifier/styles/textStyle';
 
 describe('scanner.ts — Notion-like DOM case', () => {
   let container: HTMLElement;
@@ -30,19 +30,19 @@ describe('scanner.ts — Notion-like DOM case', () => {
   });
 
   it('findStyledLinks > should find matching links for processing', () => {
-    processTextStyleLinks(container);
+    processAttributedLinks(container);
     expect(styler.applyLinkStylesToText).toHaveBeenCalledWith(link, mockParsedData, expect.any(Number));
   });
 
   it('processTextStyleLinks > should skip already processed links', () => {
-    processTextStyleLinks(container);
-    processTextStyleLinks(container);
+    processAttributedLinks(container);
+    processAttributedLinks(container);
     expect(styler.applyLinkStylesToText).toHaveBeenCalledTimes(1);
   });
 
   it('processTextStyleLinks > should handle missing attributes gracefully', () => {
     vi.spyOn(parser, 'parseLinkAttributes').mockReturnValueOnce({attributes: null, info: null });
-    processTextStyleLinks(container);
+    processAttributedLinks(container);
     expect(styler.applyLinkStylesToText).toHaveBeenCalled();
   });
 
@@ -71,7 +71,7 @@ describe('scanner.ts — Notion-like DOM case', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
   
     // Выполняем функцию
-    processTextStyleLinks(container);
+    processAttributedLinks(container);
   
     // Проверки
     const block = link.closest('[data-block-id]');

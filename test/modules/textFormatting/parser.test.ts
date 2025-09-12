@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseLinkAttributes } from '../../../src/modules/textFormatting/parser';
+import { parseLinkAttributes } from '../../../src/modules/DOMModifier/parser';
 
 describe('parseLinkAttributes', () => {
     it('should return attributes array when href contains valid attributes', () => {

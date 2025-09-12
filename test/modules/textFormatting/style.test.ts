@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { applyLinkStylesToText } from '../../../src/modules/textFormatting/style';
-import { processedLinks } from '../../../src/modules/textFormatting/constants';
+import { applyLinkStylesToText } from '../../../src/modules/DOMModifier/styles/textStyle';
+import { processedLinks } from '../../../src/modules/DOMModifier/constants';
 
 describe('style.ts — Link styling functions', () => {
   let link: HTMLAnchorElement;

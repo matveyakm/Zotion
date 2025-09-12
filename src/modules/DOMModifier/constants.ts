@@ -1,6 +1,9 @@
 // constant.ts
 
+// Множество ссылок, которые уже были обработаны
 export const processedLinks = new WeakSet<Element>();
+
+// Map для хранения скрытых блоков (контента аннотаций) с их идентификаторами
 export const hiddenBlocks = new Map<string, string>();
 
 export function injectStyles(): void {

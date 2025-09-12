@@ -1,3 +1,5 @@
+// listeners.ts 
+
 export function setupGlobalListeners(): void {
     // Скрытие всех тултипов при смене видимости страницы
     document.addEventListener('visibilitychange', () => {
