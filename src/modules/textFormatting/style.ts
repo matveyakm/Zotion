@@ -1,6 +1,7 @@
 // style.ts
 
-import { processedLinks } from './constants';
+import { processedLinks, hiddenBlocks } from './constants';
+import { addTooltipListeners } from './tooltip';
 
 interface ParsedData {
   attributes?: string[];
@@ -138,4 +139,44 @@ export function applyTooltipStyles(tooltip: HTMLElement, parentBlock: HTMLElemen
   tooltip.style.height = 'auto'; 
   tooltip.style.maxHeight = isMobile ? '200px' : '500px'; 
   tooltip.style.overflowY = 'auto';
+}
+
+export function createTooltip(
+  link: HTMLAnchorElement,
+  blockId: string,
+  parentBlock: HTMLElement | null,
+  index: number,
+  isDarkTheme: boolean
+): void {
+  const tooltip: HTMLDivElement = document.createElement('div');
+  tooltip.className = 'annotation-tooltip';
+  tooltip.innerHTML = hiddenBlocks.get(blockId) || '';
+
+  // Добавляем иконку "X" для закрытия
+  const closeButton: HTMLSpanElement = document.createElement('span');
+  closeButton.innerHTML = '×';
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '2px';
+  closeButton.style.right = '2px';
+  closeButton.style.fontSize = '12px';
+  closeButton.style.fontWeight = 'bold';
+  closeButton.style.color = isDarkTheme ? '#A4A4A4' : '#222222';
+  closeButton.style.cursor = 'pointer';
+  closeButton.style.padding = '2px 4px';
+  closeButton.style.lineHeight = '1';
+  closeButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    tooltip.style.display = 'none';
+    tooltip.style.opacity = '0';
+    console.log(`Tooltip closed via X button for link ${index + 1}`);
+  });
+  tooltip.appendChild(closeButton);
+
+  applyTooltipStyles(tooltip, parentBlock);
+  document.body.appendChild(tooltip);
+
+  console.log(`Adding tooltip listeners for link ${index + 1}, link element:`, link);
+  link.style.pointerEvents = 'auto';
+
+  addTooltipListeners(link, tooltip, index);
 }
