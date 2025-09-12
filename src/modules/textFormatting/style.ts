@@ -120,7 +120,7 @@ export function applyTooltipStyles(tooltip: HTMLElement, parentBlock: HTMLElemen
 
   tooltip.style.position = 'absolute';
   tooltip.style.display = 'none';
-  tooltip.style.backgroundColor = isDarkTheme ? 'rgba(33, 33, 33, 0.9)' : 'rgba(245, 245, 245, 0.9)';
+  tooltip.style.backgroundColor = isDarkTheme ? 'rgba(33, 33, 33, 0.95)' : 'rgba(245, 245, 245, 0.95)';
   tooltip.style.border = isDarkTheme ? '1px solid #4A4A4A' : '1px solid #D3D3D3';
   tooltip.style.padding = isMobile ? '8px' : '12px';
   tooltip.style.zIndex = '10000';
