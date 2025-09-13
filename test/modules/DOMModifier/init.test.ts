@@ -12,8 +12,6 @@ vi.mock('../../../src/modules/DOMModifier/debounce', () => ({
 }));
 
 describe('setupMutationObserver', () => {
-  const debounceMock = vi.fn((fn: (...args: unknown[]) => void) => fn);
-
   let observerSpy: vi.SpyInstance;
 
   beforeEach(() => {
