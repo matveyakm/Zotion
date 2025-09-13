@@ -1,23 +1,22 @@
 import { describe, it, vi, beforeEach, afterEach, expect } from 'vitest';
-import { setupMutationObserver } from '../../../src/modules/textFormatting/init';
-import { processTextStyleLinks } from '../../../src/modules/textFormatting/scanner';
-import { debounce } from '../../../src/modules/textFormatting/debounce';
+import { setupMutationObserver } from '../../../src/modules/DOMModifier/init';
+import { processAttributedLinks } from '../../../src/modules/DOMModifier/scanner';
+import { debounce } from '../../../src/modules/DOMModifier/debounce';
 
-vi.mock('../../../src/modules/textFormatting/scanner', () => ({
-  processTextStyleLinks: vi.fn(),
+vi.mock('../../../src/modules/DOMModifier/scanner', () => ({
+  processAttributedLinks: vi.fn(),
 }));
 
-vi.mock('../../../src/modules/textFormatting/debounce');
+vi.mock('../../../src/modules/DOMModifier/debounce', () => ({
+  debounce: vi.fn((fn: (...args: unknown[]) => void) => fn),
+}));
 
 describe('setupMutationObserver', () => {
-  const debounceMock = vi.fn((fn: (...args: unknown[]) => void) => fn);
-
   let observerSpy: vi.SpyInstance;
 
   beforeEach(() => {
-    (debounce as unknown as vi.Mock).mockImplementation(debounceMock);
-    debounceMock.mockClear();
-
+    vi.clearAllMocks();
+  
     // Мокаем MutationObserver
     observerSpy = vi.spyOn(global, 'MutationObserver').mockImplementation((callback) => {
       return {
@@ -47,7 +46,7 @@ describe('setupMutationObserver', () => {
     });
   });
 
-  it('should call processTextStyleLinks when mutations occur', () => {
+  it('should call processAttributedLinks when mutations occur', () => {
     setupMutationObserver();
 
     const observerInstance = observerSpy.mock.results[0].value;
@@ -58,12 +57,12 @@ describe('setupMutationObserver', () => {
     (mockMutation.target as HTMLElement).classList.add('notion-text-block');
     observerInstance.callback([mockMutation], observerInstance);
 
-    expect(processTextStyleLinks).toHaveBeenCalledWith(mockMutation.target);
+    expect(processAttributedLinks).toHaveBeenCalledWith(mockMutation.target);
   });
 
   it('should debounce the mutation processing', () => {
     setupMutationObserver();
 
-    expect(debounceMock).toHaveBeenCalledWith(expect.any(Function), 2000);
+    expect(debounce).toHaveBeenCalledWith(expect.any(Function), 2000);
   });
 });

@@ -1,7 +1,7 @@
 // content.ts
 
-import { injectStyles } from './modules/textFormatting/constants';
-import { setupMutationObserver } from './modules/textFormatting/init';
+import { injectStyles } from './modules/DOMModifier/constants';
+import { setupMutationObserver } from './modules/DOMModifier/init';
 
 injectStyles();
 

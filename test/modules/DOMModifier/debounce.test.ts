@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { debounce } from '../../../src/modules/textFormatting/debounce';
+import { debounce } from '../../../src/modules/DOMModifier/debounce';
 
 // debounce.test.ts
 

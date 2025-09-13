@@ -1,7 +1,9 @@
 // init.ts
 
 import { debounce } from './debounce';
-import { processTextStyleLinks } from './scanner';
+import { processAttributedLinks } from './scanner';
+
+const UPDATE_INTERVAL = 2000; // milliseconds
 
 export function setupMutationObserver(): void {
     const debouncedProcess = debounce((...args: unknown[]) => {
@@ -11,9 +13,9 @@ export function setupMutationObserver(): void {
         const target = mutation.target as HTMLElement;
         const targetBlock =
           target.closest?.('.notion-text-block') || document;
-        processTextStyleLinks(targetBlock);
+        processAttributedLinks(targetBlock);
       });
-    }, 2000);
+    }, UPDATE_INTERVAL);
   
 
   const observer = new MutationObserver(debouncedProcess);
