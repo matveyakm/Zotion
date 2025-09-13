@@ -80,12 +80,16 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
 
   if (attributes[8]) {
     const spacing = parseInt(attributes[8], 16);
-    link.style.letterSpacing = `${spacing - 5}px`;
+    if (!isNaN(spacing)) {
+      link.style.letterSpacing = `${spacing - 5}px`;
+    }
   }
 
   if (attributes[9]) {
     const spacing = parseInt(attributes[9], 16);
-    link.style.wordSpacing = `${spacing - 5}px`;
+    if (!isNaN(spacing)) {
+      link.style.wordSpacing = `${spacing - 5}px`;
+    }
   }
 
   if (attributes[10]) {

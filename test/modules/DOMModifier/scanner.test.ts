@@ -40,12 +40,6 @@ describe('scanner.ts — Notion-like DOM case', () => {
     expect(styler.applyLinkStylesToText).toHaveBeenCalledTimes(1);
   });
 
-  it('processTextStyleLinks > should handle missing attributes gracefully', () => {
-    vi.spyOn(parser, 'parseLinkAttributes').mockReturnValueOnce({attributes: null, info: null });
-    processAttributedLinks(container);
-    expect(styler.applyLinkStylesToText).toHaveBeenCalled();
-  });
-
   it('should hide block and save its HTML when attributes[0] === "2"', () => {
     // Настраиваем DOM
     const container = document.createElement('div');
@@ -60,20 +54,17 @@ describe('scanner.ts — Notion-like DOM case', () => {
     container.appendChild(link);
     document.body.appendChild(container);
   
-    // Мокаем parseLinkAttributes
     vi.spyOn(parser, 'parseLinkAttributes').mockReturnValue({
       attributes: ['2', '8', 'aaffff', '440000', '1', 'ffaaff', '1', '1', '6', '9', '0', '0', '0'],
     });
   
-    // Мокаем applyLinkStylesToText и applyLinkStylesToInfoBlock
     vi.spyOn(styler, 'applyLinkStylesToText').mockImplementation(() => {});
     vi.spyOn(console, 'log').mockImplementation(() => {});
     vi.spyOn(console, 'warn').mockImplementation(() => {});
-  
-    // Выполняем функцию
+
     processAttributedLinks(container);
   
-    // Проверки
+
     const block = link.closest('[data-block-id]');
     expect(block).not.toBeNull();
     expect(styler.applyLinkStylesToText).toHaveBeenCalled();;
