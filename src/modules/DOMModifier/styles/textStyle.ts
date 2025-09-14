@@ -46,6 +46,10 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
     link.setAttribute('data-icon', 'true');
   }
 
+  if (span && attributes[0] === '0') {
+    span.style.textDecoration = 'none';
+  }
+
   if (attributes[1]) {
     const size = parseInt(attributes[1], 16);
     link.style.fontSize = fontSizes[size] || '16px';
