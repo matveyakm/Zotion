@@ -4,12 +4,14 @@ import { parseLinkAttributes } from './parser';
 import { applyLinkStylesToText } from './styles/textStyle';
 import { processedLinks } from './constants';
 import { hideAnnotationBlock, createAnnotationTooltip } from './annotation/annotation';
+import { applyBlockStyles } from './styles/blockStyle';
 
 export const indexOfType = 0;
 export const indexOfTagID = 13;
 export const formattedTextType = "0";
 export const annotationLinkType = "1";
 export const annotationContentType = "2";
+export const formattedBlockType = "3";
 
 export interface ParsedData {
   attributes: string[];
@@ -65,7 +67,11 @@ export function processAttributedLinks(container: ParentNode = document): void {
     if (parsedData.attributes[indexOfType] == annotationLinkType) return;
     processedLinks.add(link);
     
-    applyLinkStylesToText(link, parsedData, index);
+    if (parsedData.attributes[indexOfType] != formattedBlockType) {
+      applyLinkStylesToText(link, parsedData, index);
+    } else {
+      applyBlockStyles(link, parsedData, index);
+    }
 
     // Обработка контента аннотаций
     if (parsedData.attributes[indexOfType] == annotationContentType) {
