@@ -5,9 +5,11 @@ import { applyLinkStylesToText } from './styles/textStyle';
 import { processedLinks } from './constants';
 import { hideAnnotationBlock, createAnnotationTooltip } from './annotation/annotation';
 
-const indexOftype = 0;
-const annotationLinkType = "1";
-const annotationContentType = "2";
+export const indexOfType = 0;
+export const indexOfTagID = 13;
+export const formattedTextType = "0";
+export const annotationLinkType = "1";
+export const annotationContentType = "2";
 
 export interface ParsedData {
   attributes: string[];
@@ -25,9 +27,9 @@ export function findStyledLinks(container: ParentNode = document): HTMLAnchorEle
      .notion-header-block a[href*="#"]:not([data-styled]),
      .notion-sub_header-block a[href*="#"]:not([data-styled]),
      .notion-sub_sub_header-block a[href*="#"]:not([data-styled]),
-     .notion-header-block a[href^="//color=#"]:not([data-styled]),
-     .notion-sub_header-block a[href^="//color=#"]:not([data-styled]),
-     .notion-sub_sub_header-block a[href^="//color=#"]:not([data-styled])
+     .notion-header-block a[href*="#"]:not([data-styled]),
+     .notion-sub_header-block a[href*="#"]:not([data-styled]),
+     .notion-sub_sub_header-block a[href*="#"]:not([data-styled])
     `
   );
   return Array.from(links);
@@ -60,13 +62,13 @@ export function processAttributedLinks(container: ParentNode = document): void {
   links.forEach((link, index) => {
     const parsedData = processParsedData(link);
     if (!parsedData) return;
-    if (parsedData.attributes[indexOftype] == annotationLinkType) return;
+    if (parsedData.attributes[indexOfType] == annotationLinkType) return;
     processedLinks.add(link);
     
     applyLinkStylesToText(link, parsedData, index);
 
     // Обработка контента аннотаций
-    if (parsedData.attributes[indexOftype] == annotationContentType) {
+    if (parsedData.attributes[indexOfType] == annotationContentType) {
       hideAnnotationBlock(link, parsedData, index);
     }
   });
@@ -80,7 +82,7 @@ export function processAttributedLinks(container: ParentNode = document): void {
     applyLinkStylesToText(link, parsedData, index);
 
     // Обработка аннотации-ссылки
-    if (parsedData.attributes[indexOftype] === annotationLinkType) {
+    if (parsedData.attributes[indexOfType] === annotationLinkType) {
       createAnnotationTooltip(link, parsedData, index, isDarkTheme);
     }
   });

@@ -1,7 +1,7 @@
 // style.ts
 
 import { processedLinks } from '../constants';
-import { ParsedData } from '../scanner';
+import { ParsedData, indexOfType, formattedTextType, annotationContentType} from '../scanner';
 
 
 export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: ParsedData, index: number): void {
@@ -42,11 +42,11 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
   const spaces = ['normal', 'nowrap', 'pre'];
   const aligns = ['baseline', 'sub', 'super', 'middle', 'top', 'bottom'];
 
-  if (attributes[0] === '2') {
+  if (attributes[indexOfType] == annotationContentType) {
     link.setAttribute('data-icon', 'true');
   }
 
-  if (span && attributes[0] === '0') {
+  if (span && attributes[indexOfType] == formattedTextType) {
     span.style.textDecoration = 'none';
   }
 
