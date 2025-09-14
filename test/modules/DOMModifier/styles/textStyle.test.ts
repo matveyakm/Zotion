@@ -43,7 +43,6 @@ describe('textStyle.ts — Link styling functions', () => {
       expect(link.classList.contains('notion-focusable-token')).toBe(false);
       expect(link.classList.contains('notion-enable-hover')).toBe(false);
       expect(link.style.position).toBe('relative');
-      expect(link.getAttribute('data-icon')).toBe('true');
 
       // Проверяем стили из атрибутов
       expect(link.style.fontSize).toBe('16px'); // attributes[1] = '8' → fontSizes[8]
@@ -95,7 +94,6 @@ describe('textStyle.ts — Link styling functions', () => {
       expect(link.classList.contains('notion-focusable-token')).toBe(false);
       expect(link.classList.contains('notion-enable-hover')).toBe(false);
       expect(link.style.position).toBe('relative');
-      expect(link.getAttribute('data-icon')).toBe('true');
 
       // Проверяем, что стили атрибутов не применены
       expect(link.style.fontSize).toBe('');

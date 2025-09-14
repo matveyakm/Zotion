@@ -16,7 +16,6 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
   link.classList.remove('notion-focusable-token', 'notion-enable-hover');
 
   link.style.position = 'relative';
-  link.setAttribute('data-icon', 'true');
 
   const span = link.querySelector('span');
   if (span) {
@@ -42,6 +41,10 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
   const weights = ['normal', 'bold', 'lighter', 'bolder'];
   const spaces = ['normal', 'nowrap', 'pre'];
   const aligns = ['baseline', 'sub', 'super', 'middle', 'top', 'bottom'];
+
+  if (attributes[0] === '2') {
+    link.setAttribute('data-icon', 'true');
+  }
 
   if (attributes[1]) {
     const size = parseInt(attributes[1], 16);

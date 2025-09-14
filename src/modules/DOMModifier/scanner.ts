@@ -15,7 +15,20 @@ export interface ParsedData {
 
 export function findStyledLinks(container: ParentNode = document): HTMLAnchorElement[] {
   const links = container.querySelectorAll<HTMLAnchorElement>(
-    '.notion-text-block a[href*="#"]:not([data-styled]), .notion-text-block a[href^="//color=#"]:not([data-styled])'
+    `.notion-text-block a[href*="#"]:not([data-styled]),
+     .notion-table-block a[href*="#"]:not([data-styled]),
+     .notion-quote-block a[href*="#"]:not([data-styled]),
+     .notion-toggle-block a[href*="#"]:not([data-styled]),
+     .notion-bulleted_list-block a[href*="#"]:not([data-styled]),
+     .notion-numbered_list-block a[href*="#"]:not([data-styled]),
+     .notion-callout-block a[href*="#"]:not([data-styled]),
+     .notion-header-block a[href*="#"]:not([data-styled]),
+     .notion-sub_header-block a[href*="#"]:not([data-styled]),
+     .notion-sub_sub_header-block a[href*="#"]:not([data-styled]),
+     .notion-header-block a[href^="//color=#"]:not([data-styled]),
+     .notion-sub_header-block a[href^="//color=#"]:not([data-styled]),
+     .notion-sub_sub_header-block a[href^="//color=#"]:not([data-styled])
+    `
   );
   return Array.from(links);
 }

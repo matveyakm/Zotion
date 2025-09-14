@@ -15,12 +15,26 @@ export function hideAnnotationBlock(link: HTMLAnchorElement, parsedData: ParsedD
     console.warn(`Cant found blockID for link ${index + 1}`);
     return;
   }
+  
+  // Запрет на повторное скрытие блока по одному и тому же blockId
+  if (hiddenBlocks.has(blockId)) {
+    console.log(`Block with blockId=${blockId} is already hidden for link ${index + 1}`);
+    return;
+  }
 
   const block = link.closest('[data-block-id]') as HTMLElement | null;
   if (!block) {
     console.warn(`No block with data-block-id found for link ${index + 1}`);
     return;
   }
+
+  // Запрет на повторное скрытие одного и того же блока
+  hiddenBlocks.forEach(element => {
+    if (String(block) == hiddenBlocks.get(element)) {
+      console.log(`This block is already hidden for link ${index + 1}`);
+      return;
+    }
+  });
 
   hiddenBlocks.set(blockId, block.outerHTML);
   block.style.display = 'none';
