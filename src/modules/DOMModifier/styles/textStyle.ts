@@ -1,7 +1,7 @@
 // style.ts
 
 import { processedLinks } from '../constants';
-import { ParsedData, indexOfType, formattedTextType, annotationContentType} from '../scanner';
+import { ParsedData, indexOfType, formattedTextType, annotationContentType, formattedBlockType} from '../scanner';
 
 
 export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: ParsedData, index: number): void {
@@ -48,6 +48,13 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
 
   if (span && attributes[indexOfType] == formattedTextType) {
     span.style.textDecoration = 'none';
+  }
+
+  if (attributes[indexOfType] == formattedBlockType) {
+    link.style.fontSize = '1px';
+    link.style.color = 'transparent';
+    if (span) span.style.textDecoration = 'none';
+    return;
   }
 
   if (attributes[1]) {

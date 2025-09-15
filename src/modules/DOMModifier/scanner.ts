@@ -67,9 +67,8 @@ export function processAttributedLinks(container: ParentNode = document): void {
     if (parsedData.attributes[indexOfType] == annotationLinkType) return;
     processedLinks.add(link);
     
-    if (parsedData.attributes[indexOfType] != formattedBlockType) {
-      applyLinkStylesToText(link, parsedData, index);
-    } else {
+    applyLinkStylesToText(link, parsedData, index);
+    if (parsedData.attributes[indexOfType] == formattedBlockType) {
       applyBlockStyles(link, parsedData, index);
     }
 
