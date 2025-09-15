@@ -1,10 +1,10 @@
 // style.ts
 
 import { processedLinks } from '../constants';
-import { ParsedData } from '../scanner';
+import { ParsedData, indexOfType, formattedTextType, annotationContentType, formattedBlockType} from '../scanner';
+import { processRGB, evaluateBackground } from './colorStyler';
 
-
-export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: ParsedData, index: number): void {
+export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   processedLinks.add(link);
   link.setAttribute('data-styled', 'true');
   console.log(`Processing link ${index + 1}`);
@@ -42,12 +42,19 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
   const spaces = ['normal', 'nowrap', 'pre'];
   const aligns = ['baseline', 'sub', 'super', 'middle', 'top', 'bottom'];
 
-  if (attributes[0] === '2') {
+  if (attributes[indexOfType] == annotationContentType) {
     link.setAttribute('data-icon', 'true');
   }
 
-  if (span && attributes[0] === '0') {
+  if (span && attributes[indexOfType] == formattedTextType) {
     span.style.textDecoration = 'none';
+  }
+
+  if (attributes[indexOfType] == formattedBlockType) {
+    link.style.fontSize = '1px';
+    link.style.color = 'transparent';
+    if (span) span.style.textDecoration = 'none';
+    return;
   }
 
   if (attributes[1]) {
@@ -55,14 +62,24 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
     link.style.fontSize = fontSizes[size] || '16px';
   }
 
-  if (attributes[2]) {
-    const color = attributes[2].match(/[0-9a-fA-F]{6}/)?.[0];
-    if (color) link.style.color = `#${color}`;
-  }
-
+  var backgroundLuminance: "light" | "dark" = isDarkTheme ? "dark" : "light";
   if (attributes[3]) {
     const bgColor = attributes[3].match(/[0-9a-fA-F]{6}/)?.[0];
-    if (bgColor) link.style.backgroundColor = `#${bgColor}`;
+    if (bgColor) {
+      const rgba = processRGB(bgColor + "9", isDarkTheme ? "light" : "dark", "simple"); // Обратный фон для лучшей видимости
+      if (rgba) link.style.backgroundColor = rgba;
+
+      const evaluatedBackground = evaluateBackground(bgColor, isDarkTheme);
+      backgroundLuminance = evaluatedBackground;
+    }
+  }
+
+  if (attributes[2]) {
+    const color = attributes[2].match(/[0-9a-fA-F]{6}/)?.[0];
+    if (color) {
+      const rgb = processRGB(color, backgroundLuminance, "full");
+      if (rgb) link.style.color = rgb;
+    }
   }
 
   if (attributes[4]) {
@@ -72,7 +89,10 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
 
   if (attributes[5]) {
     const decColor = attributes[5].match(/[0-9a-fA-F]{6}/)?.[0];
-    if (decColor) link.style.textDecorationColor = `#${decColor}`;
+    if (decColor) {
+      const rgba = processRGB(decColor + "9", isDarkTheme ? "dark" : "light", "simple");
+      if (rgba) link.style.textDecorationColor = rgba;
+    }
   }
 
   if (attributes[6]) {
