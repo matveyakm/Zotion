@@ -2,6 +2,7 @@
 
 import { debounce } from './debounce';
 import { processAttributedLinks } from './scanner';
+import { adjustBulletAlignment } from './styles/listFixer';
 
 const UPDATE_INTERVAL = 2000; // milliseconds
 
@@ -14,6 +15,7 @@ export function setupMutationObserver(): void {
         const targetBlock =
           target.closest?.('.notion-text-block') || document;
         processAttributedLinks(targetBlock);
+        adjustBulletAlignment(targetBlock);
       });
     }, UPDATE_INTERVAL);
   
