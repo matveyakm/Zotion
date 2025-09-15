@@ -9,6 +9,9 @@ export var hiddenBlocks = new Map<string, string>();
 // Множество блоков, которые уже были обработаны
 export var processedBlocks = new WeakSet<Element>();
 
+// Нужно ли менять цвета для контрастности
+export const needToAdjustColors = true;
+
 export function clearProcessedData(): void {
   processedBlocks = new WeakSet<Element>();
   processedLinks = new WeakSet<Element>();

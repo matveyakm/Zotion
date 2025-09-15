@@ -1,4 +1,5 @@
 // colorStyler.ts
+import { needToAdjustColors } from "../constants";
 
 function hexToRGBA(hex: string): RGBA | null {
     if (!([6,7].includes(hex.length))) return null;
@@ -14,7 +15,7 @@ export function processRGB(hex: string, background: "dark" | "light", method: "f
     if (!rgba) return null;
 
     var contrasted: RGBA;
-    if (method === "none") {
+    if (method === "none" || !needToAdjustColors) {
         contrasted = rgba;
     } else if (method === "full") {
         contrasted = adjustRGBA(rgba, background, 4.5) 
@@ -22,11 +23,15 @@ export function processRGB(hex: string, background: "dark" | "light", method: "f
         contrasted = simpleAdjustRGBA(rgba, background)
     }
 
+    if (rgba.r != contrasted.r || rgba.g != contrasted.g || rgba.b != contrasted.b || rgba.a != contrasted.a){
+        console.log(`Adjusted color #${hex}(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a}) to rgba(${contrasted.r}, ${contrasted.g}, ${contrasted.b}, ${contrasted.a}) for ${background} background using ${method} method`);
+    }
+    
     return `rgba(${contrasted.r}, ${contrasted.g}, ${contrasted.b}, ${contrasted.a})`;
 }
 
 function simpleAdjustRGBA({ r, g, b, a}: RGBA, background: "dark" | "light"): RGBA {
-    const factor = background === "dark" ? 0.7 : 1.42;
+    const factor = background === "dark" ? 0.6 : 1.67;
     const bound = 80;
     return {
         r: background === "dark" ? (r < bound ? r * factor : r) : (r > 255 - bound ? 255 - (255 - r) * factor : r),
@@ -157,7 +162,7 @@ function adjustRGBA(fg: RGBA, background: "light" | "dark", targetContrast = 4.5
 export function evaluateBackground(hex: string, isDarkTheme: boolean): "light" | "dark" {
     const background = hexToRGBA(hex);
     if (!background) return isDarkTheme ? "dark" : "light";
-    
+
     // Если альфа меньше 1, накладываем фон на белый цвет для светлого контекста
     const defaultBg: RGB = isDarkTheme ? {r: 25, g: 25, b: 25} : { r: 255, g: 255, b: 255 };
     const effectiveBg = blendOver(defaultBg, background);
@@ -166,5 +171,6 @@ export function evaluateBackground(hex: string, isDarkTheme: boolean): "light" |
     const lum = luminance(effectiveBg);
     
     // Порог 0.5: если яркость больше, фон светлый, иначе тёмный
+    console.log(`Evaluated background #${hex} as ${lum > 0.5 ? "light" : "dark"} (luminance: ${lum.toFixed(3)})`);
     return lum > 0.5 ? "light" : "dark";
   }

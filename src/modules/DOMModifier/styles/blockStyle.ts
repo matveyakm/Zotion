@@ -27,7 +27,7 @@ export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData
 }
 
 function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
-    console.log(`Applying styles for link ${index + 1} with attributes:`, attributes);
+    console.log(`Applying styles (block) for link ${index + 1}`);
     if (attributes[1]) {
     const radius = parseInt(attributes[1], 16) * 2 + 10;
     if (!isNaN(radius)) {
@@ -55,7 +55,7 @@ function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[
   if (attributes[4]) {
     const bgColor = attributes[4].match(/[0-9a-fA-F]{7}/)?.[0];
     if (bgColor) {
-        const rgba = processRGB(bgColor, isDarkTheme ? "dark" : "light", "simple");
+        const rgba = processRGB(bgColor, isDarkTheme ? "light" : "dark", "simple"); // Обратный фон для лучшей видимости
         if (rgba) {
             element.style.backgroundColor = `${rgba}`;
         }
@@ -86,7 +86,7 @@ function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[],
     if (attributes[4]) {
       const bgColor = attributes[4].match(/[0-9a-fA-F]{7}/)?.[0];
       if (bgColor) {
-        const rgba = processRGB(bgColor, isDarkTheme ? "dark" : "light", "simple");
+        const rgba = processRGB(bgColor, isDarkTheme ? "light" : "dark", "simple"); // Обратный фон для лучшей видимости
         if (rgba) {
             element.style.backgroundColor = `${rgba}`;
         }
