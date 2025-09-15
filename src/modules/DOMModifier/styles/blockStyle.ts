@@ -73,6 +73,10 @@ function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[
 
 function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[], index: number): void {
     console.log(`Applying styles for link ${index + 1} with attributes:`, attributes);
+
+    element.style.paddingTop = '3px';
+    element.style.paddingBottom = '3px';
+    
     var borderColor = getComputedStyle(element).borderInlineStart;
     var borderWidth = 3;
     if (attributes[2]) {
