@@ -9,8 +9,6 @@ export function applyTooltipStyles(
   isDarkTheme: boolean,
   closeButton: HTMLElement
 ): void {
-  console.log('Tooltip theme: ', isDarkTheme ? 'Dark' : 'Light');
-
   const isMobile = window.innerWidth < 600;
   console.log('Tooltip device type: ', isMobile ? 'Mobile' : 'Desktop');
 

@@ -2,9 +2,9 @@
 
 import { processedLinks } from '../constants';
 import { ParsedData, indexOfType, formattedTextType, annotationContentType, formattedBlockType} from '../scanner';
+import { parseRGB } from './style';
 
-
-export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: ParsedData, index: number): void {
+export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   processedLinks.add(link);
   link.setAttribute('data-styled', 'true');
   console.log(`Processing link ${index + 1}`);
@@ -64,12 +64,18 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
 
   if (attributes[2]) {
     const color = attributes[2].match(/[0-9a-fA-F]{6}/)?.[0];
-    if (color) link.style.color = `#${color}`;
+    if (color) {
+      const rgb = parseRGB(color, isDarkTheme);
+      if (rgb) link.style.color = rgb;
+    }
   }
 
   if (attributes[3]) {
     const bgColor = attributes[3].match(/[0-9a-fA-F]{6}/)?.[0];
-    if (bgColor) link.style.backgroundColor = `#${bgColor}`;
+    if (bgColor) {
+      const rgba = parseRGB(bgColor + "9", isDarkTheme);
+      if (rgba) link.style.backgroundColor = rgba;
+    }
   }
 
   if (attributes[4]) {
@@ -79,7 +85,10 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
 
   if (attributes[5]) {
     const decColor = attributes[5].match(/[0-9a-fA-F]{6}/)?.[0];
-    if (decColor) link.style.textDecorationColor = `#${decColor}`;
+    if (decColor) {
+      const rgba = parseRGB(decColor + "9", isDarkTheme);
+      if (rgba) link.style.textDecorationColor = rgba;
+    }
   }
 
   if (attributes[6]) {

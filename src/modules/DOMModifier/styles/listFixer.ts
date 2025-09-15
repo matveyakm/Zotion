@@ -16,7 +16,7 @@ export function adjustBulletAlignment(container: ParentNode = document): void {
         // Используем высоту pseudoBefore для точки
         const bulletHeight = pseudoBefore.getBoundingClientRect().height;
   
-        const paddingTop = (textHeight - bulletHeight)/2;
+        const paddingTop = (textHeight - bulletHeight) / 2;
   
         // Применяем paddingTop к notion-list-item-box-left
         bulletContainer.style.paddingTop = `${paddingTop}px`;

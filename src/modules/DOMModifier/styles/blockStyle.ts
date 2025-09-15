@@ -1,6 +1,7 @@
 import { ParsedData } from '../scanner';
+import { parseRGB } from './style';
 
-export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData, index: number): void {
+export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   console.log(`Trying to apply block styles for link ${index + 1}`);
 
   const attributes = parsedData.attributes;
@@ -14,27 +15,18 @@ export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData
     // Для callout-block стили применяются к <div> внутри <div role="note">
     const targetDiv = calloutBlock.querySelector('div[role="note"] > div');
     if (targetDiv instanceof HTMLElement) {
-      applyStylesToCallout(targetDiv, attributes, index);
+      applyStylesToCallout(targetDiv, attributes, index, isDarkTheme);
     }
   } else if (quoteBlock) {
     // Для quote-block стили применяются к <div> внутри <blockquote>
     const targetDiv = quoteBlock.querySelector('blockquote > div');
     if (targetDiv instanceof HTMLElement) {
-      applyStylesToQuote(targetDiv, attributes, index);
+      applyStylesToQuote(targetDiv, attributes, index, isDarkTheme);
     }
   }
 }
 
-function parseRGB(hex: string): string | null {
-  if (hex.length !== 7) return null;
-  const r = parseInt(hex.slice(0, 2), 16);
-  const g = parseInt(hex.slice(2, 4), 16);
-  const b = parseInt(hex.slice(4, 6), 16);
-  const a = parseInt(hex[6], 16) / 16;
-  return `rgba(${r}, ${g}, ${b}, ${a})`;
-}
-
-function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[], index: number): void {
+function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
     console.log(`Applying styles for link ${index + 1} with attributes:`, attributes);
     if (attributes[1]) {
     const radius = parseInt(attributes[1], 16) * 2 + 10;
@@ -50,7 +42,7 @@ function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[
   var borderWidth = 1;
   if (attributes[2]) {
     borderColor = attributes[2].match(/[0-9a-fA-F]{7}/)?.[0] || 'NULL';
-    const rgba = parseRGB(borderColor);
+    const rgba = parseRGB(borderColor, isDarkTheme);
     if (rgba) borderColor = rgba;
   }
 
@@ -63,7 +55,7 @@ function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[
   if (attributes[4]) {
     const bgColor = attributes[4].match(/[0-9a-fA-F]{7}/)?.[0];
     if (bgColor) {
-        const rgba = parseRGB(bgColor);
+        const rgba = parseRGB(bgColor, isDarkTheme);
         if (rgba) {
             element.style.backgroundColor = `${rgba}`;
         }
@@ -71,17 +63,17 @@ function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[
   }
 }
 
-function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[], index: number): void {
+function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
     console.log(`Applying styles for link ${index + 1} with attributes:`, attributes);
 
     element.style.paddingTop = '3px';
     element.style.paddingBottom = '3px';
-    
+
     var borderColor = getComputedStyle(element).borderInlineStart;
     var borderWidth = 3;
     if (attributes[2]) {
       borderColor = attributes[2].match(/[0-9a-fA-F]{7}/)?.[0] || 'NULL'; 
-      const rgba = parseRGB(borderColor);
+      const rgba = parseRGB(borderColor, isDarkTheme);
       if (rgba) borderColor = rgba;
     }
   
@@ -94,7 +86,7 @@ function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[],
     if (attributes[4]) {
       const bgColor = attributes[4].match(/[0-9a-fA-F]{7}/)?.[0];
       if (bgColor) {
-        const rgba = parseRGB(bgColor);
+        const rgba = parseRGB(bgColor, isDarkTheme);
         if (rgba) {
             element.style.backgroundColor = `${rgba}`;
         }

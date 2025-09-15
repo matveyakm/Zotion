@@ -1,13 +1,19 @@
 // constant.ts
 
 // Множество ссылок, которые уже были обработаны
-export const processedLinks = new WeakSet<Element>();
+export var processedLinks = new WeakSet<Element>();
 
 // Map для хранения скрытых блоков (контента аннотаций) с их идентификаторами
-export const hiddenBlocks = new Map<string, string>();
+export var hiddenBlocks = new Map<string, string>();
 
 // Множество блоков, которые уже были обработаны
-export const processedBlocks = new WeakSet<Element>();
+export var processedBlocks = new WeakSet<Element>();
+
+export function clearProcessedData(): void {
+  processedBlocks = new WeakSet<Element>();
+  processedLinks = new WeakSet<Element>();
+  hiddenBlocks = new Map<string, string>();
+}
 
 export function injectStyles(): void {
   console.log('Content script loaded successfully at', new Date().toISOString());

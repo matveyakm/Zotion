@@ -2,9 +2,10 @@
 
 import { parseLinkAttributes } from './parser';
 import { applyLinkStylesToText } from './styles/textStyle';
-import { processedLinks } from './constants';
+import { processedBlocks, processedLinks } from './constants';
 import { hideAnnotationBlock, createAnnotationTooltip } from './annotation/annotation';
 import { applyBlockStyles } from './styles/blockStyle';
+import { clearProcessedData } from './constants';
 
 export const indexOfType = 0;
 export const indexOfTagID = 13;
@@ -12,6 +13,8 @@ export const formattedTextType = "0";
 export const annotationLinkType = "1";
 export const annotationContentType = "2";
 export const formattedBlockType = "3";
+
+export var isDarkTheme = false;
 
 export interface ParsedData {
   attributes: string[];
@@ -56,7 +59,13 @@ function processParsedData(link: HTMLAnchorElement): ParsedData | null {
 export function processAttributedLinks(container: ParentNode = document): void {
   const links = findStyledLinks(container);
 
-  const isDarkTheme = document.body.classList.contains('dark') || document.querySelector('.notion-dark-theme') !== null;
+  const actualIsDarkTheme = document.body.classList.contains('dark') || document.querySelector('.notion-dark-theme') !== null;
+  if (actualIsDarkTheme !== isDarkTheme) {
+    console.log(`Theme changed: was ${isDarkTheme ? 'Dark' : 'Light'}, now ${actualIsDarkTheme ? 'Dark' : 'Light'}`);
+    clearProcessedData();
+    isDarkTheme = actualIsDarkTheme;
+
+  }
 
   console.log('Detected theme: ', isDarkTheme ? 'Dark' : 'Light');
 
@@ -67,9 +76,9 @@ export function processAttributedLinks(container: ParentNode = document): void {
     if (parsedData.attributes[indexOfType] == annotationLinkType) return;
     processedLinks.add(link);
     
-    applyLinkStylesToText(link, parsedData, index);
+    applyLinkStylesToText(link, parsedData, index, isDarkTheme);
     if (parsedData.attributes[indexOfType] == formattedBlockType) {
-      applyBlockStyles(link, parsedData, index);
+      applyBlockStyles(link, parsedData, index, isDarkTheme);
     }
 
     // Обработка контента аннотаций
@@ -84,7 +93,7 @@ export function processAttributedLinks(container: ParentNode = document): void {
     processedLinks.add(link);
     if (!parsedData) return;
     
-    applyLinkStylesToText(link, parsedData, index);
+    applyLinkStylesToText(link, parsedData, index, isDarkTheme);
 
     // Обработка аннотации-ссылки
     if (parsedData.attributes[indexOfType] === annotationLinkType) {
