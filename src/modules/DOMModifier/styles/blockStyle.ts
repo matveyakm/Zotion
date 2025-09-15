@@ -1,5 +1,5 @@
 import { ParsedData } from '../scanner';
-import { parseRGB } from './style';
+import { processRGB } from './colorStyler';
 
 export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   console.log(`Trying to apply block styles for link ${index + 1}`);
@@ -42,7 +42,7 @@ function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[
   var borderWidth = 1;
   if (attributes[2]) {
     borderColor = attributes[2].match(/[0-9a-fA-F]{7}/)?.[0] || 'NULL';
-    const rgba = parseRGB(borderColor, isDarkTheme);
+    const rgba = processRGB(borderColor, isDarkTheme ? "dark" : "light", "full");
     if (rgba) borderColor = rgba;
   }
 
@@ -55,7 +55,7 @@ function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[
   if (attributes[4]) {
     const bgColor = attributes[4].match(/[0-9a-fA-F]{7}/)?.[0];
     if (bgColor) {
-        const rgba = parseRGB(bgColor, isDarkTheme);
+        const rgba = processRGB(bgColor, isDarkTheme ? "dark" : "light", "simple");
         if (rgba) {
             element.style.backgroundColor = `${rgba}`;
         }
@@ -73,7 +73,7 @@ function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[],
     var borderWidth = 3;
     if (attributes[2]) {
       borderColor = attributes[2].match(/[0-9a-fA-F]{7}/)?.[0] || 'NULL'; 
-      const rgba = parseRGB(borderColor, isDarkTheme);
+      const rgba = processRGB(borderColor, isDarkTheme ? "dark" : "light", "full");
       if (rgba) borderColor = rgba;
     }
   
@@ -86,7 +86,7 @@ function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[],
     if (attributes[4]) {
       const bgColor = attributes[4].match(/[0-9a-fA-F]{7}/)?.[0];
       if (bgColor) {
-        const rgba = parseRGB(bgColor, isDarkTheme);
+        const rgba = processRGB(bgColor, isDarkTheme ? "dark" : "light", "simple");
         if (rgba) {
             element.style.backgroundColor = `${rgba}`;
         }

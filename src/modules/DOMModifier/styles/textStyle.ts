@@ -2,7 +2,7 @@
 
 import { processedLinks } from '../constants';
 import { ParsedData, indexOfType, formattedTextType, annotationContentType, formattedBlockType} from '../scanner';
-import { parseRGB } from './style';
+import { processRGB, evaluateBackground } from './colorStyler';
 
 export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   processedLinks.add(link);
@@ -62,19 +62,23 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
     link.style.fontSize = fontSizes[size] || '16px';
   }
 
-  if (attributes[2]) {
-    const color = attributes[2].match(/[0-9a-fA-F]{6}/)?.[0];
-    if (color) {
-      const rgb = parseRGB(color, isDarkTheme);
-      if (rgb) link.style.color = rgb;
-    }
-  }
-
+  var backgroundLuminance: "light" | "dark" = isDarkTheme ? "dark" : "light";
   if (attributes[3]) {
     const bgColor = attributes[3].match(/[0-9a-fA-F]{6}/)?.[0];
     if (bgColor) {
-      const rgba = parseRGB(bgColor + "9", isDarkTheme);
+      const rgba = processRGB(bgColor + "9", isDarkTheme ? "light" : "dark", "simple"); // Обратный фон для лучшей видимости
       if (rgba) link.style.backgroundColor = rgba;
+
+      const evaluatedBackground = evaluateBackground(bgColor, isDarkTheme);
+      backgroundLuminance = evaluatedBackground;
+    }
+  }
+
+  if (attributes[2]) {
+    const color = attributes[2].match(/[0-9a-fA-F]{6}/)?.[0];
+    if (color) {
+      const rgb = processRGB(color, backgroundLuminance, "full");
+      if (rgb) link.style.color = rgb;
     }
   }
 
@@ -86,7 +90,7 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
   if (attributes[5]) {
     const decColor = attributes[5].match(/[0-9a-fA-F]{6}/)?.[0];
     if (decColor) {
-      const rgba = parseRGB(decColor + "9", isDarkTheme);
+      const rgba = processRGB(decColor + "9", isDarkTheme ? "dark" : "light", "simple");
       if (rgba) link.style.textDecorationColor = rgba;
     }
   }
