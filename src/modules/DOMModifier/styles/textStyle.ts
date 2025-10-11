@@ -3,6 +3,7 @@
 import { processedLinks } from '../constants';
 import { ParsedData, indexOfType, formattedTextType, annotationContentType, formattedBlockType} from '../scanner';
 import { processRGB, evaluateBackground } from './colorStyler';
+import { applyAlignmentStyles } from './alignmentStyle';
 
 export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   processedLinks.add(link);
@@ -124,14 +125,16 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
     link.style.whiteSpace = spaces[ws] || 'normal';
   }
 
-  if (attributes[11]) {
-    const dir = parseInt(attributes[11], 16);
-    link.style.direction = dir === 1 ? 'rtl' : 'ltr';
-  }
-
-  if (attributes[12]) {
-    const va = parseInt(attributes[12], 16);
-    link.style.verticalAlign = aligns[va] || 'baseline';
+  if (attributes[11] || attributes[12]) {
+    const element = link.closest('.notranslate') as HTMLElement;
+    if (element) {
+      const linkId = `link-${index}-${Date.now()}`;
+      link.setAttribute('data-link-id', linkId);
+      console.log(`Link ${index + 1} - Text Alignment: Found notranslate element:`, element);
+      applyAlignmentStyles(element, attributes[11], attributes[12], index, linkId);
+    } else {
+      console.log(`Link ${index + 1} - Text Alignment: Notranslate element not found`);
+    }
   }
 
   console.log(`Processed styled link ${index + 1} with styles applied`);

@@ -1,5 +1,6 @@
 import { ParsedData } from '../scanner';
 import { processRGB } from './colorStyler';
+import { applyAlignmentStyles } from './alignmentStyle';
 
 export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   console.log(`Trying to apply block styles for link ${index + 1}`);
@@ -7,19 +8,16 @@ export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData
   const attributes = parsedData.attributes;
   if (!attributes) return;
 
-  // Найти ближайший родительский блок
   const calloutBlock = link.closest('.notion-callout-block');
   const quoteBlock = link.closest('.notion-quote-block');
   const tableBlock = link.closest('.notion-table-block');
 
   if (calloutBlock) {
-    // Для callout-block стили применяются к <div> внутри <div role="note">
     const targetDiv = calloutBlock.querySelector('div[role="note"] > div');
     if (targetDiv instanceof HTMLElement) {
       applyStylesToCallout(targetDiv, attributes, index, isDarkTheme);
     }
   } else if (quoteBlock) {
-    // Для quote-block стили применяются к <div> внутри <blockquote>
     const targetDiv = quoteBlock.querySelector('blockquote > div');
     if (targetDiv instanceof HTMLElement) {
       applyStylesToQuote(targetDiv, attributes, index, isDarkTheme);
@@ -64,6 +62,9 @@ function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[
         }
     }
   }
+
+  if (attributes[5] || attributes[6])
+    applyAlignmentStyles(element, attributes[5], attributes[6], index, element.getAttribute('data-link-id') || '');
 }
 
 function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
@@ -92,9 +93,12 @@ function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[],
         const rgba = processRGB(bgColor, isDarkTheme ? "light" : "dark", "simple"); // Обратный фон для лучшей видимости
         if (rgba) {
             element.style.backgroundColor = `${rgba}`;
-        }
+        } 
       }
     }
+    
+    if (attributes[5] || attributes[6])
+      applyAlignmentStyles(element, attributes[5], attributes[6], index, element.getAttribute('data-link-id') || '');
 }
 
 function applyStylesToTable(link: HTMLAnchorElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
