@@ -73,16 +73,16 @@ export function processAttributedLinks(container: ParentNode = document): void {
   links.forEach((link, index) => {
     const parsedData = processParsedData(link);
     if (!parsedData) return;
-    if (parsedData.attributes[indexOfType] == annotationLinkType) return;
+    if (parsedData.attributes[indexOfType] === annotationLinkType) return;
     processedLinks.add(link);
     
     applyLinkStylesToText(link, parsedData, index, isDarkTheme);
-    if (parsedData.attributes[indexOfType] == formattedBlockType) {
+    if (parsedData.attributes[indexOfType] === formattedBlockType) {
       applyBlockStyles(link, parsedData, index, isDarkTheme);
     }
 
     // Обработка контента аннотаций
-    if (parsedData.attributes[indexOfType] == annotationContentType) {
+    if (parsedData.attributes[indexOfType] === annotationContentType) {
       hideAnnotationBlock(link, parsedData, index);
     }
   });

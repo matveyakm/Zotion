@@ -42,15 +42,15 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
   const spaces = ['normal', 'nowrap', 'pre'];
   const aligns = ['baseline', 'sub', 'super', 'middle', 'top', 'bottom'];
 
-  if (attributes[indexOfType] == annotationContentType) {
+  if (attributes[indexOfType] === annotationContentType) {
     link.setAttribute('data-icon', 'true');
   }
 
-  if (span && attributes[indexOfType] == formattedTextType) {
+  if (span && attributes[indexOfType] === formattedTextType) {
     span.style.textDecoration = 'none';
   }
 
-  if (attributes[indexOfType] == formattedBlockType) {
+  if (attributes[indexOfType] === formattedBlockType) {
     link.style.fontSize = '1px';
     link.style.color = 'transparent';
     if (span) span.style.textDecoration = 'none';

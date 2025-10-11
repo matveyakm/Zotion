@@ -10,6 +10,7 @@ export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData
   // Найти ближайший родительский блок
   const calloutBlock = link.closest('.notion-callout-block');
   const quoteBlock = link.closest('.notion-quote-block');
+  const tableBlock = link.closest('.notion-table-block');
 
   if (calloutBlock) {
     // Для callout-block стили применяются к <div> внутри <div role="note">
@@ -23,6 +24,8 @@ export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData
     if (targetDiv instanceof HTMLElement) {
       applyStylesToQuote(targetDiv, attributes, index, isDarkTheme);
     }
+  } else if (tableBlock) {
+    applyStylesToTable(link, attributes, index, isDarkTheme);
   }
 }
 
@@ -92,4 +95,72 @@ function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[],
         }
       }
     }
+}
+
+function applyStylesToTable(link: HTMLAnchorElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
+  console.log(`Applying styles (table) for link ${index + 1} with attributes:`, attributes);
+
+  const targetCell = link.closest('td');
+  if (targetCell instanceof HTMLElement) {
+    const linkId = `link-${index}-${Date.now()}`;
+    link.setAttribute('data-link-id', linkId);
+    
+    if (attributes[2]) {
+      const bgColor = attributes[2].match(/[0-9a-fA-F]{7}/)?.[0];
+      if (bgColor) {
+        const rgba = processRGB(bgColor, isDarkTheme ? "light" : "dark", "simple"); // Обратный фон для лучшей видимости
+        if (rgba) {
+          targetCell.style.backgroundColor = rgba;
+        }
+      }
+    }
+
+    let borderColor = 'var(--c-tabDivCol)';
+    let borderWidth = 1;
+
+    if (attributes[4]) {
+      borderColor = attributes[4].match(/[0-9a-fA-F]{7}/)?.[0] || 'NULL';
+      const rgba = processRGB(borderColor, isDarkTheme ? "dark" : "light", "full");
+      if (rgba) borderColor = rgba;
+    }
+
+    if (attributes[3]) {
+      borderWidth = parseInt(attributes[3], 16);
+    }
+    
+    targetCell.style.border = ''; 
+    targetCell.style.setProperty('border', `${borderWidth}px solid ${borderColor}`, 'important');
+
+    let textAlign = 'left';
+    if (attributes[5]) {
+      const textAlignMap: { [key: string]: string } = {
+        '0': 'left',
+        '1': 'center',
+        '2': 'right'
+      };
+      textAlign = textAlignMap[attributes[5]] || 'left';
+    }
+
+    let verticalAlign = 'top';
+    if (attributes[6]) {
+      const verticalAlignMap: { [key: string]: string } = {
+        '0': 'top',
+        '1': 'middle',
+        '2': 'bottom'
+      };
+      verticalAlign = verticalAlignMap[attributes[6]] || 'top';
+      targetCell.style.verticalAlign = verticalAlign;
+    }
+
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = `.notion-table-row td:has(a[data-link-id="${linkId}"]) { 
+      border: ${borderWidth}px solid ${borderColor} !important; 
+      background-color: ${targetCell.style.backgroundColor || 'transparent'} !important; 
+      text-align: ${textAlign} !important; 
+      vertical-align: ${verticalAlign} !important; 
+    }`;
+    document.head.appendChild(styleSheet);
+  } else {
+    console.log(`Link ${index + 1} - Target cell (td) not found`);
+  }
 }

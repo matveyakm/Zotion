@@ -1,5 +1,6 @@
 // init.ts
 
+import { needToAdjustLists } from './constants';
 import { debounce } from './debounce';
 import { processAttributedLinks } from './scanner';
 import { adjustBulletAlignment } from './styles/listFixer';
@@ -15,7 +16,7 @@ export function setupMutationObserver(): void {
         const targetBlock =
           target.closest?.('.notion-text-block') || document;
         processAttributedLinks(targetBlock);
-        adjustBulletAlignment(targetBlock);
+        if(needToAdjustLists) adjustBulletAlignment(targetBlock);
       });
     }, UPDATE_INTERVAL);
   
