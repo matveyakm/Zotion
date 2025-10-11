@@ -12,6 +12,9 @@ export var processedBlocks = new WeakSet<Element>();
 // Нужно ли менять отображение списков
 export const needToAdjustLists = true;
 
+// Нужно ли менять отображение разделителей
+export const needToAdjustDividers = false;
+
 // Нужно ли менять цвета для контрастности
 export const needToAdjustColors = true;
 
