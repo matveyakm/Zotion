@@ -5,6 +5,7 @@ import { applyLinkStylesToText } from './styles/textStyle';
 import { processedBlocks, processedLinks } from './constants';
 import { hideAnnotationBlock, createAnnotationTooltip } from './annotation/annotation';
 import { applyBlockStyles } from './styles/blockStyle';
+import { applyDividerStyles } from './styles/dividerStyle';
 import { clearProcessedData } from './constants';
 
 export const indexOfType = 0;
@@ -13,6 +14,7 @@ export const formattedTextType = "0";
 export const annotationLinkType = "1";
 export const annotationContentType = "2";
 export const formattedBlockType = "3";
+export const dividerType = "4";
 
 export var isDarkTheme = false;
 
@@ -79,6 +81,8 @@ export function processAttributedLinks(container: ParentNode = document): void {
     applyLinkStylesToText(link, parsedData, index, isDarkTheme);
     if (parsedData.attributes[indexOfType] === formattedBlockType) {
       applyBlockStyles(link, parsedData, index, isDarkTheme);
+    } else if (parsedData.attributes[indexOfType] === dividerType) {
+      applyDividerStyles(link, parsedData, index, isDarkTheme);
     }
 
     // Обработка контента аннотаций

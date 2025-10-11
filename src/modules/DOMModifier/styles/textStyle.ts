@@ -130,7 +130,7 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
     if (element) {
       const linkId = `link-${index}-${Date.now()}`;
       link.setAttribute('data-link-id', linkId);
-      console.log(`Link ${index + 1} - Text Alignment: Found notranslate element:`, element);
+      console.log(`Link ${index + 1} - Text Alignment: Found notranslate element`);
       applyAlignmentStyles(element, attributes[11], attributes[12], index, linkId);
     } else {
       console.log(`Link ${index + 1} - Text Alignment: Notranslate element not found`);

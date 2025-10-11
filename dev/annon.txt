@@ -81,3 +81,6 @@ Example4Info_2: www.anylink.su/#1..ffffff..........0.2B#
     --> Note 27: [href=www.google.com/#2..aaaaff..........0.2B#] Remember the definition of $aleph_0$"
 
 ---- End of the examples ----
+
+
+Dark theme: #AAAAAA44
