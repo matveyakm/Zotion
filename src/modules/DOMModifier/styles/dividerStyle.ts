@@ -38,7 +38,7 @@ export function applyDividerStyles(link: HTMLAnchorElement, parsedData: ParsedDa
   let borderColor = getComputedStyle(separator).borderBottomColor;
 
   if (attributes[1]) {
-    borderWidth = parseInt(attributes[1], 16);
+    borderWidth = Math.max(1, parseInt(attributes[1], 16));
     if (isNaN(borderWidth)) {
       console.log(`Link ${index + 1} - Invalid border width:`, attributes[1]);
       borderWidth = 1;

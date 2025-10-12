@@ -20,51 +20,73 @@ Apply visual attributes to the relevant parts of the text using special format
 
 ---- End of the description ----
 
+==== Note ====
+
+So, we are interested in hyperlinkes of the form: {linkWeHide}#{textAttributes}.{Tag}#
+Alphabet of textAttributes is "0123456789aAbBcCdDeEfF"
+Note:  a = A, b = B, c = C, d = D, e = E, f = F
+
+---- End of the note ----
 
 ==== Description of the format for specifying attributes in a hyperlink ====
 
 [before]: link that must be hidden (need to make it non-clickable)
-[0]. type: 0 -- text,  1 -- annotation-link (INFO), 2 -- annotation-content, 3+ -- text
-[1]: size: 0 -- tiny ... 8 -- normal ... F -- huge, empty -- default
-[2]: color: XXXXXX -- #xxxxxx , empty -- default
-[3]: backgroundColor: #xxxxxx, empty -- no background
-[4]: textDecoration: 0 -- none, 1 -- underline, 2 -- overline, 3 -- line-through, 4 -- underline+overline, 5+ -- none, empty -- none
-[5]: textDecorationColor: #xxxxxx, empty -- default
-[6]: fontStyle: 0 -- normal, 1 -- italic, 2 -- oblique, 3+ -- normal, empty -- normal
-[7]: fontWeight: 0 -- normal, 1 -- bold, 2 -- lighter, 3 -- bolder, 4+ -- normal, empty -- normal
-[8]: letterSpacing: n -- (n - 5)px, empty -- default
-[9]: wordSpacing: n -- (n - 5)px, empty -- defaul
-[10]: whiteSpace: 0 -- normal, 1 -- nowrap, 2 -- pre, 3+ -- normal, empty -- defalt
-[11]: direction: 0 -- ltr, 1 -- rtl, 2+ -- ltr,empty -- default
-[12]: vericalAlign: 0 -- baseline, 1 -- sub, 2 -- super, 3 -- middle, 4 -- top, 5 -- bottom, 6+ -- baseline,empty -- default
+[0]. type: 0 -- text,  1 -- annotation-link, 2 -- annotation-content, 3 -- block, 4 -- divider, 5+ -- text
+[1]: 
+    if type in {0,1,2} then size: 0 -- tiny ... 8 -- normal ... F -- huge, empty -- default
+    if type = 3 then radius: 0 -- 10px ... F -- 40px, empty -- default
+    if type = 4 then width: 0 -- 1px  1 -- 1px... F -- 15px, empty -- default
+[2]: 
+    if type in {0,1,2} then text color: RRGGBB -- rgb() , empty -- default
+    if type = 3 then background color: RRGGBBA -- rgba(), empty - default
+    if type = 4 then divider color: RRGGBBA -- rgba(), empty - default
+[3]: 
+    if type in {0,1,2} then backgroundColor: RRGGBB -- rbg(), empty -- default
+    if type = 3 then borderWidth: 0 -- 0px ... F -- 15px, empty -- default
+[4]: 
+    if type in {0,1,2} then textDecoration: 0 -- none, 1 -- underline, 2 -- overline, 3 -- line-through, 4 -- underline+overline, 5+ -- default, empty -- default
+    if type = 3 then borderColor: RRGGBBA -- rgba(), empty - default
+[5]: 
+    if type in {0,1,2} then textDecorationColor: #xxxxxx, empty -- default
+[6]: 
+    if type in {0,1,2} then fontStyle: 0 -- normal, 1 -- italic, 2 -- oblique, 3+ -- default, empty -- normal
+[7]: 
+    if type in {0,1,2} then fontWeight: 0 -- normal, 1 -- bold, 2 -- lighter, 3 -- bolder, 4+ -- default, empty -- normal
+[8]: 
+    if type in {0,1,2} then letterSpacing: n -- (n - 5)px, empty -- default
+[9]: 
+    if type in {0,1,2} then wordSpacing: n -- (n - 5)px, empty -- defaul
+[10]: 
+    if type in {0,1,2} then whiteSpace: 0 -- normal, 1 -- nowrap, 2 -- pre, 3+ -- default, empty -- defalt
+[11]: 
+    if type in {0,1,2,3} then textAlign: 0 -- ltr, 1 -- middle, 2 -- rtl, 3+ -- default, empty -- default
+[12]: 
+    if type in {0,1,2,3} then vericalAlign: 0 -- top, 1 -- center, 2 -- bottom, 3+ -- default, empty -- default
 [after]: 
-    if type = 0 then nothing 
-    if type = 1 or 2 then a tag in hex-format: "0" = 0, ... , "F" = 15, "10" = 16 , ...
+    if type in {0,3,4} then nothing 
+    if type in {1,2} then a tag in hex-format: "0" = 0, ... , "F" = 15, "10" = 16 , ...
 
 ---- End of the description ----
 
 
-==== "INFO" description ====
+==== Annotation description ====
 
-(If type = 1 then we replace this part of a text to symbol "info" like (i))
-If the user hovers the cursor over the symbol, an annotation window appears on top of the page below:
+If the user hovers the cursor over the annotation-link, an annotation window appears on top of the page below:
 a window with a small-scale text block (the text size is reduced). All types of formatting and TeX in "in-line equation" format are possible in the text block.
 
 Content for annotation: a text block on this page, starting text hyperlinked with "{link}/#2.............{Tag}#"
 
-If a text block with such a tag is not found, then in the annotation window write in red text "Text block with such number ({Tag}) not found"
+We hide the annotation content as a standard Notion block.
 
 ---- End of the description ----
 
 
-==== Note ====
+=== Divider formatting description ===
 
-So, we are interested in hyperlinkes of the form: {linkWeHide}#{textAttributes}.{Tag}#
-Alphabet of [0] ... [12] is ".0123456789aAbBcCdDeEfF"
-Alphabet of [after] is "0123456789aAbBcCdDeEfF"
-Note:  a = A, b = B, c = C, d = D, e = E, f = F
+To format a divider, we look at the text block above it — specifically, for a hyperlink that describes the divider’s attributes.
+That text block is then removed from the DOM.
 
----- End of the note ----
+---- End of the description ----
 
 
 ==== Examples ====
@@ -80,7 +102,12 @@ Example4Info_1: www.google.com/#1..aaaaff..........0.1#
 Example4Info_2: www.anylink.su/#1..ffffff..........0.2B# 
     --> Note 27: [href=www.google.com/#2..aaaaff..........0.2B#] Remember the definition of $aleph_0$"
 
+Example4Block_1: [callout] http://www.google.com/#3.2.aaffaaf..77bb772.1.1.......#
+Example4Block_2: [callout] http://www.google.com/#3.f.ffaaaaf..bb77777.........#
+Example4Block_3: [callout] http://www.google.com/#3.2.aafffff..2222220.........#
+Example4Block_4: [quote] http://www.google.com/#3.a.aaaaff9.f.7777aa2.1.1.......#
+Example4Block_5: [table cell] http://www.google.com/#3..aaffff1.f.ff2222a.1.1.......#
+
+Example4Divider: http://www.google.com/#4.a.aaaaff9...........#
+
 ---- End of the examples ----
-
-
-Dark theme: #AAAAAA44
