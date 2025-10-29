@@ -1,16 +1,18 @@
+// annotation.ts
+
 import { hiddenBlocks } from '../constants';
 import { createTooltip } from '../styles/annotationStyle';
-import { ParsedData } from '../scanner';
+import { ParsedData, indexOfTagID } from '../scanner';
 
 export function hideAnnotationBlock(link: HTMLAnchorElement, parsedData: ParsedData, index: number): void {
   if (!('attributes' in parsedData) || !parsedData.attributes) return;
 
-  if (!parsedData.attributes[13]) {
+  if (!parsedData.attributes[indexOfTagID]) {
     console.warn(`Format of attributes is not correct for link ${index + 1}`);
     return;
   }
 
-  const blockId = parsedData.attributes[13];
+  const blockId = parsedData.attributes[indexOfTagID];
   if (!blockId) {
     console.warn(`Cant found blockID for link ${index + 1}`);
     return;
@@ -49,7 +51,7 @@ export function createAnnotationTooltip(
 ): void {
   if (!('attributes' in parsedData) || !parsedData.attributes) return;
 
-  const blockId = parsedData.attributes[13];
+  const blockId = parsedData.attributes[indexOfTagID];
   console.log(`Checking annotation for link ${index + 1}, blockId=${blockId}, hiddenBlocks keys=${Array.from(hiddenBlocks.keys())}`);
   if (blockId && hiddenBlocks.has(blockId)) {
     const parentBlock = link.closest('.notion-text-block') as HTMLElement | null;

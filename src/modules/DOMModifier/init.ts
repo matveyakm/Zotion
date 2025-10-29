@@ -1,7 +1,10 @@
 // init.ts
 
+import { needToAdjustLists, needToAdjustDividers } from './constants';
 import { debounce } from './debounce';
 import { processAttributedLinks } from './scanner';
+import { adjustBulletAlignment } from './styles/listFixer';
+import { adjustDividers } from './styles/dividerStyle';
 
 const UPDATE_INTERVAL = 2000; // milliseconds
 
@@ -14,6 +17,8 @@ export function setupMutationObserver(): void {
         const targetBlock =
           target.closest?.('.notion-text-block') || document;
         processAttributedLinks(targetBlock);
+        if(needToAdjustLists) adjustBulletAlignment(targetBlock);
+        if(needToAdjustDividers) adjustDividers(targetBlock);
       });
     }, UPDATE_INTERVAL);
   

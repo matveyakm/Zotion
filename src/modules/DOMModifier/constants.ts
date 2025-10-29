@@ -1,10 +1,28 @@
 // constant.ts
 
 // Множество ссылок, которые уже были обработаны
-export const processedLinks = new WeakSet<Element>();
+export let processedLinks = new WeakSet<Element>();
 
 // Map для хранения скрытых блоков (контента аннотаций) с их идентификаторами
-export const hiddenBlocks = new Map<string, string>();
+export let hiddenBlocks = new Map<string, string>();
+
+// Множество блоков, которые уже были обработаны
+export let processedBlocks = new WeakSet<Element>();
+
+// Нужно ли менять отображение списков
+export const needToAdjustLists = true;
+
+// Нужно ли менять отображение разделителей
+export const needToAdjustDividers = false;
+
+// Нужно ли менять цвета для контрастности
+export const needToAdjustColors = true;
+
+export function clearProcessedData(): void {
+  processedBlocks = new WeakSet<Element>();
+  processedLinks = new WeakSet<Element>();
+  hiddenBlocks = new Map<string, string>();
+}
 
 export function injectStyles(): void {
   console.log('Content script loaded successfully at', new Date().toISOString());

@@ -4,10 +4,19 @@ import { parseLinkAttributes } from './parser';
 import { applyLinkStylesToText } from './styles/textStyle';
 import { processedLinks } from './constants';
 import { hideAnnotationBlock, createAnnotationTooltip } from './annotation/annotation';
+import { applyBlockStyles } from './styles/blockStyle';
+import { applyDividerStyles } from './styles/dividerStyle';
+import { clearProcessedData } from './constants';
 
-const indexOftype = 0;
-const annotationLinkType = "1";
-const annotationContentType = "2";
+export const indexOfType = 0;
+export const indexOfTagID = 13;
+export const formattedTextType = "0";
+export const annotationLinkType = "1";
+export const annotationContentType = "2";
+export const formattedBlockType = "3";
+export const dividerType = "4";
+
+export let isDarkTheme = false;
 
 export interface ParsedData {
   attributes: string[];
@@ -25,9 +34,9 @@ export function findStyledLinks(container: ParentNode = document): HTMLAnchorEle
      .notion-header-block a[href*="#"]:not([data-styled]),
      .notion-sub_header-block a[href*="#"]:not([data-styled]),
      .notion-sub_sub_header-block a[href*="#"]:not([data-styled]),
-     .notion-header-block a[href^="//color=#"]:not([data-styled]),
-     .notion-sub_header-block a[href^="//color=#"]:not([data-styled]),
-     .notion-sub_sub_header-block a[href^="//color=#"]:not([data-styled])
+     .notion-header-block a[href*="#"]:not([data-styled]),
+     .notion-sub_header-block a[href*="#"]:not([data-styled]),
+     .notion-sub_sub_header-block a[href*="#"]:not([data-styled])
     `
   );
   return Array.from(links);
@@ -52,7 +61,13 @@ function processParsedData(link: HTMLAnchorElement): ParsedData | null {
 export function processAttributedLinks(container: ParentNode = document): void {
   const links = findStyledLinks(container);
 
-  const isDarkTheme = document.body.classList.contains('dark') || document.querySelector('.notion-dark-theme') !== null;
+  const actualIsDarkTheme = document.body.classList.contains('dark') || document.querySelector('.notion-dark-theme') !== null;
+  if (actualIsDarkTheme !== isDarkTheme) {
+    console.log(`Theme changed: was ${isDarkTheme ? 'Dark' : 'Light'}, now ${actualIsDarkTheme ? 'Dark' : 'Light'}`);
+    clearProcessedData();
+    isDarkTheme = actualIsDarkTheme;
+
+  }
 
   console.log('Detected theme: ', isDarkTheme ? 'Dark' : 'Light');
 
@@ -60,13 +75,18 @@ export function processAttributedLinks(container: ParentNode = document): void {
   links.forEach((link, index) => {
     const parsedData = processParsedData(link);
     if (!parsedData) return;
-    if (parsedData.attributes[indexOftype] == annotationLinkType) return;
+    if (parsedData.attributes[indexOfType] === annotationLinkType) return;
     processedLinks.add(link);
     
-    applyLinkStylesToText(link, parsedData, index);
+    applyLinkStylesToText(link, parsedData, index, isDarkTheme);
+    if (parsedData.attributes[indexOfType] === formattedBlockType) {
+      applyBlockStyles(link, parsedData, index, isDarkTheme);
+    } else if (parsedData.attributes[indexOfType] === dividerType) {
+      applyDividerStyles(link, parsedData, index, isDarkTheme);
+    }
 
     // Обработка контента аннотаций
-    if (parsedData.attributes[indexOftype] == annotationContentType) {
+    if (parsedData.attributes[indexOfType] === annotationContentType) {
       hideAnnotationBlock(link, parsedData, index);
     }
   });
@@ -77,10 +97,10 @@ export function processAttributedLinks(container: ParentNode = document): void {
     processedLinks.add(link);
     if (!parsedData) return;
     
-    applyLinkStylesToText(link, parsedData, index);
+    applyLinkStylesToText(link, parsedData, index, isDarkTheme);
 
     // Обработка аннотации-ссылки
-    if (parsedData.attributes[indexOftype] === annotationLinkType) {
+    if (parsedData.attributes[indexOfType] === annotationLinkType) {
       createAnnotationTooltip(link, parsedData, index, isDarkTheme);
     }
   });
