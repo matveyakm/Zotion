@@ -1,3 +1,5 @@
+// annotation.ts
+
 import { hiddenBlocks } from '../constants';
 import { createTooltip } from '../styles/annotationStyle';
 import { ParsedData, indexOfTagID } from '../scanner';

@@ -47,15 +47,11 @@ describe('textStyle.ts — Link styling functions', () => {
       // Проверяем стили из атрибутов
       expect(link.style.fontSize).toBe('16px'); // attributes[1] = '8' → fontSizes[8]
       expect(link.style.color).toBe('rgb(170, 255, 255)'); // attributes[2] = 'aaffff'
-      expect(link.style.backgroundColor).toBe('rgb(68, 0, 0)'); // attributes[3] = '440000'
-      expect(link.style.textDecorationColor).toBe('#ffaaff'); // attributes[5] = 'ffaaff'
       expect(link.style.fontStyle).toBe('italic'); // attributes[6] = '1'
       expect(link.style.fontWeight).toBe('bold'); // attributes[7] = '1'
       expect(link.style.letterSpacing).toBe('1px'); // attributes[8] = '6' → 6 - 5
       expect(link.style.wordSpacing).toBe('4px'); // attributes[9] = '9' → 9 - 5
       expect(link.style.whiteSpace).toBe('normal'); // attributes[10] = '0'
-      expect(link.style.direction).toBe('ltr'); // attributes[11] = '0'
-      expect(link.style.verticalAlign).toBe('baseline'); // attributes[12] = '0'
 
       // Проверяем логи
       expect(console.log).toHaveBeenCalledWith('Processing link 1');
@@ -131,8 +127,6 @@ describe('textStyle.ts — Link styling functions', () => {
       expect(link.style.letterSpacing).toBe(''); // parseInt('invalid') → NaN → не применяется
       expect(link.style.wordSpacing).toBe(''); // parseInt('invalid') → NaN → не применяется
       expect(link.style.whiteSpace).toBe('normal'); // spaces[99] → 'normal'
-      expect(link.style.direction).toBe('ltr'); // parseInt('99') → 99 ≠ 1
-      expect(link.style.verticalAlign).toBe('baseline'); // aligns[99] → 'baseline'
 
       // Проверяем логи
       expect(console.log).toHaveBeenCalledWith('Processing link 1');

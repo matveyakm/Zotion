@@ -1,11 +1,12 @@
 // colorStyler.ts
+
 import { needToAdjustColors } from "../constants";
 
 function hexToRGBA(hex: string): RGBA | null {
     if (!([6,7].includes(hex.length))) return null;
-    var r = parseInt(hex.slice(0, 2), 16);
-    var g = parseInt(hex.slice(2, 4), 16);
-    var b = parseInt(hex.slice(4, 6), 16);
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
     const a = hex.length == 6 ? 1 : parseInt(hex[6], 16) / 16;
     return { r, g, b, a };
 }
@@ -14,7 +15,7 @@ export function processRGB(hex: string, background: "dark" | "light", method: "f
     const rgba = hexToRGBA(hex);
     if (!rgba) return null;
 
-    var contrasted: RGBA;
+    let contrasted: RGBA;
     if (method === "none" || !needToAdjustColors) {
         contrasted = rgba;
     } else if (method === "full") {
@@ -173,4 +174,4 @@ export function evaluateBackground(hex: string, isDarkTheme: boolean): "light" |
     // Порог 0.5: если яркость больше, фон светлый, иначе тёмный
     console.log(`Evaluated background #${hex} as ${lum > 0.5 ? "light" : "dark"} (luminance: ${lum.toFixed(3)})`);
     return lum > 0.5 ? "light" : "dark";
-  }
+}

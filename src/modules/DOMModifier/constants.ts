@@ -1,13 +1,13 @@
 // constant.ts
 
 // Множество ссылок, которые уже были обработаны
-export var processedLinks = new WeakSet<Element>();
+export let processedLinks = new WeakSet<Element>();
 
 // Map для хранения скрытых блоков (контента аннотаций) с их идентификаторами
-export var hiddenBlocks = new Map<string, string>();
+export let hiddenBlocks = new Map<string, string>();
 
 // Множество блоков, которые уже были обработаны
-export var processedBlocks = new WeakSet<Element>();
+export let processedBlocks = new WeakSet<Element>();
 
 // Нужно ли менять отображение списков
 export const needToAdjustLists = true;

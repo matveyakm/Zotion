@@ -88,6 +88,25 @@ That text block is then removed from the DOM.
 
 ---- End of the description ----
 
+=== Exam mode description ===
+
+The user can hide all content under overlays while selecting exceptions among the following:
+— Non-hideable text (special attribute)
+— Headings
+— Bold text
+— Italic text
+— Underlined text
+— Colored text
+— Gray-colored text
+— Inline TeX
+— Block TeX
+— Images
+— Third-party embed blocks
+
+When hovering over an overlay, the area around the cursor becomes visible.
+When clicking on the overlay, it is completely removed.
+
+---- End of the description ----
 
 ==== Examples ====
 

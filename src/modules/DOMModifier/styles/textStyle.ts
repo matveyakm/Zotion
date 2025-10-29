@@ -41,7 +41,6 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
   const styles = ['normal', 'italic', 'oblique'];
   const weights = ['normal', 'bold', 'lighter', 'bolder'];
   const spaces = ['normal', 'nowrap', 'pre'];
-  const aligns = ['baseline', 'sub', 'super', 'middle', 'top', 'bottom'];
 
   if (attributes[indexOfType] === annotationContentType) {
     link.setAttribute('data-icon', 'true');
@@ -63,7 +62,7 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
     link.style.fontSize = fontSizes[size] || '16px';
   }
 
-  var backgroundLuminance: "light" | "dark" = isDarkTheme ? "dark" : "light";
+  let backgroundLuminance: "light" | "dark" = isDarkTheme ? "dark" : "light";
   if (attributes[3]) {
     const bgColor = attributes[3].match(/[0-9a-fA-F]{6}/)?.[0];
     if (bgColor) {

@@ -1,3 +1,5 @@
+// blockStyle.ts
+
 import { ParsedData } from '../scanner';
 import { processRGB } from './colorStyler';
 import { applyAlignmentStyles } from './alignmentStyle';
@@ -39,8 +41,8 @@ function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[
     }
   }
 
-  var borderColor = getComputedStyle(element).borderColor;
-  var borderWidth = 1;
+  let borderColor = getComputedStyle(element).borderColor;
+  let borderWidth = 1;
   if (attributes[2]) {
     borderColor = attributes[2].match(/[0-9a-fA-F]{7}/)?.[0] || 'NULL';
     const rgba = processRGB(borderColor, isDarkTheme ? "dark" : "light", "full");
@@ -73,8 +75,8 @@ function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[],
     element.style.paddingTop = '3px';
     element.style.paddingBottom = '3px';
 
-    var borderColor = getComputedStyle(element).borderInlineStart;
-    var borderWidth = 3;
+    let borderColor = getComputedStyle(element).borderInlineStart;
+    let borderWidth = 3;
     if (attributes[2]) {
       borderColor = attributes[2].match(/[0-9a-fA-F]{7}/)?.[0] || 'NULL'; 
       const rgba = processRGB(borderColor, isDarkTheme ? "dark" : "light", "full");

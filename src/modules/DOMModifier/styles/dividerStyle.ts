@@ -1,3 +1,5 @@
+// diverStyle.ts
+
 import { ParsedData } from '../scanner';
 import { processRGB } from './colorStyler';
 
@@ -46,7 +48,7 @@ export function applyDividerStyles(link: HTMLAnchorElement, parsedData: ParsedDa
   }
 
   if (attributes[2]) {
-    let hexColor = attributes[2].match(/[0-9a-fA-F]{7}/)?.[0] || 'NULL';
+    const hexColor = attributes[2].match(/[0-9a-fA-F]{7}/)?.[0] || 'NULL';
     const rgba = processRGB(hexColor, isDarkTheme ? 'dark' : 'light', 'full');
     if (rgba) {
         borderColor = rgba;
@@ -60,6 +62,15 @@ function applyDividerBorderStyles(element: HTMLElement, borderColor: string, bor
     element.style.borderBottom = ''; 
     element.style.setProperty('border-bottom', `${borderWidth}px solid ${borderColor}`, 'important');
 }
+
+function normalizeColor(color: string): string {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d')!;
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 1, 1);
+    const computedColor = ctx.getImageData(0, 0, 1, 1).data;
+    return `rgb(${computedColor[0]}, ${computedColor[1]}, ${computedColor[2]})`;
+  }
 
 // Деактивирована, т.к. вызывается слишком часто и вызывает лаги. Некорректно определяет цвет фона
 export function adjustDividers(container: ParentNode = document): void {
@@ -108,44 +119,28 @@ export function adjustDividers(container: ParentNode = document): void {
         }
   
         const calloutBackground = getComputedStyle(calloutContent).backgroundColor;
-        const inlineStyle = calloutContent.style.background || calloutContent.style.backgroundColor;
-  
-        const backgroundVars = {
-          'var(--c-graBacSec)': getComputedStyle(document.documentElement).getPropertyValue('--c-graBacSec').trim(),
-          'var(--c-broBacSec)': getComputedStyle(document.documentElement).getPropertyValue('--c-broBacSec').trim(),
-          'var(--c-oraBacSec)': getComputedStyle(document.documentElement).getPropertyValue('--c-oraBacSec').trim(),
-          'var(--c-yelBacSec)': getComputedStyle(document.documentElement).getPropertyValue('--c-yelBacSec').trim(),
-          'var(--c-greBacSec)': getComputedStyle(document.documentElement).getPropertyValue('--c-greBacSec').trim(),
-          'var(--c-bluBacSec)': getComputedStyle(document.documentElement).getPropertyValue('--c-bluBacSec').trim(),
-          'var(--c-purBacSec)': getComputedStyle(document.documentElement).getPropertyValue('--c-purBacSec').trim(),
-          'var(--c-pinBacSec)': getComputedStyle(document.documentElement).getPropertyValue('--c-pinBacSec').trim(),
-          'var(--c-redBacSec)': getComputedStyle(document.documentElement).getPropertyValue('--c-redBacSec').trim(),
-        };
-  
-        console.log(`Callout ${index + 1} - Background color: ${calloutBackground}`);
-        console.log(`Callout ${index + 1} - Inline style: ${inlineStyle}`);
-        console.log(`Callout ${index + 1} - Background variables:`, backgroundVars);
+        const calloutBorderColor = getComputedStyle(calloutContent).borderColor;
   
         const backgroundColorMap: { [key: string]: string } = {
-          [backgroundVars['var(--c-graBacSec)']]: 'rgba(255, 255, 255, 0.3)',
-          [backgroundVars['var(--c-broBacSec)']]: 'rgb(120, 90, 70)',
-          [backgroundVars['var(--c-oraBacSec)']]: 'rgb(130, 85, 60)',
-          [backgroundVars['var(--c-yelBacSec)']]: 'rgb(130, 100, 60)',
-          [backgroundVars['var(--c-greBacSec)']]: 'rgb(80, 100, 85)',
-          [backgroundVars['var(--c-bluBacSec)']]: 'rgb(80, 100, 130)',
-          [backgroundVars['var(--c-purBacSec)']]: 'rgb(100, 80, 120)',
-          [backgroundVars['var(--c-pinBacSec)']]: 'rgb(120, 75, 95)',
-          [backgroundVars['var(--c-redBacSec)']]: 'rgb(130, 80, 75)',
-          'rgb(69, 54, 45)': 'rgb(120, 90, 70)', 
-          'rgb(83, 54, 31)': 'rgb(130, 85, 60)', 
-          'rgb(80, 68, 37)': 'rgb(130, 100, 60)', 
+          [normalizeColor(getComputedStyle(document.documentElement).getPropertyValue('--c-graBacSec').trim())]: 'rgba(255, 255, 255, 0.3)',
+          [normalizeColor(getComputedStyle(document.documentElement).getPropertyValue('--c-broBacSec').trim())]: 'rgb(120, 90, 70)',
+          [normalizeColor(getComputedStyle(document.documentElement).getPropertyValue('--c-oraBacSec').trim())]: 'rgb(130, 85, 60)',
+          [normalizeColor(getComputedStyle(document.documentElement).getPropertyValue('--c-yelBacSec').trim())]: 'rgb(130, 100, 60)',
+          [normalizeColor(getComputedStyle(document.documentElement).getPropertyValue('--c-greBacSec').trim())]: 'rgb(80, 100, 85)',
+          [normalizeColor(getComputedStyle(document.documentElement).getPropertyValue('--c-bluBacSec').trim())]: 'rgb(80, 100, 130)',
+          [normalizeColor(getComputedStyle(document.documentElement).getPropertyValue('--c-purBacSec').trim())]: 'rgb(100, 80, 120)',
+          [normalizeColor(getComputedStyle(document.documentElement).getPropertyValue('--c-pinBacSec').trim())]: 'rgb(120, 75, 95)',
+          [normalizeColor(getComputedStyle(document.documentElement).getPropertyValue('--c-redBacSec').trim())]: 'rgb(130, 80, 75)',
         };
   
-        let newBorderColor = 'rgb(80, 80, 80)'; 
+        console.log(`Callout ${index + 1} - Background color: ${calloutBackground}, Border color: ${calloutBorderColor}`);
+        console.log(`Callout ${index + 1} - Background variables (normalized):`, Object.fromEntries(Object.entries(backgroundColorMap).map(([key, value]) => [key, value])));
+  
+        let newBorderColor = 'rgb(80, 80, 80)'; // Запасной цвет
         for (const [bgVar, color] of Object.entries(backgroundColorMap)) {
           if (calloutBackground === bgVar) {
             newBorderColor = color;
-            console.log(`Callout ${index + 1} - Matched background to [..]`);
+            console.log(`Callout ${index + 1} - Matched background to normalized var value`);
             break;
           }
         }

@@ -2,7 +2,7 @@
 
 import { parseLinkAttributes } from './parser';
 import { applyLinkStylesToText } from './styles/textStyle';
-import { processedBlocks, processedLinks } from './constants';
+import { processedLinks } from './constants';
 import { hideAnnotationBlock, createAnnotationTooltip } from './annotation/annotation';
 import { applyBlockStyles } from './styles/blockStyle';
 import { applyDividerStyles } from './styles/dividerStyle';
@@ -16,7 +16,7 @@ export const annotationContentType = "2";
 export const formattedBlockType = "3";
 export const dividerType = "4";
 
-export var isDarkTheme = false;
+export let isDarkTheme = false;
 
 export interface ParsedData {
   attributes: string[];
