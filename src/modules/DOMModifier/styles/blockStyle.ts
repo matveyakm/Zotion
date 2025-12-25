@@ -1,11 +1,15 @@
 // blockStyle.ts
 
+import { log } from '../../../utils/log';
+
 import { ParsedData } from '../scanner';
 import { processRGB } from './colorStyler';
 import { applyAlignmentStyles } from './alignmentStyle';
 
+const needToLog = false;
+
 export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
-  console.log(`Trying to apply block styles for link ${index + 1}`);
+  log(`Trying to apply block styles for link ${index + 1}`, needToLog);
 
   const attributes = parsedData.attributes;
   if (!attributes) return;
@@ -30,7 +34,7 @@ export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData
 }
 
 function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
-    console.log(`Applying styles (block) for link ${index + 1}`);
+    log(`Applying styles (block) for link ${index + 1}`, needToLog);
     if (attributes[1]) {
     const radius = parseInt(attributes[1], 16) * 2 + 10;
     if (!isNaN(radius)) {
@@ -70,7 +74,7 @@ function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[
 }
 
 function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
-    console.log(`Applying styles for link ${index + 1} with attributes:`, attributes);
+    if (needToLog) console.log(`Applying styles for link ${index + 1} with attributes:`, attributes);
 
     element.style.paddingTop = '3px';
     element.style.paddingBottom = '3px';
@@ -104,7 +108,7 @@ function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[],
 }
 
 function applyStylesToTable(link: HTMLAnchorElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
-  console.log(`Applying styles (table) for link ${index + 1} with attributes:`, attributes);
+  if (needToLog) console.log(`Applying styles (table) for link ${index + 1} with attributes:`, attributes);
 
   const targetCell = link.closest('td');
   if (targetCell instanceof HTMLElement) {
@@ -167,6 +171,6 @@ function applyStylesToTable(link: HTMLAnchorElement, attributes: (string | null)
     }`;
     document.head.appendChild(styleSheet);
   } else {
-    console.log(`Link ${index + 1} - Target cell (td) not found`);
+    log(`Link ${index + 1} - Target cell (td) not found`, needToLog);
   }
 }

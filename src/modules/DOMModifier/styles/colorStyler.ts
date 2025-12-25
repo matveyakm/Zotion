@@ -1,6 +1,10 @@
 // colorStyler.ts
 
+import { log } from "../../../utils/log";
+
 import { needToAdjustColors } from "../constants";
+
+const needToLog = false;
 
 function hexToRGBA(hex: string): RGBA | null {
     if (!([6,7].includes(hex.length))) return null;
@@ -25,7 +29,7 @@ export function processRGB(hex: string, background: "dark" | "light", method: "f
     }
 
     if (rgba.r != contrasted.r || rgba.g != contrasted.g || rgba.b != contrasted.b || rgba.a != contrasted.a){
-        console.log(`Adjusted color #${hex}(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a}) to rgba(${contrasted.r}, ${contrasted.g}, ${contrasted.b}, ${contrasted.a}) for ${background} background using ${method} method`);
+        log(`Adjusted color #${hex}(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a}) to rgba(${contrasted.r}, ${contrasted.g}, ${contrasted.b}, ${contrasted.a}) for ${background} background using ${method} method`, needToLog);
     }
     
     return `rgba(${contrasted.r}, ${contrasted.g}, ${contrasted.b}, ${contrasted.a})`;
@@ -172,6 +176,6 @@ export function evaluateBackground(hex: string, isDarkTheme: boolean): "light" |
     const lum = luminance(effectiveBg);
     
     // Порог 0.5: если яркость больше, фон светлый, иначе тёмный
-    console.log(`Evaluated background #${hex} as ${lum > 0.5 ? "light" : "dark"} (luminance: ${lum.toFixed(3)})`);
+    log(`Evaluated background #${hex} as ${lum > 0.5 ? "light" : "dark"} (luminance: ${lum.toFixed(3)})`, needToLog);
     return lum > 0.5 ? "light" : "dark";
 }

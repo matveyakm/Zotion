@@ -1,14 +1,18 @@
 // style.ts
 
+import { log } from '../../../utils/log';
+
 import { processedLinks } from '../constants';
 import { ParsedData, indexOfType, formattedTextType, annotationContentType, formattedBlockType} from '../scanner';
 import { processRGB, evaluateBackground } from './colorStyler';
 import { applyAlignmentStyles } from './alignmentStyle';
 
+const needToLog = false;
+
 export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   processedLinks.add(link);
   link.setAttribute('data-styled', 'true');
-  console.log(`Processing link ${index + 1}`);
+  log(`Processing link ${index + 1}`, needToLog);
 
   link.style.textDecoration = 'none';
   link.style.cursor = 'text';
@@ -27,7 +31,7 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
   const attributes = parsedData.attributes;
   if (!attributes) return;
 
-  console.log(`Applying styles for link ${index + 1} with attributes:`, attributes);
+  if (needToLog) console.log(`Applying styles for link ${index + 1} with attributes:`, attributes);
 
   const fontSizes = [
     '8px', '9px', '10px', '11px', '12px', '13px', '14px', '15px',
@@ -129,13 +133,13 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
     if (element) {
       const linkId = `link-${index}-${Date.now()}`;
       link.setAttribute('data-link-id', linkId);
-      console.log(`Link ${index + 1} - Text Alignment: Found notranslate element`);
+      log(`Link ${index + 1} - Text Alignment: Found notranslate element`, needToLog);
       applyAlignmentStyles(element, attributes[11], attributes[12], index, linkId);
     } else {
-      console.log(`Link ${index + 1} - Text Alignment: Notranslate element not found`);
+      log(`Link ${index + 1} - Text Alignment: Notranslate element not found`, needToLog);
     }
   }
 
-  console.log(`Processed styled link ${index + 1} with styles applied`);
+  log(`Processed styled link ${index + 1} with styles applied`, needToLog);
 }
 

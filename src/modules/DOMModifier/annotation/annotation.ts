@@ -1,8 +1,12 @@
 // annotation.ts
 
+import { log } from '../../../utils/log';
+
 import { hiddenBlocks } from '../constants';
 import { createTooltip } from '../styles/annotationStyle';
 import { ParsedData, indexOfTagID } from '../scanner';
+
+const needToLog = false;
 
 export function hideAnnotationBlock(link: HTMLAnchorElement, parsedData: ParsedData, index: number): void {
   if (!('attributes' in parsedData) || !parsedData.attributes) return;
@@ -20,7 +24,7 @@ export function hideAnnotationBlock(link: HTMLAnchorElement, parsedData: ParsedD
   
   // Запрет на повторное скрытие блока по одному и тому же blockId
   if (hiddenBlocks.has(blockId)) {
-    console.log(`Block with blockId=${blockId} is already hidden for link ${index + 1}`);
+    log(`Block with blockId=${blockId} is already hidden for link ${index + 1}`, needToLog);
     return;
   }
 
@@ -33,14 +37,14 @@ export function hideAnnotationBlock(link: HTMLAnchorElement, parsedData: ParsedD
   // Запрет на повторное скрытие одного и того же блока
   hiddenBlocks.forEach(element => {
     if (String(block) == hiddenBlocks.get(element)) {
-      console.log(`This block is already hidden for link ${index + 1}`);
+      log(`This block is already hidden for link ${index + 1}`, needToLog);
       return;
     }
   });
 
   hiddenBlocks.set(blockId, block.outerHTML);
   block.style.display = 'none';
-  console.log(`Hidden block with data-block-id=${block.getAttribute('data-block-id')} and saved with key=${blockId} for link ${index + 1}`);
+  log(`Hidden block with data-block-id=${block.getAttribute('data-block-id')} and saved with key=${blockId} for link ${index + 1}`, needToLog);
 }
 
 export function createAnnotationTooltip(
@@ -52,7 +56,7 @@ export function createAnnotationTooltip(
   if (!('attributes' in parsedData) || !parsedData.attributes) return;
 
   const blockId = parsedData.attributes[indexOfTagID];
-  console.log(`Checking annotation for link ${index + 1}, blockId=${blockId}, hiddenBlocks keys=${Array.from(hiddenBlocks.keys())}`);
+  log(`Checking annotation for link ${index + 1}, blockId=${blockId}, hiddenBlocks keys=${Array.from(hiddenBlocks.keys())}`, needToLog);
   if (blockId && hiddenBlocks.has(blockId)) {
     const parentBlock = link.closest('.notion-text-block') as HTMLElement | null;
     createTooltip(link, blockId, parentBlock, index, isDarkTheme);

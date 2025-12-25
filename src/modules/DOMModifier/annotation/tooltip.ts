@@ -1,22 +1,25 @@
 // tooltip.ts
+import { log } from '../../../utils/log';
+
+const needToLog = false;
 
 export function addTooltipListeners(link: HTMLAnchorElement, tooltip: HTMLDivElement, index: number): void {
     // Блокируем переход по ссылке через click
     link.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      console.log(`Click prevented for annotation link ${index + 1}`);
+      log(`Click prevented for annotation link ${index + 1}`, needToLog);
     }, { capture: true });
   
     // Блокируем Notion-тултип через mouseover
     link.addEventListener('mouseover', (e) => {
       e.stopPropagation();
-      console.log(`Mouseover prevented for link ${index + 1}`);
+      log(`Mouseover prevented for link ${index + 1}`, needToLog);
     }, { capture: true });
   
     // Позиционируем и показываем тултип через mouseenter
     link.addEventListener('mouseenter', (e) => {
-      console.log(`Mouseenter triggered for link ${index + 1}, event:`, e);
+      log(`Mouseenter triggered for link ${index + 1}`, needToLog);
   
       tooltip.style.display = 'block';
       tooltip.style.opacity = '0';
@@ -46,15 +49,15 @@ export function addTooltipListeners(link: HTMLAnchorElement, tooltip: HTMLDivEle
         tooltip.style.top = `${top}px`;
         tooltip.style.left = `${left}px`;
         tooltip.style.opacity = '1';
-        console.log(`Tooltip positioned at left=${left}, top=${top} for link ${index + 1}`);
+        log(`Tooltip positioned at left=${left}, top=${top} for link ${index + 1}`, needToLog);
       });
     }, { capture: true });
     
     // Скрываем тултип через mouseleave
     link.addEventListener('mouseleave', (e) => {
-      console.log(`Mouseleave triggered for link ${index + 1}, event:`, e);
+      log(`Mouseleave triggered for link ${index + 1}`, needToLog);
       tooltip.style.display = 'none';
       tooltip.style.opacity = '0';
-      console.log(`Tooltip hidden for link ${index + 1}`);
+      log(`Tooltip hidden for link ${index + 1}`, needToLog);
     }, { capture: true });
   }
