@@ -1,11 +1,11 @@
 # Zotion
 
-Zotion is a browser extension that modifies the interface of Notion-based websites.  
-It is primarily aimed at improving the efficiency of study and revision workflows for students.
+Расширение для браузеров на базе Chromuim, призванное улучшить качество взаимодействия с Notion и расширить функциональность.  
+Оно приоритетно нацелено на использование обучающимися для продвинутого ведения учебных заметок.
 
-This project is a **coursework project** developed within the Department of Modern Programming at the Faculty of Mathematics and Mechanics, Saint Petersburg State University (SPbU).
+Этот проект выполняется в качестве **учебной практики** на Математико-механическом факультете Санкт-Петербургского государственного университета.
 
-> 🚧 The extension is currently at an early stage of development.
+> 🚧 Расширение на раннем этапе разработки.
 
 ## 📌 Planned Functionality
 
