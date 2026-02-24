@@ -11,7 +11,7 @@ export default defineConfig({
         assetFileNames: '[name].[ext]',
         format: 'iife',
       },
-      inlineDynamicImports: true,
+      //inlineDynamicImports: true,
     },
     outDir: 'dist',
     emptyOutDir: true,

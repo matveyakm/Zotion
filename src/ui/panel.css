@@ -1,0 +1,51 @@
+#sv-panel {
+    position: fixed;
+    left: 0px; /* скрыта */
+    top: 0;
+    width: 280px;
+    height: 100vh;
+    background: #191919;
+    color: #d9d9d9;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 999999;
+    border-right: 1px solid #333;
+    transition: left 0.3s ease;
+    box-shadow: 4px 0 12px rgba(0,0,0,0.6);
+    overflow-y: auto;
+  }
+  
+  #sv-panel.visible {
+    left: 0;
+  }
+  
+  #sv-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  
+  #sv-bold-btn {
+    background: #333;
+    border: 1px solid #555;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  #sv-bold-btn.active {
+    background: #444;
+    border-color: #fff;
+  }
+  
+  #sv-bold-btn:hover {
+    background: #404040;
+  }

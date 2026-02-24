@@ -4,7 +4,7 @@ import { log } from "../../../utils/log";
 
 import { needToAdjustColors } from "../constants";
 
-const needToLog = false;
+const needToLog = true;
 
 function hexToRGBA(hex: string): RGBA | null {
     if (!([6,7].includes(hex.length))) return null;
