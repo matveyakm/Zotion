@@ -126,81 +126,137 @@ function createPanel() {
   panelElement = document.createElement('div');
   panelElement.id = 'sv-floating-panel';
   panelElement.innerHTML = `
-    <div style="font-size: 1.2rem; font-weight: 600; margin-bottom: 14px; text-align: center;">Форматирование</div>
+  <div style="font-size: 1.3rem; font-weight: 600; margin-bottom: 8px; text-align: center; color: #fff;">
+    Форматирование
+  </div>
 
-    <div style="display: flex; gap: 6px; margin-bottom: 14px; justify-content: center; flex-wrap: wrap;">
-      <button data-key="bold" data-pos="7" data-value="1" style="font-weight: bold; width: 36px; height: 36px; background: #333; border: 1px solid #555; border-radius: 6px; color: #fff; cursor: pointer;">B</button>
-      <button data-key="italic" data-pos="6" data-value="1" style="font-style: italic; width: 36px; height: 36px; background: #333; border: 1px solid #555; border-radius: 6px; color: #fff; cursor: pointer;">I</button>
-      <button data-key="underline" data-pos="4" data-value="1" style="text-decoration: underline; width: 36px; height: 36px; background: #333; border: 1px solid #555; border-radius: 6px; color: #fff; cursor: pointer;">U</button>
-      <button data-key="strikethrough" data-pos="4" data-value="3" style="text-decoration: line-through; width: 36px; height: 36px; background: #333; border: 1px solid #555; border-radius: 6px; color: #fff; cursor: pointer;">S</button>
-      <button data-key="code" data-pos="4" data-value="5" style="font-family: monospace; width: 36px; height: 36px; background: #333; border: 1px solid #555; border-radius: 6px; color: #fff; cursor: pointer;">T</button>
+
+  <div style=
+  "display: grid;
+  grid-template-columns: repeat(4, 40px);
+  gap: 8px;
+  padding: 15px;
+  padding-top: 0px;
+  padding-bottom: 4px;
+  border-radius: 8px;
+  width: max-content;
+  align-items: center;">
+    <!-- Строка 1 -->
+    <button style="font-weight: bold; height: 36px; background: none; border: none; color: #fff; cursor: pointer; font-size: 1.3rem;">B</button>
+    <button style="font-style: italic; height: 36px; background: none; border: none; color: #fff; cursor: pointer; font-size: 1.3rem;">I</button>
+    <div style="grid-column: 3 / span 3; padding: 4px 8px; background: linear-gradient(to right, #ffff00, #ffea00); color: #000; font-weight: bold; border-radius: 6px; font-size: 1.1rem; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+      Example
     </div>
+  
 
-    <div style="margin-bottom: 14px;">
-      <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Размер</label>
-      <select id="sv-size" style="width: 100%; padding: 7px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem;">
-        <option value="">По умолчанию</option>
-        <option value="0">Tiny (очень маленький)</option>
-        <option value="1">Extra Small</option>
-        <option value="2">Small</option>
-        <option value="3">Smaller</option>
-        <option value="4">Normal small</option>
-        <option value="5">Normal</option>
-        <option value="6">Normal large</option>
-        <option value="7">Large</option>
-        <option value="8">Extra Large</option>
-        <option value="9">Huge</option>
-        <option value="A">Extra Huge</option>
-        <option value="B">Very Huge</option>
-        <option value="C">Massive</option>
-        <option value="D">Enormous</option>
-        <option value="E">Gigantic</option>
-        <option value="F">Colossal</option>
-      </select>
-    </div>
+  <!-- Строка 2 -->
+    <button style="text-decoration: underline; height: 36px; background: none; border: none; color: #fff; cursor: pointer; font-size: 1.3rem;">U</button>
+    <button style="text-decoration: overline; height: 36px; background: none; border: none; color: #fff; cursor: pointer; font-size: 1.3rem;">O</button>
+    <button style="text-decoration: underline overline; height: 36px; background: none; border: none; color: #fff; cursor: pointer; font-size: 1.3rem;">T</button>
+    <button style="text-decoration: line-through; height: 36px; background: none; border: none; color: #fff; cursor: pointer; font-size: 1.3rem;">S</button>
+    <div style="height: 36px;"></div> 
 
-    <div style="margin-bottom: 14px;">
-      <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Цвет текста</label>
-      <input type="color" id="sv-text-color" value="#ffffff" style="width: 100%; height: 36px; border: none; border-radius: 6px; cursor: pointer;">
-    </div>
 
-    <div style="margin-bottom: 14px;">
-      <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Цвет фона</label>
-      <input type="color" id="sv-bg-color" value="#000000" style="width: 100%; height: 36px; border: none; border-radius: 6px; cursor: pointer;">
-    </div>
-
-    <div style="margin-bottom: 14px;">
-      <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Линия</label>
-      <select id="sv-line" style="width: 100%; padding: 7px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem;">
-        <option value="">Нет</option>
-        <option value="1">Подчёркивание</option>
-        <option value="2">Надчёркивание</option>
-        <option value="3">Зачёркивание</option>
-      </select>
-    </div>
-
-    <button id="sv-apply-btn" style="font-size: 1rem; padding: 10px; width: 100%; background: #4a90e2; color: white; border: none; border-radius: 8px; cursor: pointer; margin-top: 12px;">
-      Применить
+  <!-- Строка 3 -->
+  
+    <button style="height: 36px; background: none; border: none; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+      <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="6" y1="3" x2="18" y2="3" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="6" y1="8" x2="16" y2="8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="6" y1="13" x2="18" y2="13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="6" y1="18" x2="16" y2="18" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+    </svg>
     </button>
 
-    <div style="margin-top: 10px; font-size: 0.75rem; opacity: 0.8; text-align: center;">
-      Применит стили к выделенному тексту
+    <button style="height: 36px; background: none; border: none; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+      <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="5" y1="3" x2="19" y2="3" stroke="#fff" stroke-width="2"/>
+        <line x1="7" y1="8" x2="17" y2="8" stroke="#fff" stroke-width="2"/>
+        <line x1="5" y1="13" x2="19" y2="13" stroke="#fff" stroke-width="2"/>
+        <line x1="7" y1="18" x2="17" y2="18" stroke="#fff" stroke-width="2"/>
+      </svg>
+    </button>
+
+    <button style="height: 36px; background: none; border: none; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+      <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="6" y1="3" x2="18" y2="3" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="8" y1="8" x2="18" y2="8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="6" y1="13" x2="18" y2="13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="8" y1="18" x2="18" y2="18" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    </button>
+
+    <select style="height: 36px; padding: 0 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; width: 60px;">
+      <option>8</option>
+      <option>9</option>
+      <option>10</option>
+      <option>11</option>
+      <option>12</option>
+      <option>13</option>
+      <option>14</option>
+      <option>15</option>
+      <option>16</option>
+      <option>17</option>
+      <option>18</option>
+      <option>20</option>
+      <option>24</option>
+      <option>28</option>
+      <option>32</option>
+      <option>40</option>
+      <option>48</option>
+    </select>
+  </div>
+
+
+  <!-- Вкладки -->
+  <div style="display: flex; margin-bottom: 12px; justify-content: center; gap: 10px;">
+    <button class="sv-tab active" style="background: none; border: none; color: #fff; font-size: 1rem; padding: 6px 12px; cursor: pointer; border-bottom: 2px solid #fff;">Текст</button>
+    <button class="sv-tab" style="background: none; border: none; color: #888; font-size: 1rem; padding: 6px 12px; cursor: pointer;">Фон</button>
+    <button class="sv-tab" style="background: none; border: none; color: #888; font-size: 1rem; padding: 6px 12px; cursor: pointer;">Линия</button>
+  </div>
+
+
+  <!-- Color picker -->
+  <div style="position: relative; width: 80%; height: 120px; padding-right: 30px; background: linear-gradient(to right, #ffff00, #ff0000, #00ff00, #0000ff, #ff00ff, #ffff00); border-radius: 8px; overflow: hidden; margin-bottom: 8px;">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, #000);"></div>
+    <div style="position: absolute; width: 14px; height: 14px; background: #fff; border: 3px solid #000; border-radius: 50%; top: 45%; left: 55%; transform: translate(-50%, -50%); cursor: pointer;"></div>
+  </div>
+
+  <!-- Полоска справа -->
+  <div style="position: absolute; right: 16px; top: 220px; width: 24px; height: 120px; background: linear-gradient(to bottom, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff); border-radius: 4px;"></div>
+
+
+  <!-- Пресеты -->
+  <div style="display: flex; gap: 8px; justify-content: center; margin-bottom: 8px;">
+    <! -- ВОТ СЮДА СЛАЙДЕР -->
+    <div style="width: 22px; height: 22px; background: #00bfff; border-radius: 50%; border: 2px solid #444; cursor: pointer;"></div>
+    <div style="width: 22px; height: 22px; background: #90ee90; border-radius: 50%; border: 2px solid #444; cursor: pointer;"></div>
+    <div style="width: 22px; height: 22px; background: #ffffff; border-radius: 50%; border: 2px solid #444; cursor: pointer;"></div>
+    <!-- HEX -->
+    <div style="text-align: center; font-size: 0.9rem; color: #aaa; margin-bottom: 8px;">ADAE47</div>
     </div>
-  `;
+
+  <!-- Ссылка -->
+  <input type="text" placeholder="Ссылка..." style="width: 100%; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; margin-bottom: 8px;">
+
+  <!-- Дополнительно -->
+  <div style="font-size: 0.9rem; color: #888; cursor: pointer;">▸ Дополнительно</div>
+
+`;
 
   panelElement.style.cssText = `
     position: fixed !important;
     left: 20px !important;
-    top: calc(50vh - 200px) !important;
-    width: 280px !important;
-    background: #1e1e1e !important;
+    top: calc(50vh - 240px) !important;
+    width: 250px !important;
+    background: #191919 !important;
     color: #d9d9d9 !important;
-    padding: 20px !important;
-    border-radius: 16px !important;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.7) !important;
+    padding: 16px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.8) !important;
     z-index: 2147483647 !important;
     font-family: system-ui, -apple-system, sans-serif !important;
-    transform: scale(0.85) !important;
+    transform: scale(0.9) !important;
     transform-origin: top left !important;
     display: none;
     pointer-events: auto !important;
