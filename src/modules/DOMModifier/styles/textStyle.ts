@@ -124,8 +124,10 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
   }
 
   if (attributes[10]) {
-    const ws = parseInt(attributes[10], 16);
-    link.style.whiteSpace = spaces[ws] || 'normal';
+    const spacing = parseInt(attributes[10], 16);
+    if (!isNaN(spacing)) {
+      link.style.lineHeight = fontSizes[spacing] || 'normal';
+    }
   }
 
   if (attributes[11] || attributes[12]) {

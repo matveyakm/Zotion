@@ -57,7 +57,7 @@ Note:  a = A, b = B, c = C, d = D, e = E, f = F
 [9]: 
     if type in {0,1,2} then wordSpacing: n -- (n - 5)px, empty -- defaul
 [10]: 
-    if type in {0,1,2} then whiteSpace: 0 -- normal, 1 -- nowrap, 2 -- pre, 3+ -- default, empty -- defalt
+    if type in {0,1,2} then lineHeight: 0 -- tiny ... 8 -- normal ... F -- huge, empty -- default
 [11]: 
     if type in {0,1,2,3} then textAlign: 0 -- ltr, 1 -- middle, 2 -- rtl, 3+ -- default, empty -- default
 [12]: 
@@ -112,6 +112,7 @@ When clicking on the overlay, it is completely removed.
 
 Example4Text_1: www.link.net/#0.8.aaffff.440000.1.ffaaff.0.1.6.9.0.0.0#
 Example4Text_2: www.google.com/#0.a.ddaadd..4........#
+Example4Text_2: www.google.com/#0.a.ddaadd..4....8.9.10..#
 Example4Text_3: youtube.com/#0..ffaaaa..3..1.2...2..3# 
 Example4Text_4: info.cern.ch/#0.a.aaddaa..0..2..f.f.1.1.2#
 
