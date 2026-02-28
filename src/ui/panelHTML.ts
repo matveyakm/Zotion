@@ -5,24 +5,24 @@ export const panelHTML = `
 
 <div id="zot-top-grid">
   <!-- Строка 1 -->
-  <button id="zot-bold-btn" class="zot-top-button" data-value="1" data-key="fontWeight" style="font-weight: bold">B</button>
-  <button id="zot-italic-btn" class="zot-top-button" data-value="1" data-key="fontStyle" style="font-style: italic">I</button>
+  <button id="zot-bold-btn" class="zot-top-button" data-value="1" data-key="fontWeight" title="Жирный" style="font-weight: bold">B</button>
+  <button id="zot-italic-btn" class="zot-top-button" data-value="1" data-key="fontStyle" title="Курсив" style="font-style: italic">I</button>
   <div id="zot-font-example" style="grid-column: 3 / span 3; padding: 4px 8px; background: #191919; color: rgb(240, 239, 237); border-radius: 6px; border: 1px solid #888888; font-size: 16px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
     Example
   </div>
 
 
 <!-- Строка 2 -->
-  <button id="zot-underline-btn" class="zot-top-button zot-decoration-btn" data-value="1" data-key="decoration" style="text-decoration: underline">U</button>
-  <button id="zot-overline-btn" class="zot-top-button zot-decoration-btn" data-value="2" data-key="decoration" style="text-decoration: overline">O</button>
-  <button id="zot-overunderline-btn" class="zot-top-button zot-decoration-btn" data-value="4" data-key="decoration" style="text-decoration: underline overline">T</button>
-  <button id="zot-through-btn" class="zot-top-button zot-decoration-btn" data-value="3" data-key="decoration" style="text-decoration: line-through">S</button>
+  <button id="zot-underline-btn" class="zot-top-button zot-decoration-btn" data-value="1" data-key="decoration" title="Подчёркнуто" style="text-decoration: underline">U</button>
+  <button id="zot-overline-btn" class="zot-top-button zot-decoration-btn" data-value="2" data-key="decoration" title="Надчёркнуто" style="text-decoration: overline">O</button>
+  <button id="zot-overunderline-btn" class="zot-top-button zot-decoration-btn" data-value="4" data-key="decoration" title="Подчёркнуто&Надчёркнуто" style="text-decoration: underline overline">T</button>
+  <button id="zot-through-btn" class="zot-top-button zot-decoration-btn" data-value="3" data-key="decoration" title="Зачёркнуто" style="text-decoration: line-through">S</button>
   <div style="height: 36px;"></div> 
 
 
 <!-- Строка 3 -->
 
-  <button id="zot-left-align-btn" class="zot-top-button zot-alignment-button" data-value="0" data-key="textAlign">
+  <button id="zot-left-align-btn" class="zot-top-button zot-alignment-button" data-value="0" data-key="textAlign" title="К левому краю">
     <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="6" y1="3" x2="18" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       <line x1="6" y1="8" x2="16" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -31,7 +31,7 @@ export const panelHTML = `
   </svg>
   </button>
 
-  <button id="zot-middle-align-btn" class="zot-top-button zot-alignment-button" data-value="1" data-key="textAlign">
+  <button id="zot-middle-align-btn" class="zot-top-button zot-alignment-button" data-value="1" data-key="textAlign" title="По центру">
     <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="5" y1="3" x2="19" y2="3" stroke="currentColor" stroke-width="2"/>
       <line x1="7" y1="8" x2="17" y2="8" stroke="currentColor" stroke-width="2"/>
@@ -40,7 +40,7 @@ export const panelHTML = `
     </svg>
   </button>
 
-  <button id="zot-right-align-btn" class="zot-top-button zot-alignment-button" data-value="2" data-key="textAlign">
+  <button id="zot-right-align-btn" class="zot-top-button zot-alignment-button" data-value="2" data-key="textAlign" title="К правому краю">
     <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="6" y1="3" x2="18" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       <line x1="8" y1="8" x2="18" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -97,8 +97,8 @@ export const panelHTML = `
   <div class="zot-preset-color-btn" id="zot-last-used-preset-color-btn" style="background: #ffffff"></div>
 
   <input type="text" placeholder="RRGGBB" id="zot-hex-input" style="">
-  <button id="zot-reset-color-btn">Сброс</button>
-  <buuton id="zot-apply-color-btn">↑</buuton>
+  <button id="zot-reset-color-btn" title="Сброс">Сброс</button>
+  <buuton id="zot-apply-color-btn" title="Применить цвет">↑</buuton>
   </div>
 
 <!-- Ссылка -->

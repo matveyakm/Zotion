@@ -1,4 +1,5 @@
 export const panelCSS = `
+
 .zot-heading {
   font-size: 1.3rem; 
   font-weight: 600; 
@@ -186,7 +187,7 @@ export const panelCSS = `
     cursor: crosshair; /* Курсор-прицел */
     
     /* БАЗОВЫЙ ЦВЕТ */
-    --current-hue-color: #ffff00; 
+    --current-hue-color: #ff0000; 
     background-color: var(--current-hue-color);
 }
 
@@ -251,6 +252,11 @@ export const panelCSS = `
     0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
+#zot-reset-color-btn:active {
+  background: rgba(85, 85, 85, 0.9);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
 #zot-apply-color-btn {
   width: 24px; 
   height: 24px; 
@@ -268,8 +274,15 @@ export const panelCSS = `
   background: var(--current-color);
 }
 
-#zot-reset-color-btn:active {
-  background: rgba(85, 85, 85, 0.9);
+#zot-apply-color-btn:hover {
+  background: var(--current-color);
+  box-shadow: 
+    0 0 6px rgba(255, 255, 170, 0.7),
+    0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+#zot-apply-color-btn:active {
+  background: var(--current-color);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
