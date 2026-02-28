@@ -1,8 +1,8 @@
 // colorStyler.ts
 
-import { log } from "../../../utils/log";
+import { log } from "./log";
 
-import { needToAdjustColors } from "../constants";
+import { needToAdjustColors } from "../modules/DOMModifier/constants";
 
 const needToLog = true;
 
@@ -178,4 +178,19 @@ export function evaluateBackground(hex: string, isDarkTheme: boolean): "light" |
     // Порог 0.5: если яркость больше, фон светлый, иначе тёмный
     log(`Evaluated background #${hex} as ${lum > 0.5 ? "light" : "dark"} (luminance: ${lum.toFixed(3)})`, needToLog);
     return lum > 0.5 ? "light" : "dark";
+}
+
+export function hsvToRgb(h: number, s: number, v: number): { r: number, g: number, b: number } {
+  const f = (n: number, k = (n + h / 60) % 6) => 
+    v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
+
+  return {
+    r: Math.round(f(5) * 255),
+    g: Math.round(f(3) * 255),
+    b: Math.round(f(1) * 255)
+  };
+}
+
+export function rgbToHex(r: number, g: number, b: number): string {
+  return [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase();
 }

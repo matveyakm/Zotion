@@ -54,7 +54,7 @@ export const panelCSS = `
 .zot-preset-color-btn {
   width: 22px; 
   height: 22px;
-  border-radius: 50%; 
+  border-radius: 30%; 
   border: 2px solid #444; 
   cursor: pointer;
 }
@@ -132,6 +132,157 @@ export const panelCSS = `
     0 1px 3px rgba(0, 0, 0, 0.5);
   transition: all 0.15s ease;
   outline: none;
+}
+
+#zot-hue-slider {
+  position: absolute;
+  right: 16px; 
+  top: 220px; 
+  width: 24px; 
+  height: 120px; 
+  background: linear-gradient(to bottom, 
+    #ff0000 0%, 
+    #ffff00 17%, 
+    #00ff00 33%, 
+    #00ffff 50%, 
+    #0000ff 67%, 
+    #ff00ff 83%, 
+    #ff0000 100%
+  );
+  border-radius: 4px;
+  overflow: visible !important;
+  cursor: crosshair;
+}
+
+#zot-hue-marker {
+  position: absolute; 
+  left: -2px; /* Увеличил вылет, чтобы точно было видно */
+  right: -2px; 
+  top: 0%; 
+  height: 3px; 
+  background: #fff; 
+  border: 1px solid rgba(0,0,0,0.6); 
+  border-radius: 3px; 
+  pointer-events: none;
+  transform: translateY(-50%);
+  z-index: 100; /* Выводим на передний план */
+  box-shadow: 0 0 4px rgba(0,0,0,0.8); /* Добавляем тень для объема */
+}
+
+.zot-picker-container {
+    text-align: center;
+}
+
+/* Основной квадрат пикера */
+.zot-color-picker-box {
+    position: relative;
+    width: 80%; 
+    height: 120px;
+    padding-right: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 2px solid #333;
+    cursor: crosshair; /* Курсор-прицел */
+    
+    /* БАЗОВЫЙ ЦВЕТ */
+    --current-hue-color: #ffff00; 
+    background-color: var(--current-hue-color);
+}
+
+/* НАСЫЩЕННОСТЬ (Горизонтальный) */
+/* Слева: чистый белый */
+/* Справа: прозрачный */
+.zot-color-picker-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0));
+    z-index: 1;
+}
+
+/* ЯРКОСТЬ (Вертикальный) */
+/* Снизу: чистый черный */
+/* Сверху: прозрачный */
+.zot-color-picker-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #000000, rgba(0, 0, 0, 0));
+    z-index: 2;
+}
+
+/* Маркер */
+.zot-picker-cursor {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 4px rgba(0,0,0,0.8);
+    background: transparent;
+    
+    top: 0%; 
+    left: 100%;
+    transform: translate(-50%, -50%);
+    
+    z-index: 10; 
+    pointer-events: none;
+}
+
+#zot-reset-color-btn {
+  width: 60px; 
+  height: 24px; 
+  border-radius: 5px; 
+  border: 1px solid #666; 
+  background: rgba(85, 85, 85, 0.7);
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer; 
+  padding: 0;
+  font-size: 14px; 
+}
+
+#zot-reset-color-btn:hover {
+  background: rgba(85, 85, 85, 0.9);
+  box-shadow: 
+    0 0 6px rgba(255, 255, 255, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+#zot-apply-color-btn {
+  width: 24px; 
+  height: 24px; 
+  border-radius: 5px; 
+  border: 1px solid #666; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer; 
+  padding: 0;
+  font-size: 14px;
+  color: #fff;
+
+  -current-color: #ffffaa;
+  background: var(--current-color);
+}
+
+#zot-reset-color-btn:active {
+  background: rgba(85, 85, 85, 0.9);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+#zot-hex-input {
+  width: 60px; 
+  height: 24px; 
+  padding: 1px 8px; 
+  background: rgba(85, 85, 85, 0.2); 
+  color: #fff; 
+  border: 1px solid #666; 
+  border-radius: 5px; 
+  font-size: 12px; 
+  margin-bottom: 8px;
 }
 `;
 

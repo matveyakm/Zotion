@@ -5,24 +5,24 @@ export const panelHTML = `
 
 <div id="zot-top-grid">
   <!-- Строка 1 -->
-  <button id="zot-bold-btn" class="zot-top-button" style="font-weight: bold">B</button>
-  <button id="zot-italic-btn" class="zot-top-button" style="font-style: italic">I</button>
-  <div style="grid-column: 3 / span 3; padding: 4px 8px; background: linear-gradient(to right, #ffff00, #ffea00); color: #000; font-weight: bold; border-radius: 6px; font-size: 1.1rem; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+  <button id="zot-bold-btn" class="zot-top-button" data-value="1" data-key="fontWeight" style="font-weight: bold">B</button>
+  <button id="zot-italic-btn" class="zot-top-button" data-value="1" data-key="fontStyle" style="font-style: italic">I</button>
+  <div id="zot-font-example" style="grid-column: 3 / span 3; padding: 4px 8px; background: #191919; color: rgb(240, 239, 237); border-radius: 6px; border: 1px solid #888888; font-size: 16px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
     Example
   </div>
 
 
 <!-- Строка 2 -->
-  <button id="zot-underline-btn" class="zot-top-button zot-decoration-btn" style="text-decoration: underline">U</button>
-  <button id="zot-overline-btn" class="zot-top-button zot-decoration-btn" style="text-decoration: overline">O</button>
-  <button id="zot-overunderline-btn" class="zot-top-button zot-decoration-btn" style="text-decoration: underline overline">T</button>
-  <button id="zot-through-btn" class="zot-top-button zot-decoration-btn" style="text-decoration: line-through">S</button>
+  <button id="zot-underline-btn" class="zot-top-button zot-decoration-btn" data-value="1" data-key="decoration" style="text-decoration: underline">U</button>
+  <button id="zot-overline-btn" class="zot-top-button zot-decoration-btn" data-value="2" data-key="decoration" style="text-decoration: overline">O</button>
+  <button id="zot-overunderline-btn" class="zot-top-button zot-decoration-btn" data-value="4" data-key="decoration" style="text-decoration: underline overline">T</button>
+  <button id="zot-through-btn" class="zot-top-button zot-decoration-btn" data-value="3" data-key="decoration" style="text-decoration: line-through">S</button>
   <div style="height: 36px;"></div> 
 
 
 <!-- Строка 3 -->
 
-  <button id="zot-left-align-btn" class="zot-top-button zot-alignment-button">
+  <button id="zot-left-align-btn" class="zot-top-button zot-alignment-button" data-value="0" data-key="textAlign">
     <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="6" y1="3" x2="18" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       <line x1="6" y1="8" x2="16" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -31,7 +31,7 @@ export const panelHTML = `
   </svg>
   </button>
 
-  <button id="zot-middle-align-btn" class="zot-top-button zot-alignment-button">
+  <button id="zot-middle-align-btn" class="zot-top-button zot-alignment-button" data-value="1" data-key="textAlign">
     <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="5" y1="3" x2="19" y2="3" stroke="currentColor" stroke-width="2"/>
       <line x1="7" y1="8" x2="17" y2="8" stroke="currentColor" stroke-width="2"/>
@@ -40,7 +40,7 @@ export const panelHTML = `
     </svg>
   </button>
 
-  <button id="zot-right-align-btn" class="zot-top-button zot-alignment-button">
+  <button id="zot-right-align-btn" class="zot-top-button zot-alignment-button" data-value="2" data-key="textAlign">
     <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="6" y1="3" x2="18" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       <line x1="8" y1="8" x2="18" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -49,7 +49,7 @@ export const panelHTML = `
   </svg>
   </button>
 
-  <select style="height: 36px; padding: 0 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; width: 60px;">
+  <select id="zot-font-size-select" style="height: 36px; padding: 0 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; width: 60px;">
     <option>8</option>
     <option>9</option>
     <option>10</option>
@@ -73,33 +73,36 @@ export const panelHTML = `
 
 <!-- Вкладки -->
 <div style="display: flex; margin-bottom: 12px; justify-content: center; gap: 10px;">
-  <button class="zot-tab zot-tab-active" style="">Текст</button>
-  <button class="zot-tab">Фон</button>
-  <button class="zot-tab">Линия</button>
+  <button class="zot-tab zot-tab-active" data-key="Text" style="">Текст</button>
+  <button class="zot-tab" data-key="Background">Фон</button>
+  <button class="zot-tab" data-key="Decoration">Линия</button>
 </div>
 
-
-<!-- Color picker -->
-<div style="position: relative; width: 80%; height: 120px; padding-right: 30px; background: linear-gradient(to right, #ffff00, #ff0000, #00ff00, #0000ff, #ff00ff, #ffff00); border-radius: 8px; overflow: hidden; margin-bottom: 8px;">
-  <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, #000);"></div>
-  <div style="position: absolute; width: 14px; height: 14px; background: #fff; border: 3px solid #000; border-radius: 50%; top: 45%; left: 55%; transform: translate(-50%, -50%); cursor: pointer;"></div>
+<div class="zot-picker-container"> 
+    <div class="zot-color-picker-box" id="zot-picker-box">
+        <div class="zot-picker-cursor" id="zot-picker-cursor"></div>
+    </div>
 </div>
 
 <!-- Полоска справа -->
-<div style="position: absolute; right: 16px; top: 220px; width: 24px; height: 120px; background: linear-gradient(to bottom, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff); border-radius: 4px;"></div>
+<div id="zot-hue-slider" style="">
+  <div id="zot-hue-marker"></div>
+</div>
 
 <!-- Пресеты -->
-<div style="display: flex; gap: 8px; justify-content: center; margin-bottom: 8px;">
- <input type="range" min="0" max="16" value="0" class="zot-slider" id="zot-opacity-slider">
+<div style="display: flex; gap: 8px; justify-content: center; margin-bottom: 8px; padding-top: 8px">
+  <!input type="range" min="0" max="16" value="0" class="zot-slider" id="zot-opacity-slider">
+  
   <div class="zot-preset-color-btn" style="background: #00bfff"></div>
-  <div class="zot-preset-color-btn" style="background: #90ee90"></div>
-  <div class="zot-preset-color-btn" style="background: #ffffff"></div>
-  <!-- HEX -->
-  <div style="text-align: center; font-size: 0.9rem; color: #aaa; margin-bottom: 8px;">ADAE47</div>
+  <div class="zot-preset-color-btn" id="zot-last-used-preset-color-btn" style="background: #ffffff"></div>
+
+  <input type="text" placeholder="RRGGBB" id="zot-hex-input" style="">
+  <button id="zot-reset-color-btn">Сброс</button>
+  <buuton id="zot-apply-color-btn">↑</buuton>
   </div>
 
 <!-- Ссылка -->
-<input type="text" placeholder="Ссылка..." id="external_hyperlink" style="width: 100%; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; margin-bottom: 8px;">
+<input type="text" placeholder="Ссылка..." id="zot-external_hyperlink" style="width: 100%; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; margin-bottom: 8px;">
 
 <!-- Кнопка применить -->
 <button id="zot-apply-btn">

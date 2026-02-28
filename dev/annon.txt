@@ -112,7 +112,7 @@ When clicking on the overlay, it is completely removed.
 
 Example4Text_1: www.link.net/#0.8.aaffff.440000.1.ffaaff.0.1.6.9.0.0.0#
 Example4Text_2: www.google.com/#0.a.ddaadd..4........#
-Example4Text_2: www.google.com/#0.a.ddaadd..4....8.9.10..#
+Example4Text_2: www.google.com/#0.a.ddaadd..4........#
 Example4Text_3: youtube.com/#0..ffaaaa..3..1.2...2..3# 
 Example4Text_4: info.cern.ch/#0.a.aaddaa..0..2..f.f.1.1.2#
 

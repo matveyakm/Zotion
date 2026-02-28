@@ -3,7 +3,7 @@
 import { log } from '../../../utils/log';
 
 import { ParsedData } from '../scanner';
-import { processRGB } from './colorStyler';
+import { processRGB } from '../../../utils/colorStyler';
 
 const needToLog = false;
 

@@ -4,7 +4,7 @@ import { log } from '../../../utils/log';
 
 import { processedLinks } from '../constants';
 import { ParsedData, indexOfType, formattedTextType, annotationContentType, formattedBlockType} from '../scanner';
-import { processRGB, evaluateBackground } from './colorStyler';
+import { processRGB, evaluateBackground } from '../../../utils/colorStyler';
 import { applyAlignmentStyles } from './alignmentStyle';
 
 const needToLog = false;
