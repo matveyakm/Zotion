@@ -12,7 +12,7 @@ export function setupMoreButtonListener(panelElement: HTMLElement, example: HTML
         const isHidden = content.style.display === 'none' || content.style.display === '';
         
         content.style.display = isHidden ? 'flex' : 'none';
-        toggleBtn.textContent = isHidden ? '▾ Дополнительно' : '▸ Дополнительно';
+        toggleBtn.textContent = isHidden ? '▾  Дополнительно' : '▸  Дополнительно';
     });
     }
 

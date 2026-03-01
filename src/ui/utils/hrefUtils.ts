@@ -1,10 +1,13 @@
-import { TextAttributes } from "../textPanel/textPanel";
+import { annotationIDs } from "../../modules/DOMModifier/constants";
+import { textAttributes, TextAttributes } from "../textPanel/textPanel";
 
 const needToLog = false;
 
 export const hrefLinkPrefix = "https://example.com/";
 
-export function applyHrefToSelection(href: string) {
+let lastUsedID: number | null = null;
+
+export function applyHrefToSelection(href: string, isItABlock: boolean = false) {
     const selection = window.getSelection();
     if (!selection || selection.isCollapsed) {
       if (needToLog) console.log('Panel: Нет выделенного текста');
@@ -125,9 +128,8 @@ export function applyHrefToSelection(href: string) {
 }
 
 export function generateHref(hrefLinkPrefix : string, textAttributes: TextAttributes) : string {
-    const objectType = 0; // text
     let href = hrefLinkPrefix + "#" + [ 
-        objectType, // 0
+        `${textAttributes.type.toString(16)}`, // 0
         textAttributes.size ? `${textAttributes.size.toString(16)}` : '', // 1
         textAttributes.textColor ? `${textAttributes.textColor}` : '', // 2
         textAttributes.backgroundColor ? `${textAttributes.backgroundColor}` : '', // 3
@@ -140,7 +142,22 @@ export function generateHref(hrefLinkPrefix : string, textAttributes: TextAttrib
         textAttributes.lineHeight ? `${textAttributes.lineHeight.toString(16)}` : '', // 10
         textAttributes.textAlign ? `${textAttributes.textAlign}` : '', // 11
         textAttributes.verticalAlign ? `${textAttributes.verticalAlign}` : '', // 12
+        [1, 2].includes(textAttributes.type) ? `${generateAnnotationID()}` : '' // 13 - только для аннотаций
     ].join('.') + "#";
     if (needToLog) console.log('Generated href:', href);
     return href;
+}
+
+function generateAnnotationID() {
+  if (textAttributes.type === 2) {
+    if (lastUsedID) {
+      const newID = lastUsedID;
+      lastUsedID = null;
+      return `${newID}`;
+    }
+  } else {
+    const idsAsInts = Array.from(annotationIDs).map(id => parseInt(id, 16));
+    lastUsedID = idsAsInts.length > 0 ? Math.max(...idsAsInts) + 1 : 1;
+    return `${lastUsedID}`;
+  }
 }

@@ -2,7 +2,7 @@
 
 import { log } from '../../../utils/log';
 
-import { hiddenBlocks } from '../constants';
+import { hiddenBlocks, annotationIDs } from '../constants';
 import { createTooltip } from '../styles/annotationStyle';
 import { ParsedData, indexOfTagID } from '../scanner';
 
@@ -56,6 +56,11 @@ export function createAnnotationTooltip(
   if (!('attributes' in parsedData) || !parsedData.attributes) return;
 
   const blockId = parsedData.attributes[indexOfTagID];
+
+  if (blockId) {
+    annotationIDs.add(blockId);
+  }
+
   log(`Checking annotation for link ${index + 1}, blockId=${blockId}, hiddenBlocks keys=${Array.from(hiddenBlocks.keys())}`, needToLog);
   if (blockId && hiddenBlocks.has(blockId)) {
     const parentBlock = link.closest('.notion-text-block') as HTMLElement | null;

@@ -82,7 +82,7 @@ export function setupTopButtonListener(panelElement: HTMLElement, example: HTMLE
             if (needToLog) console.log('Updated example textAlign', example.style.textAlign);
           }
     
-          textAttributes[key as keyof typeof textAttributes] = isActive ? value : null;
+          (textAttributes as any)[key] = isActive ? value : null;
           if (needToLog) console.log('Обновлено textAttributes:', textAttributes);
         }
       });

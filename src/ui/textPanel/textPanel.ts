@@ -6,11 +6,13 @@ import { setupSizeSelectionListener } from './listeners/sizeSelect';
 import { setupColorPickerListener } from './listeners/colorPicker';
 import { setupMoreButtonListener } from './listeners/moreButton';
 import { setupApplyButtonListener, switchApplyButtonState } from './listeners/applyButton';
+import { setupAnnotationToggleListener } from './listeners/annotationSelect';
 
 let panelElement: HTMLElement | null = null;
 let uiInjected = false;
 
 export interface TextAttributes {
+  type: number;
   size: number | null;
   textColor: string | null;
   backgroundColor: string | null;
@@ -27,6 +29,7 @@ export interface TextAttributes {
 }
 
 export let textAttributes: TextAttributes = {
+  type: 0,
   size: null,
   textColor: null,
   backgroundColor: null,
@@ -75,6 +78,9 @@ function createPanel() {
   
   // Листнер apply-btn
   setupApplyButtonListener(panelElement, example);
+
+  // Логика для аннотаций
+  setupAnnotationToggleListener(panelElement);
 
   return panelElement;
 }

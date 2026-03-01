@@ -3,6 +3,9 @@
 // Множество ссылок, которые уже были обработаны
 export let processedLinks = new WeakSet<Element>();
 
+// Множество идентификаторов аннотаций
+export let annotationIDs = new Set<string>();
+
 // Map для хранения скрытых блоков (контента аннотаций) с их идентификаторами
 export let hiddenBlocks = new Map<string, string>();
 

@@ -91,7 +91,7 @@ export const panelHTML = `
 </div>
 
 <!-- Пресеты -->
-<div style="display: flex; gap: 8px; justify-content: center; margin-bottom: 8px; padding-top: 8px">
+<div style="display: flex; gap: 8px; justify-content: center; padding-top: 8px">
   <!input type="range" min="0" max="16" value="0" class="zot-slider" id="zot-opacity-slider">
   
   <div class="zot-preset-color-btn" style="background: #00bfff"></div>
@@ -103,7 +103,32 @@ export const panelHTML = `
   </div>
 
 <!-- Ссылка -->
-<input type="text" placeholder="Ссылка..." id="zot-external_hyperlink" style="width: 100%; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; margin-bottom: 8px;">
+<!input type="text" placeholder="Ссылка..." id="zot-external_hyperlink" style="width: 100%; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; margin-bottom: 8px;">
+
+<div style="display: flex; flex-direction: column; gap: 2px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-left: -9px">
+    <button id="zot-toggle-annotation" style="background: none; border: none; cursor: pointer; color: #fff; padding: 4px; display: flex; align-items: center;">
+      <svg id="zot-icon-plus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      <svg id="zot-icon-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      <span style="font-size: 15px; color: #ddd; margin-left: 2px">Добавить аннотацию</span>
+    </button>
+   
+  </div>
+
+  <div id="zot-annotation-content" style="display: none; justify-content: center; padding: 4px 0;">
+    <button id="zot-annotation-link-btn" data-value="do" style="display: block; width: 80%; padding: 8px; background: #333; color: #eee; border: 1px solid #555; border-radius: 6px; cursor: pointer; transition: background 0.2s;">
+      Сделать ссылкой на аннотацию
+    </button>
+    <div id="zot-annotation-content-text" style="display: none; flex-direction: column; gap: 0px;">
+      <span  style="font-size: 12px; color: #888; text-align: center ">Ссылка успешно добавлена. Теперь вы форматируете содержимое</span>
+      <button id="zot-annotation-cancel-btn" style=" background: none; border: none; margin-top: -5px">
+        <span  style="font-size: 12px; color: #666; text-align: center; text-decoration: underline; text-decoration-color: rgba(102,102,102,0.6) ">Отменить</span>
+      </button>
+    </div>
+  </div>
+
+  
+</div>
 
 <!-- Кнопка применить -->
 <button id="zot-apply-btn" class="zot-apply-btn-cl zot-apply-btn-cl-inactive">
@@ -112,7 +137,7 @@ export const panelHTML = `
   </svg>
 </button>
 
-<div id="zot-advanced-toggle" style="font-size: 0.9rem; color: #888; cursor: pointer; user-select: none; padding: 4px 0;">▸ Дополнительно</div>
+<div id="zot-advanced-toggle" style="font-size: 0.9rem; color: #888; cursor: pointer; user-select: none; padding: 4px 0;">▸  Дополнительно</div>
 
 <div id="zot-advanced-content" style="display: none; flex-direction: column; gap: 10px; padding-top: 10px;">
   
