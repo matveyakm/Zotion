@@ -91,8 +91,9 @@ export function hideTextPanel() {
   }
 }
 
-function monitorSelection() {
+function monitorSelection() { // Конфликтует с применением стилей. TODO: разобраться и пофиксить
   const intervel = setInterval(() => {
+    console.log('Monitoring selection...');
     if (!panelElement || (panelElement && panelElement.style.display === 'none')) {
       clearInterval(intervel);
     }
@@ -103,7 +104,7 @@ function monitorSelection() {
     } else {
       switchApplyButtonState(panelElement!, false);
     }
-  }, 500);
+  }, 1500);
 
   document.addEventListener('click', (e) => {
     if (panelElement && !panelElement.contains(e.target as Node)) {
@@ -117,16 +118,15 @@ export function initTextPanel() {
 
   console.log('Panel: init text panel');
 
-  const observer = new MutationObserver(() => {
+  const observer2 = new MutationObserver(() => {
     if (document.querySelector('.notion-page-content')) {
       monitorSelection();
     }
   });
 
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  observer2.observe(document.documentElement, { childList: true, subtree: true });
 
   createPanel();
-  showTextPanel();
 
   uiInjected = true;
 }

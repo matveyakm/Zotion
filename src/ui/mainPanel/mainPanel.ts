@@ -1,5 +1,6 @@
 import { uiCSS, mainPanelStyle } from '../CSS';
 import { panelHTML } from './mainPanelHTML';
+import { showTextPanel, hideTextPanel } from '../textPanel/textPanel';
 
 let panelElement: HTMLElement | null = null;
 let uiInjected = false;
@@ -20,7 +21,32 @@ function createPanel() {
     panelElement.style.cssText = mainPanelStyle;
   
     document.body.appendChild(panelElement);
-  
+    
+    const buttons = panelElement.querySelectorAll('.zot-main-panel-button');
+    const activeClass = 'zot-main-panel-button-active';
+
+    buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        const value = btn.getAttribute('data-value');
+        if (value !== null) {
+            if (btn.classList.contains(activeClass)) {
+                btn.classList.remove(activeClass);
+                if (value === 'text') {
+                    hideTextPanel();
+                }
+            } else {
+                buttons.forEach(b => b.classList.remove(activeClass));
+                btn.classList.add(activeClass);
+                if (value === 'text') {
+                    showTextPanel();
+                }
+                if (value === 'block') {
+                    hideTextPanel();
+                }
+            } 
+        } 
+    });
+    });
     
   
     return panelElement;

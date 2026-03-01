@@ -340,6 +340,34 @@ color: #aaaaaa;
 .zot-vertical-align-btn-active {
   color: #fff; 
 }
+
+.zot-main-panel-button {
+  width: 120px; 
+  height: auto; 
+  border-radius: 8px; 
+  border: 1px solid #444; 
+  background: rgba(20, 20, 20, 0.7);
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer; 
+  padding: 8px 15px;
+  font-size: 22px; 
+  letter-spacing: 2px;
+  font-weight: 100;
+  color: #888;
+}
+
+.zot-main-panel-button:hover {
+  background: rgba(20, 20, 20, 0.9);
+  box-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.7),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+}
+  
+.zot-main-panel-button-active {
+   color: #fff;
+}
 `;
 
 export const leftPanelStyle = `
@@ -368,7 +396,7 @@ export const mainPanelStyle = `
   width: 250px !important;
   background: #191919 !important;
   color: #d9d9d9 !important;
-  padding: 16px !important;
+  padding: 10px !important;
   border-radius: 12px !important;
   box-shadow: 0 8px 32px rgba(0,0,0,0.8) !important;
   z-index: 2147483647 !important;

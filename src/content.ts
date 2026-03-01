@@ -6,7 +6,7 @@ import { initUI } from './ui/init';
 
 
 injectStyles();
-setupMutationObserver(); // Не работает при включенном initUI()
+setupMutationObserver();
 
 
 initUI();
