@@ -50,6 +50,7 @@ export const panelHTML = `
   </button>
 
   <select id="zot-font-size-select" style="height: 36px; padding: 0 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; width: 60px;">
+    <option>Auto</option>
     <option>8</option>
     <option>9</option>
     <option>10</option>
@@ -105,9 +106,9 @@ export const panelHTML = `
 <input type="text" placeholder="Ссылка..." id="zot-external_hyperlink" style="width: 100%; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; margin-bottom: 8px;">
 
 <!-- Кнопка применить -->
-<button id="zot-apply-btn">
+<button id="zot-apply-btn" class="zot-apply-btn-cl zot-apply-btn-cl-inactive">
   <svg width="24" height="24" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
-    <path d="M2.5 7L5.5 10L11.5 4" stroke="#00ffaa" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M2.5 7L5.5 10L11.5 4" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </button>
 
@@ -116,45 +117,30 @@ export const panelHTML = `
 <div id="zot-advanced-content" style="display: none; flex-direction: column; gap: 10px; padding-top: 10px;">
   
   <div style="display: flex; gap: 8px; align-items: center;">
-    <button title="Top" style="height: 32px; width: 32px; background: #2a2a2a; border: 1px solid #444; color: #fff; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+    <button title="Top" class="zot-vertical-align-btn zot-top-button-active" data-value="0">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 10l5-5 5 5M12 5v14"/></svg>
     </button>
-    <button title="Middle" style="height: 32px; width: 32px; background: #2a2a2a; border: 1px solid #444; color: #fff; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+    <button title="Middle" class="zot-vertical-align-btn" data-value="1">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M12 4v16M7 8l5-4 5 4M7 16l5 4 5-4"/></svg>
     </button>
-    <button title="Bottom" style="height: 32px; width: 32px; background: #2a2a2a; border: 1px solid #444; color: #fff; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+    <button title="Bottom" class="zot-vertical-align-btn" data-value="2">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18h16M7 14l5 5 5-5M12 19V5"/></svg>
     </button>
   </div>
 
   <div style="display: flex; justify-content: space-between; align-items: center;">
     <span style="font-size: 0.8rem; color: #aaa;">Межбуквенный интервал</span>
-    <select style="height: 26px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 4px; font-size: 0.8rem; width: 60px;">
-      <option value="normal">Auto</option>
-      <option value="1px">1px</option>
-      <option value="2px">2px</option>
-      <option value="-0.5px">-0.5</option>
-    </select>
+    <input type="range" min="0" max="15" value="0" class="zot-slider" id="zot-symbol-spacing-slider" style="margin-left: 5px;">
   </div>
 
   <div style="display: flex; justify-content: space-between; align-items: center;">
     <span style="font-size: 0.8rem; color: #aaa;">Интервал между словами</span>
-    <select style="height: 26px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 4px; font-size: 0.8rem; width: 60px;">
-      <option value="normal">Auto</option>
-      <option value="2px">2px</option>
-      <option value="4px">4px</option>
-      <option value="10px">10px</option>
-    </select>
+    <input type="range" min="0" max="15" value="0" class="zot-slider" id="zot-word-spacing-slider" style="margin-left: 5px;">
   </div>
 
   <div style="display: flex; justify-content: space-between; align-items: center;">
     <span style="font-size: 0.8rem; color: #aaa;">Межстрочный интервал</span>
-    <select style="height: 26px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 4px; font-size: 0.8rem; width: 60px;">
-      <option value="normal">Auto</option>
-      <option value="2px">2px</option>
-      <option value="4px">4px</option>
-      <option value="10px">10px</option>
-    </select>
+    <input type="range" min="0" max="15" value="0" class="zot-slider" id="zot-line-height-slider" style="margin-left: 5px;">
   </div>
 </div>
 `;

@@ -1,29 +1,31 @@
-import { TextAttributes } from "../panel";
+import { TextAttributes } from "../textPanel/textPanel";
+
+const needToLog = false;
 
 export const hrefLinkPrefix = "https://example.com/";
 
 export function applyHrefToSelection(href: string) {
     const selection = window.getSelection();
     if (!selection || selection.isCollapsed) {
-      console.log('Panel: Нет выделенного текста');
+      if (needToLog) console.log('Panel: Нет выделенного текста');
       return;
     }
   
     const range = selection.getRangeAt(0);
     const editable = range.commonAncestorContainer.parentElement?.closest('[contenteditable="true"]') as HTMLElement | null;
     if (!editable) {
-      console.log('Panel: Не найден contenteditable');
+      if (needToLog) console.log('Panel: Не найден contenteditable');
       return;
     }
   
     const existingA = range.startContainer.parentElement?.closest('a[href*="example.com"]');
     if (existingA) {
-      console.log('Panel: Снимаем существующую ссылку');
+      if (needToLog) console.log('Panel: Снимаем существующую ссылку');
       document.execCommand('unlink', false);
       return;
     }
   
-    console.log('Panel: Начинаю эмуляцию Ctrl+K для создания ссылки с href:', href);
+    if (needToLog) console.log('Panel: Начинаю эмуляцию Ctrl+K для создания ссылки с href:', href);
   
     editable.focus();
   
@@ -56,11 +58,11 @@ export function applyHrefToSelection(href: string) {
       const urlInput = document.querySelector('input[placeholder*="Paste link or search pages"]') as HTMLInputElement | null;
   
       if (!urlInput) {
-        console.warn('Panel: Input popup не найден');
+        if (needToLog) console.warn('Panel: Input popup не найден');
         return;
       }
   
-      console.log('Panel: Нашли input popup, начинаем посимвольный ввод URL');
+      if (needToLog) console.log('Panel: Нашли input popup, начинаем посимвольный ввод URL');
   
       urlInput.focus();
   
@@ -115,7 +117,7 @@ export function applyHrefToSelection(href: string) {
             });
             urlInput.dispatchEvent(enterUp);
     
-            console.log('Panel: Ввод URL завершён, Enter отправлен');
+            if (needToLog) console.log('Panel: Ввод URL завершён, Enter отправлен');
           }, 10)
         }
       }, 3);
@@ -124,7 +126,7 @@ export function applyHrefToSelection(href: string) {
 
 export function generateHref(hrefLinkPrefix : string, textAttributes: TextAttributes) : string {
     const objectType = 0; // text
-    let href = hrefLinkPrefix + [ 
+    let href = hrefLinkPrefix + "#" + [ 
         objectType, // 0
         textAttributes.size ? `${textAttributes.size.toString(16)}` : '', // 1
         textAttributes.textColor ? `${textAttributes.textColor}` : '', // 2
@@ -139,6 +141,6 @@ export function generateHref(hrefLinkPrefix : string, textAttributes: TextAttrib
         textAttributes.textAlign ? `${textAttributes.textAlign}` : '', // 11
         textAttributes.verticalAlign ? `${textAttributes.verticalAlign}` : '', // 12
     ].join('.') + "#";
-    console.log('Generated href:', href);
+    if (needToLog) console.log('Generated href:', href);
     return href;
 }

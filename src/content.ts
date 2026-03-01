@@ -2,11 +2,11 @@
 
 import { injectStyles } from './modules/DOMModifier/constants';
 import { setupMutationObserver } from './modules/DOMModifier/init';
-import { initBoldUI } from './ui/panel';
+import { initUI } from './ui/init';
 
 
 injectStyles();
-setupMutationObserver();
+setupMutationObserver(); // Не работает при включенном initUI()
 
 
-initBoldUI();
+initUI();

@@ -1,6 +1,8 @@
-import { textAttributes } from "./../panel";
-import { hsvToRgb, rgbToHex } from '../../utils/colorStyler';
-import { colorPickerSettings,toggleColor } from './../utils/colorPickerUtils';
+import { textAttributes } from "../textPanel";
+import { hsvToRgb, rgbToHex } from '../../../utils/colorStyler';
+import { colorPickerSettings,toggleColor } from '../../utils/colorPickerUtils';
+
+const needToLog = false;
 
 export function setupColorPickerListener(panelElement: HTMLElement, example: HTMLElement) {
   // -=-=-=-=-=-=-=-=-=- Вкладки -=-=-=-=-=-=-=-=-=- //
@@ -10,7 +12,7 @@ export function setupColorPickerListener(panelElement: HTMLElement, example: HTM
       tabs.forEach(t => t.classList.remove('zot-tab-active'));
       tab.classList.add('zot-tab-active');
       colorPickerSettings.currentTab = tab.getAttribute('data-key') || "Text";
-      console.log('Переключена вкладка:', tab.textContent);
+      if (needToLog) console.log('Переключена вкладка:', tab.textContent);
     });
   });
 
@@ -82,7 +84,7 @@ export function setupColorPickerListener(panelElement: HTMLElement, example: HTM
         textAttributes.decorationColor = null;
       }
 
-      console.log('Сброс цвета. Текущее состояние textAttributes:', textAttributes);
+      if (needToLog) console.log('Сброс цвета. Текущее состояние textAttributes:', textAttributes);
     });
   }
 
@@ -91,20 +93,10 @@ export function setupColorPickerListener(panelElement: HTMLElement, example: HTM
   if (applyColorBtn) {
     applyColorBtn.addEventListener('click', () => {
       toggleColor(panelElement, textAttributes, true);
-      console.log('Цвет применён. Текущее состояние textAttributes:', textAttributes);
+      if (needToLog) console.log('Цвет применён. Текущее состояние textAttributes:', textAttributes);
     });
   }
 
-  // Листенер для ползунка прозрачности (TO DO)
-  // const opacitySlider = panelElement.querySelector('#zot-opacity-slider') as HTMLInputElement;
-  // if (opacitySlider) {
-  //   opacitySlider.addEventListener('input', () => {
-  //     const val = parseInt(opacitySlider.value);
-  //     currentOpacity = val / 16;
-      
-  //     //example.style.opacity = (Math.min(opacityLevel + 0.1, 1)).toString();
-      
-  //     console.log(`Opacity set to: ${Math.round(currentOpacity * 100)}%`);
-  //   });
-  // }
+  // TODO: Листенер для ручного ввода hex-кода
+  // TODO: Работа с пресетами
 }

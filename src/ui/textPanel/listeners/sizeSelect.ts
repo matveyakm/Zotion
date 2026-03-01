@@ -1,4 +1,6 @@
-import { textAttributes } from "./../panel";
+import { textAttributes } from "../textPanel";
+
+const needToLog = false;
 
 const fontSizes = [
     '8px', '9px', '10px', '11px', '12px', '13px', '14px', '15px',
@@ -9,8 +11,8 @@ export function setupSizeSelectionListener(panelElement: HTMLElement, example: H
   const sizeSelect = panelElement.querySelector('#zot-font-size-select') as HTMLSelectElement | null;
   if (sizeSelect) {
     sizeSelect.addEventListener('change', () => {
-      const selectedValue = parseInt(sizeSelect.value || "16", 10);
-      textAttributes.size = fontSizes.indexOf(`${selectedValue}px`);
+      const selectedValue = sizeSelect.value !== "Auto" ? parseInt(sizeSelect.value || "16", 10) : 16;
+      textAttributes.size = sizeSelect.value !== "Auto" ? fontSizes.indexOf(`${selectedValue}px`) : null;
 
       if (!isNaN(selectedValue)) {
         if (selectedValue <= 20) {
@@ -19,8 +21,8 @@ export function setupSizeSelectionListener(panelElement: HTMLElement, example: H
           example.style.fontSize = '20px';
         }
       }
-      console.log('Обновлено textAttributes.size:', textAttributes.size);
-      console.log('Текущее состояние textAttributes:', textAttributes);
+      if (needToLog) console.log('Обновлено textAttributes.size:', textAttributes.size);
+      if (needToLog) console.log('Текущее состояние textAttributes:', textAttributes);
     });
   }
 }

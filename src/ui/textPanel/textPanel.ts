@@ -1,11 +1,11 @@
-import { panelCSS, panelStyle } from './panelCSS';
-import { panelHTML } from './panelHTML';
+import { uiCSS, leftPanelStyle } from '../CSS';
+import { panelHTML } from './textPanelHTML';
 
 import { setupTopButtonListener } from './listeners/topButton';
 import { setupSizeSelectionListener } from './listeners/sizeSelect';
 import { setupColorPickerListener } from './listeners/colorPicker';
 import { setupMoreButtonListener } from './listeners/moreButton';
-import { setupApplyButtonListener } from './listeners/applyButton';
+import { setupApplyButtonListener, switchApplyButtonState } from './listeners/applyButton';
 
 let panelElement: HTMLElement | null = null;
 let uiInjected = false;
@@ -45,17 +45,17 @@ export let textAttributes: TextAttributes = {
 function createPanel() {
   if (panelElement) return panelElement;
 
-  if (!document.getElementById('zot-slider-styles')) {
+  if (!document.getElementById('zot-text-panel')) {
     const styleTag = document.createElement('style');
-    styleTag.id = 'zot-slider-styles';
-    styleTag.textContent = panelCSS;
+    styleTag.id = 'zot-text-panel';
+    styleTag.textContent = uiCSS;
     document.head.appendChild(styleTag);
   }
 
   panelElement = document.createElement('div');
-  panelElement.id = 'zot-floating-panel';
+  panelElement.id = 'zot-text-panel';
   panelElement.innerHTML = panelHTML;
-  panelElement.style.cssText = panelStyle;
+  panelElement.style.cssText = leftPanelStyle;
 
   document.body.appendChild(panelElement);
 
@@ -79,49 +79,43 @@ function createPanel() {
   return panelElement;
 }
 
-
-
-function showPanelNearSelection() {
-  const selection = window.getSelection();
-  if (!selection || selection.isCollapsed || selection.rangeCount === 0) {
-    hidePanel();
-    return;
-  }
-
-  const range = selection.getRangeAt(0);
-  const rect = range.getBoundingClientRect();
-
+export function showTextPanel() {
   const panel = createPanel();
   panel.style.display = 'block';
+  monitorSelection();
 }
 
-function hidePanel() {
+export function hideTextPanel() {
   if (panelElement) {
-    //panelElement.style.display = 'none';
+    panelElement.style.display = 'none';
   }
 }
 
 function monitorSelection() {
-  setInterval(() => {
+  const intervel = setInterval(() => {
+    if (!panelElement || (panelElement && panelElement.style.display === 'none')) {
+      clearInterval(intervel);
+    }
+
     const selection = window.getSelection();
     if (selection && !selection.isCollapsed) {
-      showPanelNearSelection();
+      switchApplyButtonState(panelElement!, true);
     } else {
-      hidePanel();
+      switchApplyButtonState(panelElement!, false);
     }
-  }, 300);
+  }, 500);
 
   document.addEventListener('click', (e) => {
     if (panelElement && !panelElement.contains(e.target as Node)) {
-      hidePanel();
+      switchApplyButtonState(panelElement!, false);
     }
   });
 }
 
-export function initBoldUI() {
+export function initTextPanel() {
   if (uiInjected) return;
 
-  console.log('Panel: init floating panel');
+  console.log('Panel: init text panel');
 
   const observer = new MutationObserver(() => {
     if (document.querySelector('.notion-page-content')) {
@@ -131,7 +125,8 @@ export function initBoldUI() {
 
   observer.observe(document.documentElement, { childList: true, subtree: true });
 
-  monitorSelection();
+  createPanel();
+  showTextPanel();
 
   uiInjected = true;
 }

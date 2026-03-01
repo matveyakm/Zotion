@@ -1,4 +1,8 @@
-export const panelCSS = `
+export const uiCSS = `
+
+.bbbbbb {
+  border: 1px solid red !important;
+}
 
 .zot-heading {
   font-size: 1.3rem; 
@@ -60,7 +64,7 @@ export const panelCSS = `
   cursor: pointer;
 }
 
-#zot-floating-panel .zot-slider {
+#zot-text-panel .zot-slider {
   -webkit-appearance: none !important;
   appearance: none !important;
   width: 30% !important;
@@ -71,7 +75,7 @@ export const panelCSS = `
 }
 
 /* Линия */
-#zot-floating-panel .zot-slider::-webkit-slider-runnable-track {
+#zot-text-panel .zot-slider::-webkit-slider-runnable-track {
   width: 100% !important;
   height: 2px !important;
   background: #666 !important;
@@ -79,7 +83,7 @@ export const panelCSS = `
 }
 
 /* ползунок */
-#zot-floating-panel .zot-slider::-webkit-slider-thumb {
+#zot-text-panel .zot-slider::-webkit-slider-thumb {
   -webkit-appearance: none !important;
   appearance: none !important;
   height: 10px !important;
@@ -92,16 +96,16 @@ export const panelCSS = `
   transition: border-color 0.2s, transform 0.1s !important;
 }
 
-#zot-floating-panel .zot-slider::-webkit-slider-thumb:hover {
+#zot-text-panel .zot-slider::-webkit-slider-thumb:hover {
   border-color: #fff !important;
   transform: scale(1.1);
 }
 
-#zot-floating-panel .zot-slider:focus {
+#zot-text-panel .zot-slider:focus {
   outline: none !important;
 }
 
-#zot-apply-btn:hover {
+.zot-apply-btn-cl:hover {
   background: rgba(0, 255, 170, 0.1) !important; 
   box-shadow: 
     0 0 8px rgba(0, 255, 170, 0.6),
@@ -109,18 +113,19 @@ export const panelCSS = `
   transform: scale(1.03); 
 }
 
-#zot-apply-btn:active {
+.zot-apply-btn-cl:active {
   transform: scale(0.96) translateY(1px); 
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5) !important; 
 }
 
-#zot-apply-btn {
+.zot-apply-btn-cl {
   position: absolute;
   right: -20px;
   bottom: -20px;
   width: 40px; 
   height: 40px; 
   border-radius: 40%; 
+  color: #00ffaa;
   border: 1px solid #00ffaa; 
   background: rgba(0, 0, 0, 0.45);
   display: flex; 
@@ -133,6 +138,21 @@ export const panelCSS = `
     0 1px 3px rgba(0, 0, 0, 0.5);
   transition: all 0.15s ease;
   outline: none;
+}
+
+.zot-apply-btn-cl-inactive {
+border: 1px solid #aaaaaa;
+color: #aaaaaa; 
+  box-shadow: 
+    0 0 6px rgba(170, 170, 170, 0.4), 
+    0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.zot-apply-btn-cl-inactive:hover {
+  background: rgba(170, 170, 170, 0.1) !important; 
+  box-shadow: 
+    0 0 8px rgba(170, 170, 170, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
 #zot-hue-slider {
@@ -297,12 +317,54 @@ export const panelCSS = `
   font-size: 12px; 
   margin-bottom: 8px;
 }
+
+.zot-vertical-align-btn {
+  height: 32px; 
+  width: 32px; 
+  background: #2a2a2a; 
+  border: 1px solid #444; 
+  color: #888; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  display: flex; align-items: center; 
+  justify-content: center;
+}
+
+.zot-vertical-align-btn:hover {
+  background: #2a2a2a;
+  box-shadow: 
+    0 0 6px rgba(255, 255, 255, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.zot-vertical-align-btn-active {
+  color: #fff; 
+}
 `;
 
-export const panelStyle = `
+export const leftPanelStyle = `
   position: fixed !important;
   left: 20px !important;
   top: calc(50vh - 240px) !important;
+  width: 250px !important;
+  background: #191919 !important;
+  color: #d9d9d9 !important;
+  padding: 16px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.8) !important;
+  z-index: 2147483647 !important;
+  font-family: system-ui, -apple-system, sans-serif !important;
+  transform: scale(0.9) !important;
+  transform-origin: top left !important;
+  display: none;
+  pointer-events: auto !important;
+  border: 1px solid #333 !important;
+`;
+
+export const mainPanelStyle = `
+  position: fixed !important;
+  left: 20px !important;
+  bottom: 20px !important;
   width: 250px !important;
   background: #191919 !important;
   color: #d9d9d9 !important;

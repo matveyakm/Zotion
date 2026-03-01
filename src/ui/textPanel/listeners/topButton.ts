@@ -1,4 +1,6 @@
-import { textAttributes } from "./../panel";
+import { textAttributes } from "../textPanel";
+
+const needToLog = false;
 
 export function setupTopButtonListener(panelElement: HTMLElement, example: HTMLElement) {
     panelElement.addEventListener('click', (e) => {
@@ -25,15 +27,17 @@ export function setupTopButtonListener(panelElement: HTMLElement, example: HTMLE
             groupButtons.forEach(b => b.classList.remove('zot-top-button-active'));
             btn.classList.add('zot-top-button-active');
           }
-      
-          console.log(`${group} group updated:`, Array.from(groupButtons).map(b => ({
-            id: b.id,
-            active: b.classList.contains('zot-top-button-active')
-          })));
+          
+          if (needToLog) {
+            console.log(`${group} group updated:`, Array.from(groupButtons).map(b => ({
+              id: b.id,
+              active: b.classList.contains('zot-top-button-active')
+            })));
+          }
         } else {
           // Обычная кнопка (не в группе) — просто toggle
           btn.classList.toggle('zot-top-button-active');
-          console.log('Обычная кнопка toggled:', btn.id, btn.classList.contains('zot-top-button-active'));
+          if (needToLog) console.log('Обычная кнопка toggled:', btn.id, btn.classList.contains('zot-top-button-active'));
         }
       
         // Обновление textAttributes (для всех кнопок с data-key)
@@ -44,7 +48,7 @@ export function setupTopButtonListener(panelElement: HTMLElement, example: HTMLE
         if (key) {
           if (key == 'fontWeight') {
             example.style.fontWeight = isActive ? "bold" : 'normal';
-            console.log('Updated example fontWeight');
+            if (needToLog) console.log('Updated example fontWeight');
           } else if (key === 'fontStyle') {
             example.style.fontStyle = isActive ? "italic" : 'normal';
           } else if (key === 'decoration') {
@@ -75,11 +79,11 @@ export function setupTopButtonListener(panelElement: HTMLElement, example: HTMLE
             } else {
               example.style.textAlign = 'center';
             }
-            console.log('Updated example textAlign', example.style.textAlign);
+            if (needToLog) console.log('Updated example textAlign', example.style.textAlign);
           }
     
-          textAttributes[key as keyof typeof textAttributes] = isActive ? parseInt(value || "0", 10) : null;
-          console.log('Обновлено textAttributes:', textAttributes);
+          textAttributes[key as keyof typeof textAttributes] = isActive ? value : null;
+          if (needToLog) console.log('Обновлено textAttributes:', textAttributes);
         }
       });
 }

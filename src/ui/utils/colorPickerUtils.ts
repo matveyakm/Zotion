@@ -1,6 +1,7 @@
-import { TextAttributes } from "../panel";
+import { TextAttributes } from "../textPanel/textPanel";
 import { hsvToRgb, rgbToHex } from '../../utils/colorStyler';
 
+const needToLog = false;
 
 export let colorPickerSettings  = {
   currentTab : "Text",
@@ -53,11 +54,11 @@ export function toggleColor(
       if (colorPickerSettings.currentTab === "Text") {
         example.style.color = selectedRgbString;
         textAttributes.textColor = seletedHexString;
-        console.log('Текущее состояние textAttributes:', textAttributes);
+        if (needToLog) console.log('Текущее состояние textAttributes:', textAttributes);
       } else if (colorPickerSettings.currentTab === "Background") {
         example.style.backgroundColor = selectedRgbaString;
         textAttributes.backgroundColor = seletedHexString;
-        console.log('Текущее состояние textAttributes:', textAttributes);
+        if (needToLog) console.log('Текущее состояние textAttributes:', textAttributes);
       } else if (colorPickerSettings.currentTab === "Decoration") {
         example.style.textDecorationColor = selectedRgbString;
         textAttributes.decorationColor = seletedHexString;
