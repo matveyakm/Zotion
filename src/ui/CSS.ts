@@ -163,9 +163,6 @@ color: #aaaaaa;
 }
 
 .zot-hue-slider-style {
-  position: absolute;
-  right: 16px; 
-  top: 220px; 
   width: 24px; 
   height: 120px; 
   background: linear-gradient(to bottom, 
@@ -180,12 +177,11 @@ color: #aaaaaa;
   border-radius: 4px;
   overflow: visible !important;
   cursor: crosshair;
+  margin-left: auto;
 }
 
 .zot-hue-marker-style {
-  position: absolute; 
-  left: -2px; /* Увеличил вылет, чтобы точно было видно */
-  right: -2px; 
+  position: relative;
   top: 0%; 
   height: 3px; 
   background: #fff; 
@@ -199,6 +195,7 @@ color: #aaaaaa;
 
 .zot-picker-container {
     text-align: center;
+    display: flex;
 }
 
 /* Основной квадрат пикера */
@@ -376,7 +373,8 @@ color: #aaaaaa;
 .zot-bp-example {
   display: flex;
   width: 100%; 
-  border: 1px solid rgba(128, 128, 128, 0.2); 
+  border: 1px solid rgba(128, 128, 128, 0.4); 
+  border-radius: 8px;
   padding: 20px 15px; 
   margin-top: 5px;
 }
@@ -384,6 +382,57 @@ color: #aaaaaa;
 .zot-bp-hidden {
   display: none;
 }
+
+.zot-alpha-slider-wrapper {
+  position: relative;
+  width: 20px;   
+  height: 120px; 
+  background: transparent;
+  display: block !important;
+}
+
+/* Сам слайдер */
+#zot-block-panel .zot-slider-vertical {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  
+  width: 120px !important; 
+  height: 20px !important;
+  background: transparent !important;
+  
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) rotate(-90deg) !important;
+  
+  cursor: pointer !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#zot-block-panel .zot-slider-vertical::-webkit-slider-runnable-track {
+  width: 100% !important;
+  height: 4px !important;
+  background: #666 !important;
+  border-radius: 4px !important;
+}
+
+#zot-block-panel .zot-slider-vertical::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  height: 10px !important;
+  width: 10px !important;
+  border-radius: 50% !important;
+  background: #191919 !important;
+  border: 2px solid #666 !important;
+  margin-top: -4px !important; /* Центровка на линии 4px */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+#zot-block-panel .zot-slider-vertical::-webkit-slider-thumb:hover {
+  border-color: #fff !important;
+}
+
 `;
 
 export const leftPanelStyle = `

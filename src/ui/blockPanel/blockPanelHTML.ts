@@ -10,7 +10,7 @@ export const panelHTML = `
     <option>Divider</option>
 </select>
 
-<div class="zot-top-grid">
+<div class="zot-top-grid" style="padding: 4px 0px">
   <!-- Строка 1 -->
 
   <button class="zot-textable-block-view zot-top-button zot-alignment-button " data-value="0" data-key="textAlign" title="К левому краю">
@@ -40,7 +40,7 @@ export const panelHTML = `
   </svg>
   </button>
 
-  <select id="zot-border-size-select" class="zot-small-select">
+  <select id="zot-border-size-select" class="zot-small-select" style="width: 69px">
     <option>Auto</option>
     <option>0</option>
     <option>1</option>
@@ -86,7 +86,7 @@ export const panelHTML = `
     </svg>
   </button>
 
-  <select id="zot-radius-size-select" class="zot-callout-view  zot-small-select">
+  <select id="zot-radius-size-select" class="zot-callout-view  zot-small-select" style="width: 69px">
     <option>Auto</option>
     <option>10</option>
     <option>12</option>
@@ -189,14 +189,18 @@ export const panelHTML = `
 </div>
 
 <div class="zot-picker-container"> 
-    <div class="zot-color-picker-box" id="zot-bp-picker-box">
+    <div class="zot-color-picker-box" id="zot-bp-picker-box" style="width: 70%">
         <div class="zot-picker-cursor" id="zot-bp-picker-cursor"></div>
     </div>
-</div>
 
-<!-- Полоска справа -->
-<div id="zot-bp-hue-slider" class="zot-hue-slider-style" style="top:337px">
-  <div id="zot-bp-hue-marker" class="zot-hue-marker-style"></div>
+        <!-- Полоска справа -->
+      
+    <div id="zot-bp-hue-slider" class="zot-hue-slider-style" style="margin: 0px 10px">
+      <div id="zot-bp-hue-marker" class="zot-hue-marker-style"></div>
+    </div>
+  <div class="zot-alpha-slider-wrapper">
+    <input type="range" min="0" max="100" value="100" class="zot-slider-vertical" id="zot-bp-alpha-slider" style="">
+  </div>
 </div>
 
 <!-- Пресеты -->
@@ -209,11 +213,10 @@ export const panelHTML = `
   <input type="text" placeholder="RRGGBB" id="zot-bp-hex-input" class="zot-hex-input-style">
   <button id="zot-bp-reset-color-btn" class="zot-reset-color-btn-style" title="Сброс">Сброс</button>
   <button id="zot-bp-apply-color-btn" class="zot-apply-color-btn-style" title="Применить цвет">↑</buuton>
-  </div>
-
+</div>
 
 <!-- Кнопка применить -->
-<button id="zot-pb-apply-btn" class="zot-apply-btn-cl zot-apply-btn-cl-inactive">
+<button id="zot-pb-apply-btn" class="zot-apply-btn-cl">
   <svg width="24" height="24" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
     <path d="M2.5 7L5.5 10L11.5 4" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>

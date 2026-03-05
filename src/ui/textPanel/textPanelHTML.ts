@@ -49,7 +49,7 @@ export const panelHTML = `
   </svg>
   </button>
 
-  <select id="zot-font-size-select" class="zot-small-select">
+  <select id="zot-font-size-select" class="zot-small-select" style="width: 60px;">
     <option>Auto</option>
     <option>8</option>
     <option>9</option>
@@ -83,12 +83,14 @@ export const panelHTML = `
     <div class="zot-color-picker-box" id="zot-picker-box">
         <div class="zot-picker-cursor" id="zot-picker-cursor"></div>
     </div>
+
+    <!-- Полоска справа -->
+  <div id="zot-hue-slider" class="zot-hue-slider-style">
+    <div id="zot-hue-marker" class="zot-hue-marker-style"></div>
+  </div>
 </div>
 
-<!-- Полоска справа -->
-<div id="zot-hue-slider" class="zot-hue-slider-style">
-  <div id="zot-hue-marker" class="zot-hue-marker-style"></div>
-</div>
+
 
 <!-- Пресеты -->
 <div style="display: flex; gap: 8px; justify-content: center; padding-top: 8px">

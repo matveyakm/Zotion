@@ -3,6 +3,8 @@ import { panelHTML } from './blockPanelHTML';
 
 import { setupTypeSelectionListener } from './listeners/typeSelect';
 import { setupTopButtonListener } from './listeners/topButton';
+import { setupSelectListeners } from './listeners/selector';
+import { setupBlockColorPickerListener } from './listeners/colorPicker';
 
 let panelElement: HTMLElement | null = null;
 let uiInjected = false;
@@ -47,6 +49,10 @@ function createPanel() {
   setupTypeSelectionListener(panelElement);
 
   setupTopButtonListener(panelElement);
+
+  setupSelectListeners(panelElement);
+
+  setupBlockColorPickerListener(panelElement);
   
 
   return panelElement;

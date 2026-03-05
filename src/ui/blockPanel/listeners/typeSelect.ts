@@ -1,4 +1,5 @@
 import { BlockAttributes } from "../blockPanel";
+import { changeVisibilityOfTabs } from "./colorPicker";
 
 export function setupTypeSelectionListener(panelElement: HTMLElement) {
   const typeSelect = panelElement.querySelector('#zot-block-type-select') as HTMLSelectElement | null;
@@ -23,6 +24,7 @@ export function setupTypeSelectionListener(panelElement: HTMLElement) {
       const allViewElements = panelElement.querySelectorAll(
         '.zot-callout-view, .zot-quote-view, .zot-table-view, .zot-divider-view, .zot-textable-block-view'
       );
+      const widthSelect = panelElement.querySelector('#zot-border-size-select') as HTMLSelectElement | null;
 
       allViewElements.forEach(el => {
         const isDivider = selectedValue === "Divider";
@@ -32,6 +34,12 @@ export function setupTypeSelectionListener(panelElement: HTMLElement) {
           el.classList.toggle(HIDDEN_CLASS, isDivider);
           return;
         }
+
+        if (widthSelect) {
+            widthSelect.style.width = isDivider ? '215px' : '69px';
+        }
+
+        changeVisibilityOfTabs(panelElement, isDivider);
 
         const shouldBeVisible = el.classList.contains(config.viewClass);
         el.classList.toggle(HIDDEN_CLASS, !shouldBeVisible);
