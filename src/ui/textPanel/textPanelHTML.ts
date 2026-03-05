@@ -3,7 +3,7 @@ export const panelHTML = `
   Форматирование
 </div>
 
-<div id="zot-top-grid">
+<div class="zot-top-grid">
   <!-- Строка 1 -->
   <button id="zot-bold-btn" class="zot-top-button" data-value="1" data-key="fontWeight" title="Жирный" style="font-weight: bold">B</button>
   <button id="zot-italic-btn" class="zot-top-button" data-value="1" data-key="fontStyle" title="Курсив" style="font-style: italic">I</button>
@@ -49,7 +49,7 @@ export const panelHTML = `
   </svg>
   </button>
 
-  <select id="zot-font-size-select" style="height: 36px; padding: 0 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; width: 60px;">
+  <select id="zot-font-size-select" class="zot-small-select">
     <option>Auto</option>
     <option>8</option>
     <option>9</option>
@@ -86,8 +86,8 @@ export const panelHTML = `
 </div>
 
 <!-- Полоска справа -->
-<div id="zot-hue-slider" style="">
-  <div id="zot-hue-marker"></div>
+<div id="zot-hue-slider" class="zot-hue-slider-style">
+  <div id="zot-hue-marker" class="zot-hue-marker-style"></div>
 </div>
 
 <!-- Пресеты -->
@@ -97,9 +97,9 @@ export const panelHTML = `
   <div class="zot-preset-color-btn" style="background: #00bfff"></div>
   <div class="zot-preset-color-btn" id="zot-last-used-preset-color-btn" style="background: #ffffff"></div>
 
-  <input type="text" placeholder="RRGGBB" id="zot-hex-input" style="">
-  <button id="zot-reset-color-btn" title="Сброс">Сброс</button>
-  <buuton id="zot-apply-color-btn" title="Применить цвет">↑</buuton>
+  <input type="text" placeholder="RRGGBB" id="zot-hex-input" class="zot-hex-input-style">
+  <button id="zot-reset-color-btn" class="zot-reset-color-btn-style" title="Сброс">Сброс</button>
+  <button id="zot-apply-color-btn" class="zot-apply-color-btn-style" title="Применить цвет">↑</buuton>
   </div>
 
 <!-- Ссылка -->

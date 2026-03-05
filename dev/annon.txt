@@ -1,4 +1,4 @@
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- Description of the concept of SimplyVisualExtension -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- Description of the concept of Zotion extension -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 ==== Description of the search for attributed text ====
 We are searching parts of hyperlinked text in:

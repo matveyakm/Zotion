@@ -1,9 +1,5 @@
 export const uiCSS = `
 
-.bbbbbb {
-  border: 1px solid red !important;
-}
-
 .zot-heading {
   font-size: 1.3rem; 
   font-weight: 600; 
@@ -30,7 +26,7 @@ export const uiCSS = `
   justify-content: center;
 }
 
-#zot-top-grid {
+.zot-top-grid {
   display: grid;
   grid-template-columns: repeat(4, 40px);
   gap: 8px;
@@ -40,6 +36,17 @@ export const uiCSS = `
   border-radius: 8px;
   width: max-content;
   align-items: center;
+}
+
+.zot-small-select {
+  height: 36px; 
+  padding: 0 8px; 
+  background: #2a2a2a; 
+  color: #fff; 
+  border: 1px solid #444; 
+  border-radius: 6px; 
+  font-size: 0.9rem; 
+  width: 60px;
 }
 
 .zot-tab {
@@ -155,7 +162,7 @@ color: #aaaaaa;
     0 2px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
-#zot-hue-slider {
+.zot-hue-slider-style {
   position: absolute;
   right: 16px; 
   top: 220px; 
@@ -175,7 +182,7 @@ color: #aaaaaa;
   cursor: crosshair;
 }
 
-#zot-hue-marker {
+.zot-hue-marker-style {
   position: absolute; 
   left: -2px; /* Увеличил вылет, чтобы точно было видно */
   right: -2px; 
@@ -251,7 +258,7 @@ color: #aaaaaa;
     pointer-events: none;
 }
 
-#zot-reset-color-btn {
+.zot-reset-color-btn-style {
   width: 60px; 
   height: 24px; 
   border-radius: 5px; 
@@ -265,19 +272,19 @@ color: #aaaaaa;
   font-size: 14px; 
 }
 
-#zot-reset-color-btn:hover {
+.zot-reset-color-btn-style:hover {
   background: rgba(85, 85, 85, 0.9);
   box-shadow: 
     0 0 6px rgba(255, 255, 255, 0.5),
     0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-#zot-reset-color-btn:active {
+.zot-reset-color-btn-style:active {
   background: rgba(85, 85, 85, 0.9);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-#zot-apply-color-btn {
+.zot-apply-color-btn-style {
   width: 24px; 
   height: 24px; 
   border-radius: 5px; 
@@ -294,19 +301,19 @@ color: #aaaaaa;
   background: var(--current-color);
 }
 
-#zot-apply-color-btn:hover {
+.zot-apply-color-btn-style:hover {
   background: var(--current-color);
   box-shadow: 
     0 0 6px rgba(255, 255, 170, 0.7),
     0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-#zot-apply-color-btn:active {
+.zot-apply-color-btn-style:active {
   background: var(--current-color);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-#zot-hex-input {
+.zot-hex-input-style {
   width: 60px; 
   height: 24px; 
   padding: 1px 8px; 
@@ -359,14 +366,23 @@ color: #aaaaaa;
 }
 
 .zot-main-panel-button:hover {
-  background: rgba(20, 20, 20, 0.9);
-  box-shadow: 
-    0 0 8px rgba(255, 255, 255, 0.7),
-    0 2px 4px rgba(0, 0, 0, 0.5);
+  background: rgba(90, 90, 90, 0.5);
 }
   
 .zot-main-panel-button-active {
    color: #fff;
+}
+
+.zot-bp-example {
+  display: flex;
+  width: 100%; 
+  border: 1px solid rgba(128, 128, 128, 0.2); 
+  padding: 20px 15px; 
+  margin-top: 5px;
+}
+
+.zot-bp-hidden {
+  display: none;
 }
 `;
 

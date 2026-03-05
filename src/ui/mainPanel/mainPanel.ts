@@ -1,6 +1,7 @@
 import { uiCSS, mainPanelStyle } from '../CSS';
 import { panelHTML } from './mainPanelHTML';
 import { showTextPanel, hideTextPanel } from '../textPanel/textPanel';
+import { showBlockPanel, hideBlockPanel } from '../blockPanel/blockPanel';
 
 let panelElement: HTMLElement | null = null;
 let uiInjected = false;
@@ -33,15 +34,19 @@ function createPanel() {
                 btn.classList.remove(activeClass);
                 if (value === 'text') {
                     hideTextPanel();
+                } else {
+                    hideBlockPanel();
                 }
             } else {
                 buttons.forEach(b => b.classList.remove(activeClass));
                 btn.classList.add(activeClass);
                 if (value === 'text') {
+                    hideBlockPanel();
                     showTextPanel();
                 }
                 if (value === 'block') {
                     hideTextPanel();
+                    showBlockPanel();
                 }
             } 
         } 
