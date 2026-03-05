@@ -1,149 +1,203 @@
 import { BlockAttributes } from "../blockPanel";
 import { hsvToRgb, rgbToHex } from '../../../utils/colorStyler';
 
-// Локальное состояние для конкретной панели блоков
-const bpState = {
-  hue: 0,
-  s: 0,
-  v: 100,
-  alpha: 1,
-  currentTab: "Border" as "Border" | "Background"
+const needToLog = false;
+
+export let bpColorSettings = {
+  currentTab: "Border" as "Border" | "Background",
+  hue: 0,           // 0–360
+  s: 0,             // 0–100
+  v: 100,           // 0–100
+  alpha: 1,         // 0–1
 };
 
 export function changeVisibilityOfTabs(panelElement: HTMLElement, hideBackgroundTab: boolean) {
-  const backgroundTab = panelElement.querySelector('.zot-tab[data-key="Background"]') as HTMLElement;
-  const borderTab = panelElement.querySelector('.zot-tab[data-key="Border"]') as HTMLElement;
-  if (hideBackgroundTab) {
-    backgroundTab.classList.remove('zot-tab-active');
-    backgroundTab.classList.add('zot-tab-hidden');
-    borderTab.classList.add('zot-tab-active');
-    bpState.currentTab = "Border";
-  } else {
-    backgroundTab.classList.remove('zot-tab-hidden');
-  }
+  const bgTab    = panelElement.querySelector<HTMLElement>('.zot-tab[data-key="Background"]');
+  const borderTab = panelElement.querySelector<HTMLElement>('.zot-tab[data-key="Border"]');
 
+  if (!bgTab || !borderTab) return;
+
+  if (hideBackgroundTab) {
+    bgTab.classList.remove('zot-tab-active');
+    bgTab.classList.add('zot-tab-hidden');
+    borderTab.classList.add('zot-tab-active');
+    bpColorSettings.currentTab = "Border";
+  } else {
+    bgTab.classList.remove('zot-tab-hidden');
+  }
 }
 
 export function setupBlockColorPickerListener(panelElement: HTMLElement) {
-  const pickerBox = panelElement.querySelector('#zot-bp-picker-box') as HTMLElement;
-  const pickerCursor = panelElement.querySelector('#zot-bp-picker-cursor') as HTMLElement;
-  const hueSlider = panelElement.querySelector('#zot-bp-hue-slider') as HTMLElement;
-  const hueMarker = panelElement.querySelector('#zot-bp-hue-marker') as HTMLElement;
-  const alphaSlider = panelElement.querySelector('#zot-bp-alpha-slider') as HTMLInputElement;
-  const hexInput = panelElement.querySelector('#zot-bp-hex-input') as HTMLInputElement;
-  const applyBtn = panelElement.querySelector('#zot-bp-apply-color-btn') as HTMLElement;
-
-  // 1. Вспомогательная функция для обновления визуального состояния кнопки индикатора
-  const updateApplyButtonUI = () => {
-    const rgb = hsvToRgb(bpState.hue, bpState.s / 100, bpState.v / 100);
-    const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
-    const rgbString = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
-    
-    // Обновляем плейсхолдер инпута
-    if (hexInput) hexInput.placeholder = hex.toUpperCase();
-    
-    // Красим кнопку "Применить" (стрелочку), чтобы пользователь видел, какой цвет выбрал
-    applyBtn.style.setProperty('--current-color', rgbString);
-    
-    // Инвертируем цвет стрелочки для контраста (черная на светлом, белая на темном)
-    const contrastV = bpState.v > 50 ? 0 : 1;
-    const cRgb = hsvToRgb(0, 0, contrastV);
-    applyBtn.style.color = `rgb(${cRgb.r}, ${cRgb.g}, ${cRgb.b})`;
+  const elements = {
+    pickerBox:   panelElement.querySelector<HTMLElement>('#zot-bp-picker-box'),
+    pickerCursor: panelElement.querySelector<HTMLElement>('#zot-bp-picker-cursor'),
+    hueSlider:   panelElement.querySelector<HTMLElement>('#zot-bp-hue-slider'),
+    hueMarker:   panelElement.querySelector<HTMLElement>('#zot-bp-hue-marker'),
+    alphaSlider: panelElement.querySelector<HTMLInputElement>('#zot-bp-alpha-slider'),
+    hexInput:    panelElement.querySelector<HTMLInputElement>('#zot-bp-hex-input'),
+    applyBtn:    panelElement.querySelector<HTMLElement>('#zot-bp-apply-color-btn'),
+    resetBtn:    panelElement.querySelector<HTMLElement>('#zot-bp-reset-color-btn'),
   };
 
-  // 2. Функция для формирования финальной строки цвета (с учетом текущей Альфы)
-  const getFinalColor = () => {
-    const rgb = hsvToRgb(bpState.hue, bpState.s / 100, bpState.v / 100);
-    return bpState.alpha === 1 
-      ? `#${rgbToHex(rgb.r, rgb.g, rgb.b)}` 
-      : `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${bpState.alpha})`;
-  };
-
-  // 3. Мгновенное применение (используется только для Alpha и кнопки Apply)
-  const applyToPreviewAndState = (color: string) => {
-    const previews = panelElement.querySelectorAll('.zot-bp-example');
-    previews.forEach(preview => {
-      const content = preview.querySelector('div, blockquote, [role="separator"]') as HTMLElement;
-      if (!content) return;
-
-      if (bpState.currentTab === "Border") {
-        if (preview.id === 'zot-divider-example') {
-          const lines = preview.querySelectorAll('[role="separator"]');
-          lines.forEach(l => (l as HTMLElement).style.backgroundColor = color);
-        } else {
-          content.style.borderColor = color;
-        }
-        BlockAttributes.borderColor = color;
-      } else {
-        if (preview.id !== 'zot-divider-example') {
-            content.style.backgroundColor = color;
-        }
-
-        BlockAttributes.backgroundColor = color;
-      }
-    });
-  };
-
-  // --- ЛИСТЕНЕРЫ ---
-
-  // Табы
-  panelElement.querySelectorAll('.zot-tab').forEach(tab => {
+  //  Вкладки (табы)
+  const tabs = panelElement.querySelectorAll<HTMLElement>('.zot-tab');
+  tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      panelElement.querySelectorAll('.zot-tab').forEach(t => t.classList.remove('zot-tab-active'));
+      tabs.forEach(t => t.classList.remove('zot-tab-active'));
       tab.classList.add('zot-tab-active');
-      bpState.currentTab = (tab.getAttribute('data-key') as "Border" | "Background") || "Border";
+      bpColorSettings.currentTab = (tab.getAttribute('data-key') as "Border" | "Background") || "Border";
+      if (needToLog) console.log('Переключена вкладка:', bpColorSettings.currentTab);
     });
   });
 
-  // SV-Пикер (только UI кнопки)
-  pickerBox?.addEventListener('mousedown', (e) => {
-    const move = (me: MouseEvent) => {
-      const rect = pickerBox.getBoundingClientRect();
-      bpState.s = Math.max(0, Math.min(100, ((me.clientX - rect.left) / rect.width) * 100));
-      bpState.v = Math.max(0, Math.min(100, 100 - ((me.clientY - rect.top) / rect.height) * 100));
-      
-      pickerCursor.style.left = `${bpState.s}%`;
-      pickerCursor.style.top = `${100 - bpState.v}%`;
-      updateApplyButtonUI(); // Превью в блоках НЕ вызываем
-    };
-    move(e);
-    window.addEventListener('mousemove', move);
-    window.addEventListener('mouseup', () => window.removeEventListener('mousemove', move), { once: true });
-  });
+  //  Hue-слайдер
+  if (elements.hueSlider && elements.pickerBox && elements.hueMarker) {
+    elements.hueSlider.addEventListener('mousedown', (e: MouseEvent) => {
+      const moveHandler = (ev: MouseEvent) => {
+        const rect = elements.hueSlider!.getBoundingClientRect();
+        let y = ev.clientY - rect.top;
+        y = Math.max(0, Math.min(y, rect.height));
 
-  // Hue-Пикер (только UI кнопки + цвет фона квадрата)
-  hueSlider?.addEventListener('mousedown', (e) => {
-    const move = (me: MouseEvent) => {
-      const rect = hueSlider.getBoundingClientRect();
-      const y = Math.max(0, Math.min(1, (me.clientY - rect.top) / rect.height));
-      bpState.hue = y * 360;
-      hueMarker.style.top = `${y * 100}%`;
-      
-      const baseRGB = hsvToRgb(bpState.hue, 1, 1);
-      pickerBox.style.setProperty('--current-hue-color', `#${rgbToHex(baseRGB.r, baseRGB.g, baseRGB.b)}`);
-      updateApplyButtonUI(); // Превью в блоках НЕ вызываем
-    };
-    move(e);
-    window.addEventListener('mousemove', move);
-    window.addEventListener('mouseup', () => window.removeEventListener('mousemove', move), { once: true });
-  });
+        const percent = y / rect.height;
+        if (elements.hueMarker) elements.hueMarker.style.top = `${percent * 100}%`;
+        bpColorSettings.hue = Math.round(percent * 360);
 
-  // Alpha-слайдер (МГНОВЕННОЕ применение к превью и в стейт)
-  alphaSlider?.addEventListener('input', () => {
-    bpState.alpha = parseInt(alphaSlider.value) / 100;
-    applyToPreviewAndState(getFinalColor());
-  });
+        const baseRGB = hsvToRgb(bpColorSettings.hue, 1, 1);
+        const baseHex = rgbToHex(baseRGB.r, baseRGB.g, baseRGB.b);
+        elements.pickerBox!.style.setProperty('--current-hue-color', `#${baseHex}`);
 
-  // Кнопка Применить (Фиксация выбранного цвета)
-  applyBtn?.addEventListener('click', () => {
-    applyToPreviewAndState(getFinalColor());
-  });
+        updateApplyButtonUI(elements);
+      };
 
-  // Кнопка Сброса
-  panelElement.querySelector('#zot-bp-reset-color-btn')?.addEventListener('click', () => {
-    const isBorder = bpState.currentTab === "Border";
-    if (isBorder) BlockAttributes.borderColor = null;
-    else BlockAttributes.backgroundColor = null;
-    applyToPreviewAndState(isBorder ? 'rgba(128, 128, 128, 0.2)' : 'transparent');
+      moveHandler(e);
+      window.addEventListener('mousemove', moveHandler);
+      window.addEventListener('mouseup', () => {
+        window.removeEventListener('mousemove', moveHandler);
+      }, { once: true });
+    });
+  }
+
+  //  SV-площадь (Saturation + Value)
+  if (elements.pickerBox && elements.pickerCursor) {
+    elements.pickerBox.addEventListener('mousedown', (e: MouseEvent) => {
+      const moveHandler = (ev: MouseEvent) => {
+        const rect = elements.pickerBox!.getBoundingClientRect();
+
+        let x = ev.clientX - rect.left;
+        let y = ev.clientY - rect.top;
+        x = Math.max(0, Math.min(x, rect.width));
+        y = Math.max(0, Math.min(y, rect.height));
+
+        bpColorSettings.s = Math.round((x / rect.width) * 100);
+        bpColorSettings.v = Math.round(100 - (y / rect.height) * 100);
+
+        elements.pickerCursor!.style.left = `${bpColorSettings.s}%`;
+        elements.pickerCursor!.style.top  = `${100 - bpColorSettings.v}%`;
+
+        updateApplyButtonUI(elements);
+      };
+
+      moveHandler(e);
+      window.addEventListener('mousemove', moveHandler);
+      window.addEventListener('mouseup', () => {
+        window.removeEventListener('mousemove', moveHandler);
+      }, { once: true });
+    });
+  }
+
+  //  Alpha-слайдер (мгновенное применение)
+  if (elements.alphaSlider) {
+    elements.alphaSlider.addEventListener('input', () => {
+      bpColorSettings.alpha = Number(elements.alphaSlider!.value) / 100;
+      const color = getCurrentColorString();
+      applyColorToPreviews(panelElement, color);
+      if (needToLog) console.log('Alpha изменён →', bpColorSettings.alpha);
+    });
+  }
+
+  //  Кнопка Применить
+  if (elements.applyBtn) {
+    elements.applyBtn.addEventListener('click', () => {
+      const color = getCurrentColorString();
+      applyColorToPreviews(panelElement, color);
+      if (needToLog) console.log('Цвет применён →', color, bpColorSettings);
+    });
+  }
+
+  //  Кнопка Сброс
+  if (elements.resetBtn) {
+    elements.resetBtn.addEventListener('click', () => {
+      const isBorder = bpColorSettings.currentTab === "Border";
+
+      if (isBorder) {
+        BlockAttributes.borderColor = null;
+        applyColorToPreviews(panelElement, 'rgba(128,128,128,0.2)');
+      } else {
+        BlockAttributes.backgroundColor = null;
+        applyColorToPreviews(panelElement, 'transparent');
+      }
+
+      if (needToLog) console.log('Сброс цвета. Текущее состояние:', BlockAttributes);
+    });
+  }
+
+  //  Инициализация вида кнопки Apply
+  if (elements.applyBtn) {
+    updateApplyButtonUI(elements);
+  }
+}
+
+//  Вспомогательные функции
+function getCurrentColorString(): string {
+  const rgb = hsvToRgb(bpColorSettings.hue, bpColorSettings.s / 100, bpColorSettings.v / 100);
+
+  if (bpColorSettings.alpha === 1) {
+    return `#${rgbToHex(rgb.r, rgb.g, rgb.b)}`;
+  }
+  return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${bpColorSettings.alpha})`;
+}
+
+function updateApplyButtonUI(els: { applyBtn: HTMLElement | null; hexInput: HTMLInputElement | null }) {
+  if (!els.applyBtn) return;
+
+  const rgb = hsvToRgb(bpColorSettings.hue, bpColorSettings.s / 100, bpColorSettings.v / 100);
+  const hex = rgbToHex(rgb.r, rgb.g, rgb.b).toUpperCase();
+  const rgbStr = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+
+  // placeholder в поле hex
+  if (els.hexInput) {
+    els.hexInput.placeholder = hex;
+  }
+
+  // цвет фона кнопки
+  els.applyBtn.style.setProperty('--current-color', rgbStr);
+
+  // контраст иконки внутри кнопки
+  const isLight = bpColorSettings.v > 50;
+  els.applyBtn.style.color = isLight ? '#000' : '#fff';
+}
+
+function applyColorToPreviews(panel: HTMLElement, color: string) {
+  const previews = panel.querySelectorAll<HTMLElement>('.zot-bp-example');
+
+  previews.forEach(preview => {
+    const content = preview.querySelector<HTMLElement>('div, blockquote, [role="separator"]');
+    if (!content) return;
+
+    if (bpColorSettings.currentTab === "Border") {
+      if (preview.id === 'zot-divider-example') {
+        preview.querySelectorAll<HTMLElement>('[role="separator"]').forEach(line => {
+          line.style.backgroundColor = color;
+        });
+      } else {
+        content.style.borderColor = color;
+      }
+      BlockAttributes.borderColor = color;
+    } else {
+      if (preview.id !== 'zot-divider-example') {
+        content.style.backgroundColor = color;
+      }
+      BlockAttributes.backgroundColor = color;
+    }
   });
 }
