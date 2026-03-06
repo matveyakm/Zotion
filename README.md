@@ -1,4 +1,4 @@
-# Zotion
+# Zotion         [![CI - Build, Lint, Type Check](https://github.com/matveyakm/Zotion/actions workflows/ci.yml/badge.svg)](https://github.com/matveyakm/Zotion/actions/workflows/ci.yml)
 
 Расширение для браузеров на базе Chromuim, призванное улучшить качество взаимодействия с Notion и расширить функциональность.  
 Оно приоритетно нацелено на использование обучающимися для продвинутого ведения учебных заметок.
