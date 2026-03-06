@@ -5,6 +5,7 @@ import { setupTypeSelectionListener } from './listeners/typeSelect';
 import { setupTopButtonListener } from './listeners/topButton';
 import { setupSelectListeners } from './listeners/selector';
 import { setupBlockColorPickerListener } from './listeners/colorPicker';
+import { setupApplyButtonListener } from './listeners/applyButton';
 
 let panelElement: HTMLElement | null = null;
 let uiInjected = false;
@@ -19,7 +20,7 @@ export interface BlockAttributes {
   verticalAlign: number | null;
 }
 
-export let BlockAttributes: BlockAttributes = {
+export let blockAttributes: BlockAttributes = {
   type: 0,
   radius: null,
   borderWidth: null,
@@ -54,6 +55,7 @@ function createPanel() {
 
   setupBlockColorPickerListener(panelElement);
   
+  setupApplyButtonListener(panelElement);
 
   return panelElement;
 }

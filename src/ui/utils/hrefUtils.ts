@@ -1,5 +1,6 @@
 import { annotationIDs } from "../../modules/DOMModifier/constants";
 import { textAttributes, TextAttributes } from "../textPanel/textPanel";
+import { BlockAttributes, blockAttributes } from "../blockPanel/blockPanel";
 
 const needToLog = false;
 
@@ -127,7 +128,7 @@ export function applyHrefToSelection(href: string, isItABlock: boolean = false) 
     }, 10);
 }
 
-export function generateHref(hrefLinkPrefix : string, textAttributes: TextAttributes) : string {
+export function generateHrefFromTextAttributes(textAttributes: TextAttributes) : string {
     let href = hrefLinkPrefix + "#" + [ 
         `${textAttributes.type.toString(16)}`, // 0
         textAttributes.size ? `${textAttributes.size.toString(16)}` : '', // 1
@@ -160,4 +161,44 @@ function generateAnnotationID() {
     lastUsedID = idsAsInts.length > 0 ? Math.max(...idsAsInts) + 1 : 1;
     return `${lastUsedID}`;
   }
+}
+
+export function generateHrefFromBlockAttributes(blockAttributes : BlockAttributes) {
+  let href = '';
+    if (blockAttributes.type === 3) {
+      href = hrefLinkPrefix + "#" + [ 
+        '3', // 0
+        blockAttributes.borderWidth ? `${blockAttributes.borderWidth.toString(16)}` : '', // 1
+        blockAttributes.borderColor ? `${blockAttributes.borderColor}` : '', // 2
+        '', // 3
+        '', // 4
+        '', // 5
+        '', // 6
+        '', // 7
+        '', // 8
+        '', // 9
+        '', // 10
+        '', // 11
+        '', // 12
+      ].join('.') + "#";
+    } else {
+      href = hrefLinkPrefix + "#" + [ 
+        '3', // 0
+        blockAttributes.radius ? `${blockAttributes.radius.toString(16)}` : '', // 1
+        blockAttributes.backgroundColor ? `${blockAttributes.borderColor}` : '', // 2
+        blockAttributes.borderWidth ? `${blockAttributes.borderWidth}` : '', // 3
+        blockAttributes.borderColor ? `${blockAttributes.borderColor}` : '', // 4
+        '', // 5
+        '', // 6
+        '', // 7
+        '', // 8
+        '', // 9
+        '', // 10
+        blockAttributes.textAlign ? `${blockAttributes.textAlign}` : '', // 11
+        blockAttributes.verticalAlign ? `${blockAttributes.verticalAlign}` : '', // 12
+      ].join('.') + "#";
+    }
+    
+    if (needToLog) console.log('Generated href for block:', href);
+    return href;
 }

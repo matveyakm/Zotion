@@ -1,4 +1,4 @@
-import { BlockAttributes } from "../blockPanel";
+import { blockAttributes } from "../blockPanel";
 import { hsvToRgb, rgbToHex } from '../../../utils/colorStyler';
 
 const needToLog = false;
@@ -130,14 +130,14 @@ export function setupBlockColorPickerListener(panelElement: HTMLElement) {
       const isBorder = bpColorSettings.currentTab === "Border";
 
       if (isBorder) {
-        BlockAttributes.borderColor = null;
+        blockAttributes.borderColor = null;
         applyColorToPreviews(panelElement, 'rgba(128,128,128,0.2)');
       } else {
-        BlockAttributes.backgroundColor = null;
+        blockAttributes.backgroundColor = null;
         applyColorToPreviews(panelElement, 'transparent');
       }
 
-      if (needToLog) console.log('Сброс цвета. Текущее состояние:', BlockAttributes);
+      if (needToLog) console.log('Сброс цвета. Текущее состояние:', blockAttributes);
     });
   }
 
@@ -192,12 +192,12 @@ function applyColorToPreviews(panel: HTMLElement, color: string) {
       } else {
         content.style.borderColor = color;
       }
-      BlockAttributes.borderColor = color;
+      blockAttributes.borderColor = color;
     } else {
       if (preview.id !== 'zot-divider-example') {
         content.style.backgroundColor = color;
       }
-      BlockAttributes.backgroundColor = color;
+      blockAttributes.backgroundColor = color;
     }
   });
 }

@@ -1,4 +1,4 @@
-import { BlockAttributes } from "../blockPanel"; 
+import { blockAttributes, BlockAttributes } from "../blockPanel"; 
 
 export function setupTopButtonListener(panelElement: HTMLElement) {
     panelElement.addEventListener('click', (e) => {
@@ -66,7 +66,7 @@ export function setupTopButtonListener(panelElement: HTMLElement) {
             }
           });
 
-          (BlockAttributes as any)[key] = isActive ? numericValue : null;
+          (blockAttributes as any)[key] = isActive ? numericValue : null;
         }
     });
 }

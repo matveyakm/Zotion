@@ -1,4 +1,4 @@
-import { BlockAttributes } from "../blockPanel";
+import { blockAttributes } from "../blockPanel";
 import { changeVisibilityOfTabs } from "./colorPicker";
 
 export function setupTypeSelectionListener(panelElement: HTMLElement) {
@@ -19,7 +19,7 @@ export function setupTypeSelectionListener(panelElement: HTMLElement) {
 
       if (!config) return;
 
-      (BlockAttributes as any).type = config.id;
+      (blockAttributes as any).type = config.id;
 
       const allViewElements = panelElement.querySelectorAll(
         '.zot-callout-view, .zot-quote-view, .zot-table-view, .zot-divider-view, .zot-textable-block-view'

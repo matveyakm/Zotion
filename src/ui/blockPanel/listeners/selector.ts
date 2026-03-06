@@ -1,4 +1,4 @@
-import { BlockAttributes } from "../blockPanel";
+import { blockAttributes } from "../blockPanel";
 
 export function setupSelectListeners(panelElement: HTMLElement) {
   const borderSelect = panelElement.querySelector('#zot-border-size-select') as HTMLSelectElement | null;
@@ -9,7 +9,7 @@ export function setupSelectListeners(panelElement: HTMLElement) {
     const val = borderSelect.value;
     const numericVal = val === "Auto" ? null : parseInt(val, 10);
     
-    BlockAttributes.borderWidth = numericVal;
+    blockAttributes.borderWidth = numericVal;
 
     const allPreviews = panelElement.querySelectorAll('.zot-bp-example');
     allPreviews.forEach(preview => {
@@ -38,7 +38,7 @@ export function setupSelectListeners(panelElement: HTMLElement) {
     const val = radiusSelect.value;
     const numericVal = val === "Auto" ? null : parseInt(val, 10);
 
-    BlockAttributes.radius = numericVal;
+    blockAttributes.radius = numericVal;
 
     // только к Callout
     const callout = panelElement.querySelector('#zot-callout-example div') as HTMLElement | null;

@@ -1,5 +1,5 @@
 import { textAttributes } from "../textPanel";
-import { applyHrefToSelection, generateHref, hrefLinkPrefix } from "../../utils/hrefUtils";
+import { applyHrefToSelection, generateHrefFromTextAttributes } from "../../utils/hrefUtils";
 import { switchAnnotationLState } from "./annotationSelect";
 
 
@@ -9,7 +9,7 @@ export function setupApplyButtonListener(panelElement: HTMLElement, example: HTM
     const applyBtn = panelElement.querySelector('#zot-apply-btn'); 
     if (applyBtn) {
         applyBtn.addEventListener('click', () => {
-            applyHrefToSelection(generateHref(hrefLinkPrefix, textAttributes));
+            applyHrefToSelection(generateHrefFromTextAttributes(textAttributes));
 
             if (textAttributes.type === 1) {
                 switchAnnotationLState(panelElement, false);
