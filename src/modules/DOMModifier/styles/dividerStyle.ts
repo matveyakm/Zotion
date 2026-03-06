@@ -1,33 +1,37 @@
 // diverStyle.ts
 
+import { log } from '../../../utils/log';
+
 import { ParsedData } from '../scanner';
-import { processRGB } from './colorStyler';
+import { processRGB } from '../../../utils/colorStyler';
+
+const needToLog = false;
 
 export function applyDividerStyles(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
-  console.log(`Applying divider styles for link ${index + 1}, attributes:`, parsedData.attributes);
+  if (needToLog) console.log(`Applying divider styles for link ${index + 1}, attributes:`, parsedData.attributes);
 
   const attributes = parsedData.attributes;
   if (!attributes) {
-    console.log(`Link ${index + 1} - No attributes found`);
+    log(`Link ${index + 1} - No attributes found`, needToLog);
     return;
   }
 
   const textBlock = link.closest('.notion-text-block');
   if (!(textBlock instanceof HTMLElement)) {
-    console.log(`Link ${index + 1} - notion-text-block not found`);
+    log(`Link ${index + 1} - notion-text-block not found`, needToLog);
     return;
   }
   textBlock.style.display = 'none';
 
   const dividerBlock = textBlock.nextElementSibling?.closest('.notion-divider-block');
   if (!(dividerBlock instanceof HTMLElement)) {
-    console.log(`Link ${index + 1} - notion-divider-block not found`);
+    log(`Link ${index + 1} - notion-divider-block not found`, needToLog);
     return;
   }
 
   const separator = dividerBlock.querySelector('div[role="separator"]');
   if (!(separator instanceof HTMLElement)) {
-    console.log(`Link ${index + 1} - Separator element not found`);
+    log(`Link ${index + 1} - Separator element not found`, needToLog);
     return;
   }
 
@@ -74,35 +78,35 @@ function normalizeColor(color: string): string {
 
 // Деактивирована, т.к. вызывается слишком часто и вызывает лаги. Некорректно определяет цвет фона
 export function adjustDividers(container: ParentNode = document): void {
-    console.log('Adjusting divider styles in callout blocks');
+    log('Adjusting divider styles in callout blocks', needToLog);
   
     const calloutBlocks = container.querySelectorAll('.notion-selectable.notion-callout-block');
     if (!calloutBlocks.length) {
-      console.log('No callout blocks found');
+      log('No callout blocks found', needToLog);
       return;
     }
   
     calloutBlocks.forEach((callout, index) => {
       if (!(callout instanceof HTMLElement)) {
-        console.log(`Callout block ${index + 1} is not an HTMLElement`);
+        log(`Callout block ${index + 1} is not an HTMLElement`, needToLog);
         return;
       }
   
       const dividerBlocks = callout.querySelectorAll('.notion-selectable.notion-divider-block');
       if (!dividerBlocks.length) {
-        console.log(`No divider blocks found in callout ${index + 1}`);
+        log(`No divider blocks found in callout ${index + 1}`, needToLog);
         return;
       }
   
       dividerBlocks.forEach((divider, dividerIndex) => {
         if (!(divider instanceof HTMLElement)) {
-          console.log(`Divider block ${dividerIndex + 1} in callout ${index + 1} is not an HTMLElement`);
+          log(`Divider block ${dividerIndex + 1} in callout ${index + 1} is not an HTMLElement`, needToLog);
           return;
         }
   
         const separator = divider.querySelector('div[role="separator"]');
         if (!(separator instanceof HTMLElement)) {
-          console.log(`Separator not found in divider block ${dividerIndex + 1} in callout ${index + 1}`);
+          log(`Separator not found in divider block ${dividerIndex + 1} in callout ${index + 1}`, needToLog);
           return;
         }
   
@@ -110,11 +114,11 @@ export function adjustDividers(container: ParentNode = document): void {
         const primaryBorderColor = getComputedStyle(document.documentElement).getPropertyValue('--c-borPri').trim();
         const separatorStyle = separator.style.borderBottom;
   
-        console.log(`Divider ${dividerIndex + 1} in callout ${index + 1} - Current border color: ${currentBorderColor}, Expected --c-borPri: ${primaryBorderColor}, Separator style: ${separatorStyle}`);
+        log(`Divider ${dividerIndex + 1} in callout ${index + 1} - Current border color: ${currentBorderColor}, Expected --c-borPri: ${primaryBorderColor}, Separator style: ${separatorStyle}`, needToLog);
   
         const calloutContent = callout.querySelector('div[style*="background"]');
         if (!(calloutContent instanceof HTMLElement)) {
-          console.log(`Callout content with background not found in callout ${index + 1}`);
+          log(`Callout content with background not found in callout ${index + 1}`, needToLog);
           return;
         }
   
@@ -132,21 +136,23 @@ export function adjustDividers(container: ParentNode = document): void {
           [normalizeColor(getComputedStyle(document.documentElement).getPropertyValue('--c-pinBacSec').trim())]: 'rgb(120, 75, 95)',
           [normalizeColor(getComputedStyle(document.documentElement).getPropertyValue('--c-redBacSec').trim())]: 'rgb(130, 80, 75)',
         };
-  
-        console.log(`Callout ${index + 1} - Background color: ${calloutBackground}, Border color: ${calloutBorderColor}`);
-        console.log(`Callout ${index + 1} - Background variables (normalized):`, Object.fromEntries(Object.entries(backgroundColorMap).map(([key, value]) => [key, value])));
-  
+        
+        if (needToLog) {
+          console.log(`Callout ${index + 1} - Background color: ${calloutBackground}, Border color: ${calloutBorderColor}`);
+          console.log(`Callout ${index + 1} - Background variables (normalized):`, Object.fromEntries(Object.entries(backgroundColorMap).map(([key, value]) => [key, value])));
+        }
+
         let newBorderColor = 'rgb(80, 80, 80)'; // Запасной цвет
         for (const [bgVar, color] of Object.entries(backgroundColorMap)) {
           if (calloutBackground === bgVar) {
             newBorderColor = color;
-            console.log(`Callout ${index + 1} - Matched background to normalized var value`);
+            log(`Callout ${index + 1} - Matched background to normalized var value`, needToLog);
             break;
           }
         }
   
         applyDividerBorderStyles(separator, newBorderColor, 1);
-        console.log(`Adjusted divider ${dividerIndex + 1} in callout ${index + 1} with border color: ${newBorderColor}`);
+        log(`Adjusted divider ${dividerIndex + 1} in callout ${index + 1} with border color: ${newBorderColor}`, needToLog);
       });
     });
   }

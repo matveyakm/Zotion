@@ -22,6 +22,8 @@ export interface ParsedData {
   attributes: string[];
 }
 
+const needToLog = false;
+
 export function findStyledLinks(container: ParentNode = document): HTMLAnchorElement[] {
   const links = container.querySelectorAll<HTMLAnchorElement>(
     `.notion-text-block a[href*="#"]:not([data-styled]),
@@ -63,13 +65,13 @@ export function processAttributedLinks(container: ParentNode = document): void {
 
   const actualIsDarkTheme = document.body.classList.contains('dark') || document.querySelector('.notion-dark-theme') !== null;
   if (actualIsDarkTheme !== isDarkTheme) {
-    console.log(`Theme changed: was ${isDarkTheme ? 'Dark' : 'Light'}, now ${actualIsDarkTheme ? 'Dark' : 'Light'}`);
+    if (needToLog) console.log(`Theme changed: was ${isDarkTheme ? 'Dark' : 'Light'}, now ${actualIsDarkTheme ? 'Dark' : 'Light'}`);
     clearProcessedData();
     isDarkTheme = actualIsDarkTheme;
 
   }
 
-  console.log('Detected theme: ', isDarkTheme ? 'Dark' : 'Light');
+  if (needToLog) console.log('Detected theme: ', isDarkTheme ? 'Dark' : 'Light');
 
   // Первый проход для скрытия блоков (контента аннотаций) и применения стилей
   links.forEach((link, index) => {

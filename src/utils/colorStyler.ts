@@ -1,6 +1,10 @@
 // colorStyler.ts
 
-import { needToAdjustColors } from "../constants";
+import { log } from "./log";
+
+import { needToAdjustColors } from "../modules/DOMModifier/constants";
+
+const needToLog = true;
 
 function hexToRGBA(hex: string): RGBA | null {
     if (!([6,7].includes(hex.length))) return null;
@@ -25,7 +29,7 @@ export function processRGB(hex: string, background: "dark" | "light", method: "f
     }
 
     if (rgba.r != contrasted.r || rgba.g != contrasted.g || rgba.b != contrasted.b || rgba.a != contrasted.a){
-        console.log(`Adjusted color #${hex}(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a}) to rgba(${contrasted.r}, ${contrasted.g}, ${contrasted.b}, ${contrasted.a}) for ${background} background using ${method} method`);
+        log(`Adjusted color #${hex}(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a}) to rgba(${contrasted.r}, ${contrasted.g}, ${contrasted.b}, ${contrasted.a}) for ${background} background using ${method} method`, needToLog);
     }
     
     return `rgba(${contrasted.r}, ${contrasted.g}, ${contrasted.b}, ${contrasted.a})`;
@@ -172,6 +176,21 @@ export function evaluateBackground(hex: string, isDarkTheme: boolean): "light" |
     const lum = luminance(effectiveBg);
     
     // Порог 0.5: если яркость больше, фон светлый, иначе тёмный
-    console.log(`Evaluated background #${hex} as ${lum > 0.5 ? "light" : "dark"} (luminance: ${lum.toFixed(3)})`);
+    log(`Evaluated background #${hex} as ${lum > 0.5 ? "light" : "dark"} (luminance: ${lum.toFixed(3)})`, needToLog);
     return lum > 0.5 ? "light" : "dark";
+}
+
+export function hsvToRgb(h: number, s: number, v: number): { r: number, g: number, b: number } {
+  const f = (n: number, k = (n + h / 60) % 6) => 
+    v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
+
+  return {
+    r: Math.round(f(5) * 255),
+    g: Math.round(f(3) * 255),
+    b: Math.round(f(1) * 255)
+  };
+}
+
+export function rgbToHex(r: number, g: number, b: number): string {
+  return [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase();
 }

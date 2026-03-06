@@ -84,8 +84,6 @@ describe('annotationStyle', () => {
       expect(closeButton.style.padding).toBe('2px 4px');
       expect(closeButton.style.lineHeight).toBe('1');
 
-      // В реальности вызывается ТОЛЬКО лог устройства
-      expect(consoleLogSpy).toHaveBeenCalledWith('Tooltip device type: ', 'Desktop');
       expect(consoleLogSpy).not.toHaveBeenCalledWith('Tooltip theme: ', 'Light');
     });
 
@@ -107,7 +105,6 @@ describe('annotationStyle', () => {
 
       expect(closeButton.style.color).toBe('rgb(164, 164, 164)');
 
-      expect(consoleLogSpy).toHaveBeenCalledWith('Tooltip device type: ', 'Mobile');
       expect(consoleLogSpy).not.toHaveBeenCalledWith('Tooltip theme: ', 'Dark');
     });
 
@@ -152,7 +149,7 @@ describe('annotationStyle', () => {
       expect(consoleLogSpy).toHaveBeenCalledWith(`Tooltip closed via X button for link ${index + 1}`);
       expect(stopPropagationSpy).toHaveBeenCalled();
 
-      expect(consoleLogSpy).toHaveBeenCalledWith(`Adding tooltip listeners for link ${index + 1}, link element:`, link);
+      //expect(consoleLogSpy).toHaveBeenCalledWith(`Adding tooltip listeners for link ${index + 1}, link element:`, link);
     });
 
     it('обрабатывает случай, когда hiddenBlocks возвращает пустую строку', () => {

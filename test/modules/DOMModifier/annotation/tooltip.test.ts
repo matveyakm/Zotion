@@ -87,7 +87,6 @@ describe('tooltip.ts — addTooltipListeners', () => {
       // 1. Лог при входе
       expect(consoleLogSpy).toHaveBeenCalledWith(
         expect.stringContaining('Mouseenter triggered for link 1'),
-        expect.any(MouseEvent)
       );
 
       // 2. Состояние ДО RAF
@@ -159,7 +158,6 @@ describe('tooltip.ts — addTooltipListeners', () => {
 
       expect(consoleLogSpy).toHaveBeenCalledWith(
         expect.stringContaining('Mouseleave triggered for link 1'),
-        expect.any(MouseEvent)
       );
       expect(tooltip.style.display).toBe('none');
       expect(tooltip.style.opacity).toBe('0');

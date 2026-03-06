@@ -1,7 +1,11 @@
 // annotationStyle.ts
 
+import { log } from '../../../utils/log';
+
 import { addTooltipListeners } from '../annotation/tooltip';
 import { hiddenBlocks } from '../constants';
+
+const needToLog = true;
 
 export function applyTooltipStyles(
   tooltip: HTMLElement,
@@ -10,7 +14,7 @@ export function applyTooltipStyles(
   closeButton: HTMLElement
 ): void { 
   const isMobile = window.innerWidth < 600;
-  console.log('Tooltip device type: ', isMobile ? 'Mobile' : 'Desktop');
+  log('Applying tooltip styles', needToLog);
 
   const blockWidth = parentBlock ? parentBlock.getBoundingClientRect().width : 600;
   const maxWidth = Math.min(blockWidth, isMobile ? 400 : 1920);
@@ -64,14 +68,14 @@ export function createTooltip(
     e.stopPropagation();
     tooltip.style.display = 'none';
     tooltip.style.opacity = '0';
-    console.log(`Tooltip closed via X button for link ${index + 1}`);
+    log(`Tooltip closed via X button for link ${index + 1}`, needToLog);
   });
   tooltip.appendChild(closeButton);
 
   applyTooltipStyles(tooltip, parentBlock, isDarkTheme, closeButton);
   document.body.appendChild(tooltip);
 
-  console.log(`Adding tooltip listeners for link ${index + 1}, link element:`, link);
+  log(`Adding tooltip listeners for link ${index + 1}`, needToLog);
   link.style.pointerEvents = 'auto';
 
   addTooltipListeners(link, tooltip, index);
