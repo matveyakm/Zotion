@@ -46,11 +46,13 @@ export function setupTopButtonListener(panelElement: HTMLElement, example: HTMLE
         const isActive = btn.classList.contains('zot-top-button-active');
         
         if (key) {
-          if (key == 'fontWeight') {
+          if (key === 'fontWeight') {
             example.style.fontWeight = isActive ? "bold" : 'normal';
+            textAttributes.fontWeight = isActive ? parseInt(value || '0') : null;
             if (needToLog) console.log('Updated example fontWeight');
           } else if (key === 'fontStyle') {
             example.style.fontStyle = isActive ? "italic" : 'normal';
+            textAttributes.fontStyle = isActive ? parseInt(value || '0') : null;
           } else if (key === 'decoration') {
             const decorationValue = parseInt(value || '0', 10);
             if (isActive && !isNaN(decorationValue) && decorationValue > 0 && decorationValue <= 4) {
@@ -66,6 +68,7 @@ export function setupTopButtonListener(panelElement: HTMLElement, example: HTMLE
             } else {
               example.style.textDecoration = 'none';
             }
+            textAttributes.decoration = isActive ? parseInt(value || '0') : null;
           } else if (key === 'textAlign') {
             const alignmentValue = parseInt(value || '0', 10);
             if (isActive && !isNaN(alignmentValue) && alignmentValue >= 0 && alignmentValue <= 2) {
@@ -79,10 +82,12 @@ export function setupTopButtonListener(panelElement: HTMLElement, example: HTMLE
             } else {
               example.style.textAlign = 'center';
             }
+            textAttributes.textAlign = isActive ? parseInt(value || '0') : null;
             if (needToLog) console.log('Updated example textAlign', example.style.textAlign);
           }
-    
-          textAttributes[key as keyof TextAttributes] = isActive ? value : null;
+          
+          if (key === 'verticalAlign') textAttributes.verticalAlign = isActive ? parseInt(value || '0') : null;
+
           if (needToLog) console.log('Обновлено textAttributes:', textAttributes);
         }
       });
