@@ -1,4 +1,4 @@
-import { TextAttributes, textAttributes } from "../textPanel";
+import { textAttributes } from "../textPanel";
 
 const needToLog = false;
 

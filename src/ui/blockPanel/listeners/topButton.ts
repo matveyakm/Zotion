@@ -1,4 +1,4 @@
-import { blockAttributes, BlockAttributes } from "../blockPanel"; 
+import { blockAttributes} from "../blockPanel"; 
 
 export function setupTopButtonListener(panelElement: HTMLElement) {
     panelElement.addEventListener('click', (e) => {
@@ -8,7 +8,7 @@ export function setupTopButtonListener(panelElement: HTMLElement) {
       
         e.stopPropagation();
       
-        const key = btn.getAttribute('data-key') as keyof BlockAttributes;
+        const key = btn.getAttribute('data-key');
         const valueRaw = btn.getAttribute('data-value');
         
         // Определение групп для взаимоисключения
