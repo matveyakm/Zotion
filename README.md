@@ -1,4 +1,4 @@
-[![CI - Build, Lint, Type Check](https://github.com/matveyakm/Zotion/actions workflows/ci.yml/badge.svg)](https://github.com/matveyakm/Zotion/actions/workflows/ci.yml)
+[![CI - Build, Lint, Type Check](https://github.com/matveyakm/Zotion/actions/workflows/ci.yml/badge.svg)](https://github.com/matveyakm/Zotion/actions/workflows/ci.yml)
 # Zotion         
 
 Расширение для браузеров на базе Chromuim, призванное улучшить качество взаимодействия с Notion и расширить функциональность.  
