@@ -7,41 +7,40 @@
 
 > 🚧 Расширение на раннем этапе разработки.
 
-## 📌 Planned Functionality
+## 📌 Добавленная функциональность
 
-- **Flexible text formatting**  
-  Allow authors to customize the appearance of text in more ways, improving emphasis and visual association.
+- **Гибкое форматирование текста и блоков**  
+  Авторы в Notion получают возможность кастомизировать вид текста и блоков бльшим числом способов для улучшения расстановки акцентов и визуальных ассоциаций.
 
-- **Annotations**  
-  Allow authors to hide less relevant information in collapsible pop-up annotations.
+- **Аннотации**  
+  Авторы в Notion получают возможность скрывать менее важную информацию во всплывающих аннотациях, что позволяет сделать текст более компактным без потери содержания, добавлять подробности без перегрузки основного текста, таким образом читатели не будут отвлекаться на второстепенные детали.
 
-- **Free layout canvas**  
-  Provide a field where authors can place and move objects freely, enabling infographics and "knowledge maps."
+- **Улучшенное взаимодействие с таблицами**  
+  Авторы в Notion получают возможность менять цвет фона и границы ячейки, менять выравнивание текста в ячейках, что позволяет расширить сферу применения таблиц, улучшить расстановки акцентов и визуальных ассоциаций.
 
-- **Block templates**  
-  Enable authors to define and reuse block patterns to save time and maintain consistency.
+## 📌 Планируемая функциональность
 
-- **Enhanced KaTeX integration**  
-  Upgrade the formula editor to support more intuitive and efficient math input.
+- **Шаблоны блоков**
+  Дать возможность авторам контента делать блоки-заготовки, что позволяет экономить время и ресурсы авторов, повысить единообразие контента.
 
-- **Improved table handling**  
-  Allow changes to cell background, text alignment, and merging of cells.
+- **Окно свободного расположения объектов**  
+  Дать возможность авторам контента свободно размещать объекты в этом поле, что позволяет создавать прямо на сайте инфографики и “карты знаний”, что положительно сказывается на эффективности обучения читателей.
 
-- **Exam preparation mode (revision mode)**  
-  Allow readers to hide definitions, theorems, and proofs under clickable overlays to encourage active recall.
+- **Улучшенное взаимодействие с KaTeX**  
+  Обновить редактор формул, чтобы обеспечить более интуитивно понятный и эффективный ввод математических операций, что позволяет экономить время и ресурс авторов, ускорить написание математических формул авторами и снизить порог входа в авторство.
 
-- **Flashcard-style review questions**  
-  Let readers test themselves using author-defined questions in a Q&A format.
+- **Режим подготовки к экзамену (режим повторения)**  
+  Дать возможность читателям контента перекрывать снимаемыми по щелчку “плашками” тексты определений, формулировок и доказательств, что позволяет повысить эффективность повторения через “активное вспоминание”.
 
-- **Video synchronization**  
-  Link content with video timestamps to enable synchronized reading and watching.
+- **Контрольные вопросы в формате карточек**  
+  Дать возможность читателям контента при повторении отвечать на вопросы по материалу, заготовленные авторами, что позволяет повысить эффективность повторения через “активное вспоминание”
 
-- **Focus timer**  
-  Allow readers to set break reminders to support structured study sessions.
+- **Синхронизация с видео**  
+  Дать возможность связывать контент с временными метками видео для обеспечения синхронизированного чтения и просмотра.
 
-- **Browsing history and self-assessment**  
-  Let readers track their reading progress and self-evaluate their understanding over time.
+- **Таймер**  
+  Предоставить читателям возможность устанавливать напоминания о перерывах, что позволяет повысить эффективность изучения за счёт повышения осознанности и организации перерывов.
 
-## 📄 License
+## 📄 Лицензия
 
 This project is licensed under the [MIT License](LICENSE).
