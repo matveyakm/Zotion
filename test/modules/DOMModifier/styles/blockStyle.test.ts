@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { applyBlockStyles } from '../../../../src/modules/DOMModifier/styles/blockStyle';
-import * as colorStyler from '../../../../src/modules/DOMModifier/styles/colorStyler';
+import * as colorStyler from '../../../../src/utils/colorStyler';
 import * as alignmentStyle from '../../../../src/modules/DOMModifier/styles/alignmentStyle';
 
 // Мокаем зависимости

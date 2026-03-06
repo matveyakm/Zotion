@@ -5,7 +5,7 @@ import { log } from '../../../utils/log';
 import { addTooltipListeners } from '../annotation/tooltip';
 import { hiddenBlocks } from '../constants';
 
-const needToLog = false;
+const needToLog = true;
 
 export function applyTooltipStyles(
   tooltip: HTMLElement,

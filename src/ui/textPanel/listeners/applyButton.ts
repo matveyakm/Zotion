@@ -5,7 +5,7 @@ import { switchAnnotationLState } from "./annotationSelect";
 
 const needToLog = false;
 
-export function setupApplyButtonListener(panelElement: HTMLElement, example: HTMLElement) {
+export function setupApplyButtonListener(panelElement: HTMLElement) {
     const applyBtn = panelElement.querySelector('#zot-apply-btn'); 
     if (applyBtn) {
         applyBtn.addEventListener('click', () => {

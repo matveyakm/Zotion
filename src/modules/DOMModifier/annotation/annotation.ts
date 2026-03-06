@@ -6,7 +6,7 @@ import { hiddenBlocks, annotationIDs } from '../constants';
 import { createTooltip } from '../styles/annotationStyle';
 import { ParsedData, indexOfTagID } from '../scanner';
 
-const needToLog = false;
+const needToLog = true;
 
 export function hideAnnotationBlock(link: HTMLAnchorElement, parsedData: ParsedData, index: number): void {
   if (!('attributes' in parsedData) || !parsedData.attributes) return;

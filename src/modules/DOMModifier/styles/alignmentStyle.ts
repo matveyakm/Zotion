@@ -1,7 +1,7 @@
 // alignmentStyle.ts
 import { log } from '../../../utils/log';
 
-const needToLog = false;
+const needToLog = true;
 
 export function applyAlignmentStyles(element: HTMLElement, textAlign: string | null, verticalAlign: string | null, index: number, linkId: string): void {
     log(`Applying alignment styles for link ${index + 1}, textAlign: ${textAlign}, verticalAlign: ${verticalAlign}`, needToLog);

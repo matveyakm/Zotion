@@ -66,7 +66,7 @@ export function setupTopButtonListener(panelElement: HTMLElement) {
             }
           });
 
-          (blockAttributes as any)[key] = isActive ? numericValue : null;
+          blockAttributes[key as keyof BlockAttributes] = isActive ? numericValue : null;
         }
     });
 }

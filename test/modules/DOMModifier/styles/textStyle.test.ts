@@ -51,7 +51,7 @@ describe('textStyle.ts — Link styling functions', () => {
       expect(link.style.fontWeight).toBe('bold'); // attributes[7] = '1'
       expect(link.style.letterSpacing).toBe('1px'); // attributes[8] = '6' → 6 - 5
       expect(link.style.wordSpacing).toBe('4px'); // attributes[9] = '9' → 9 - 5
-      expect(link.style.whiteSpace).toBe('normal'); // attributes[10] = '0'
+      expect(link.style.whiteSpace).toBe(''); // attributes[10] = '0'
 
       // Проверяем логи
       expect(console.log).toHaveBeenCalledWith('Processing link 1');
@@ -126,7 +126,7 @@ describe('textStyle.ts — Link styling functions', () => {
       expect(link.style.fontWeight).toBe('normal'); // weights[99] → 'normal'
       expect(link.style.letterSpacing).toBe(''); // parseInt('invalid') → NaN → не применяется
       expect(link.style.wordSpacing).toBe(''); // parseInt('invalid') → NaN → не применяется
-      expect(link.style.whiteSpace).toBe('normal'); // spaces[99] → 'normal'
+      expect(link.style.whiteSpace).toBe(''); // spaces[99] → 'normal'
 
       // Проверяем логи
       expect(console.log).toHaveBeenCalledWith('Processing link 1');

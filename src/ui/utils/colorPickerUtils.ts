@@ -3,7 +3,7 @@ import { hsvToRgb, rgbToHex } from '../../utils/colorStyler';
 
 const needToLog = false;
 
-export let colorPickerSettings  = {
+export const colorPickerSettings  = {
   currentTab : "Text",
   currentHue : 0,
   SVPicker : { x: 0, y: 0 , width: 0, height: 0},
@@ -34,10 +34,10 @@ export function toggleColor(
     const hexInput = panelElement.querySelector('#zot-hex-input') as HTMLElement;
     const applyColorBtn = panelElement.querySelector('#zot-apply-color-btn') as HTMLElement;
   
-    let x = colorPickerSettings.SVPicker.x;
-    let y = colorPickerSettings.SVPicker.y;
-    let width = colorPickerSettings.SVPicker.width;
-    let height = colorPickerSettings.SVPicker.height;
+    const x = colorPickerSettings.SVPicker.x;
+    const y = colorPickerSettings.SVPicker.y;
+    const width = colorPickerSettings.SVPicker.width;
+    const height = colorPickerSettings.SVPicker.height;
   
     // Цвета (S и V в диапазоне 0...1)
     const saturation = x / width;

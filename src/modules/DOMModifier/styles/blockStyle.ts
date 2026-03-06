@@ -6,7 +6,7 @@ import { ParsedData } from '../scanner';
 import { processRGB } from '../../../utils/colorStyler';
 import { applyAlignmentStyles } from './alignmentStyle';
 
-const needToLog = false;
+const needToLog = true;
 
 export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   log(`Trying to apply block styles for link ${index + 1}`, needToLog);

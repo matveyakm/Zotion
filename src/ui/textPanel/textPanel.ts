@@ -28,7 +28,7 @@ export interface TextAttributes {
   href: string | null;
 }
 
-export let textAttributes: TextAttributes = {
+export const textAttributes: TextAttributes = {
   type: 0,
   size: null,
   textColor: null,
@@ -74,10 +74,10 @@ function createPanel() {
   setupColorPickerListener(panelElement, example);
 
   // Логика для кнопки "Дополнительно"
-  setupMoreButtonListener(panelElement, example);
+  setupMoreButtonListener(panelElement);
   
   // Листнер apply-btn
-  setupApplyButtonListener(panelElement, example);
+  setupApplyButtonListener(panelElement);
 
   // Логика для аннотаций
   setupAnnotationToggleListener(panelElement);

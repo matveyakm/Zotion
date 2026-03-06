@@ -2,7 +2,7 @@ import { textAttributes } from "../textPanel";
 
 const needToLog = false;
 
-export function setupMoreButtonListener(panelElement: HTMLElement, example: HTMLElement) {
+export function setupMoreButtonListener(panelElement: HTMLElement) {
     const toggleBtn = panelElement.querySelector('#zot-advanced-toggle');
     const content = panelElement.querySelector('#zot-advanced-content') as HTMLElement;
 
@@ -27,7 +27,7 @@ export function setupMoreButtonListener(panelElement: HTMLElement, example: HTML
             alignButtons.forEach(b => b.classList.remove(activeClass));
             btn.classList.add(activeClass);
 
-            (textAttributes as any).verticalAlign = parseInt(value, 10);
+            textAttributes.verticalAlign = parseInt(value, 10);
             if (needToLog) console.log(`Vertical align updated to: ${value}`);
         }
     });
@@ -39,7 +39,7 @@ export function setupMoreButtonListener(panelElement: HTMLElement, example: HTML
         symbolSpacingSlider.addEventListener('input', () => {
             const value = parseInt(symbolSpacingSlider.value);
             
-            (textAttributes as any).letterSpacing = value;
+            textAttributes.letterSpacing = value;
             
             if (needToLog) console.log(`letterSpacing set to: ${Math.round(value * 100)}%`);
         });
@@ -51,7 +51,7 @@ export function setupMoreButtonListener(panelElement: HTMLElement, example: HTML
         wordSpacingSlider.addEventListener('input', () => {
             const value = parseInt(wordSpacingSlider.value);
             
-            (textAttributes as any).wordSpacing = value;
+            textAttributes.wordSpacing = value;
             
             if (needToLog) console.log(`wordSpacing set to: ${Math.round(value * 100)}%`);
         });
@@ -63,7 +63,7 @@ export function setupMoreButtonListener(panelElement: HTMLElement, example: HTML
         lineHeightSlider.addEventListener('input', () => {
             const value = parseInt(lineHeightSlider.value);
             
-            (textAttributes as any).lineHeight = value;
+            textAttributes.lineHeight = value;
             
             if (needToLog) console.log(`lineHeight set to: ${Math.round(value * 100)}%`);
         });

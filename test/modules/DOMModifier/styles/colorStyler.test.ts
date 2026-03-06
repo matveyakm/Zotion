@@ -1,7 +1,7 @@
 // test/modules/DOMModifier/styles/colorStyler.test.ts
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { processRGB, evaluateBackground } from '../../../../src/modules/DOMModifier/styles/colorStyler';
+import { processRGB, evaluateBackground } from '../../../../src/utils/colorStyler';
 import * as constants from '../../../../src/modules/DOMModifier/constants';
 
 vi.mock('../../../../src/modules/DOMModifier/constants', () => ({

@@ -1,4 +1,4 @@
-import { textAttributes } from "../textPanel";
+import { TextAttributes, textAttributes } from "../textPanel";
 
 const needToLog = false;
 
@@ -82,7 +82,7 @@ export function setupTopButtonListener(panelElement: HTMLElement, example: HTMLE
             if (needToLog) console.log('Updated example textAlign', example.style.textAlign);
           }
     
-          (textAttributes as any)[key] = isActive ? value : null;
+          textAttributes[key as keyof TextAttributes] = isActive ? value : null;
           if (needToLog) console.log('Обновлено textAttributes:', textAttributes);
         }
       });

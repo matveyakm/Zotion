@@ -1,6 +1,6 @@
 import { annotationIDs } from "../../modules/DOMModifier/constants";
 import { textAttributes, TextAttributes } from "../textPanel/textPanel";
-import { BlockAttributes, blockAttributes } from "../blockPanel/blockPanel";
+import { BlockAttributes } from "../blockPanel/blockPanel";
 
 const needToLog = false;
 
@@ -8,7 +8,7 @@ export const hrefLinkPrefix = "https://example.com/";
 
 let lastUsedID: number | null = null;
 
-export function applyHrefToSelection(href: string, isItABlock: boolean = false) {
+export function applyHrefToSelection(href: string) { // TODO: isItABlock: boolean = false
     const selection = window.getSelection();
     if (!selection || selection.isCollapsed) {
       if (needToLog) console.log('Panel: Нет выделенного текста');
@@ -129,7 +129,7 @@ export function applyHrefToSelection(href: string, isItABlock: boolean = false) 
 }
 
 export function generateHrefFromTextAttributes(textAttributes: TextAttributes) : string {
-    let href = hrefLinkPrefix + "#" + [ 
+    const href = hrefLinkPrefix + "#" + [ 
         `${textAttributes.type.toString(16)}`, // 0
         textAttributes.size ? `${textAttributes.size.toString(16)}` : '', // 1
         textAttributes.textColor ? `${textAttributes.textColor}` : '', // 2
@@ -185,8 +185,8 @@ export function generateHrefFromBlockAttributes(blockAttributes : BlockAttribute
       href = hrefLinkPrefix + "#" + [ 
         '3', // 0
         blockAttributes.radius ? `${blockAttributes.radius.toString(16)}` : '', // 1
-        blockAttributes.backgroundColor ? `${blockAttributes.borderColor}` : '', // 2
-        blockAttributes.borderWidth ? `${blockAttributes.borderWidth}` : '', // 3
+        blockAttributes.backgroundColor ? `${blockAttributes.backgroundColor}` : '', // 2
+        blockAttributes.borderWidth ? `${blockAttributes.borderWidth.toString(16)}` : '', // 3
         blockAttributes.borderColor ? `${blockAttributes.borderColor}` : '', // 4
         '', // 5
         '', // 6

@@ -32,12 +32,12 @@ export function setupAnnotationToggleListener(panelElement: HTMLElement) {
                 annotationLinkBtn.setAttribute('data-active', 'undo');
                 annotationLinkBtn.textContent = 'Сделать обычным текстом';
 
-                (textAttributes as any).type = 1;
+                textAttributes.type = 1;
             } else {
                 annotationLinkBtn.setAttribute('data-active', 'do');
                 annotationLinkBtn.textContent = 'Сделать ссылкой на аннотацию';
 
-                (textAttributes as any).type = 0;
+                textAttributes.type = 0;
             }
         });
     }
@@ -46,7 +46,7 @@ export function setupAnnotationToggleListener(panelElement: HTMLElement) {
     if (annotationCancelBtn) {
         annotationCancelBtn.addEventListener('click', () => {
             switchAnnotationLState(panelElement, true);
-            (textAttributes as any).type = 0;
+            textAttributes.type = 0;
         });
     }
 }

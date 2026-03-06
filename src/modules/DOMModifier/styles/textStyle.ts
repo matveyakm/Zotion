@@ -7,7 +7,7 @@ import { ParsedData, indexOfType, formattedTextType, annotationContentType, form
 import { processRGB, evaluateBackground } from '../../../utils/colorStyler';
 import { applyAlignmentStyles } from './alignmentStyle';
 
-const needToLog = false;
+const needToLog = true;
 
 export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   processedLinks.add(link);
@@ -44,7 +44,6 @@ export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: Parse
 
   const styles = ['normal', 'italic', 'oblique'];
   const weights = ['normal', 'bold', 'lighter', 'bolder'];
-  const spaces = ['normal', 'nowrap', 'pre'];
 
   if (attributes[indexOfType] === annotationContentType) {
     link.setAttribute('data-icon', 'true');

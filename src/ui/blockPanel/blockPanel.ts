@@ -20,7 +20,7 @@ export interface BlockAttributes {
   verticalAlign: number | null;
 }
 
-export let blockAttributes: BlockAttributes = {
+export const blockAttributes: BlockAttributes = {
   type: 0,
   radius: null,
   borderWidth: null,

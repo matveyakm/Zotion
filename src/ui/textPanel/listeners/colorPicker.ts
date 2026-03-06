@@ -57,7 +57,7 @@ export function setupColorPickerListener(panelElement: HTMLElement, example: HTM
       colorPickerSettings.SVPicker.height = rect.height;
 
       colorPickerSettings.SVPicker.x = Math.max(0, Math.min(colorPickerSettings.SVPicker.x, colorPickerSettings.SVPicker.width));
-      let y = Math.max(0, Math.min(colorPickerSettings.SVPicker.y, colorPickerSettings.SVPicker.height));
+      colorPickerSettings.SVPicker.y = Math.max(0, Math.min(colorPickerSettings.SVPicker.y, colorPickerSettings.SVPicker.height));
 
       // Визуально двигаем курсор
       const sPercent = (colorPickerSettings.SVPicker.x / colorPickerSettings.SVPicker.width) * 100;

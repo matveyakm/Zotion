@@ -1,7 +1,7 @@
 // tooltip.ts
 import { log } from '../../../utils/log';
 
-const needToLog = false;
+const needToLog = true;
 
 export function addTooltipListeners(link: HTMLAnchorElement, tooltip: HTMLDivElement, index: number): void {
     // Блокируем переход по ссылке через click
@@ -18,7 +18,7 @@ export function addTooltipListeners(link: HTMLAnchorElement, tooltip: HTMLDivEle
     }, { capture: true });
   
     // Позиционируем и показываем тултип через mouseenter
-    link.addEventListener('mouseenter', (e) => {
+    link.addEventListener('mouseenter', () => {
       log(`Mouseenter triggered for link ${index + 1}`, needToLog);
   
       tooltip.style.display = 'block';
@@ -54,7 +54,7 @@ export function addTooltipListeners(link: HTMLAnchorElement, tooltip: HTMLDivEle
     }, { capture: true });
     
     // Скрываем тултип через mouseleave
-    link.addEventListener('mouseleave', (e) => {
+    link.addEventListener('mouseleave', () => {
       log(`Mouseleave triggered for link ${index + 1}`, needToLog);
       tooltip.style.display = 'none';
       tooltip.style.opacity = '0';

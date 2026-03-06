@@ -3,7 +3,7 @@ import { hsvToRgb, rgbToHex } from '../../../utils/colorStyler';
 
 const needToLog = false;
 
-export let bpColorSettings = {
+export const bpColorSettings = {
   currentTab: "Border" as "Border" | "Background",
   hue: 0,           // 0–360
   s: 0,             // 0–100
@@ -109,7 +109,7 @@ export function setupBlockColorPickerListener(panelElement: HTMLElement) {
   if (elements.alphaSlider) {
     elements.alphaSlider.addEventListener('input', () => {
       bpColorSettings.alpha = Number(elements.alphaSlider!.value) / 100;
-      const color = getCurrentColorString();
+      const color = getRGBA(bpColorSettings.hue, bpColorSettings.s / 100, bpColorSettings.v / 100);
       applyColorToPreviews(panelElement, color);
       if (needToLog) console.log('Alpha изменён →', bpColorSettings.alpha);
     });
@@ -118,7 +118,7 @@ export function setupBlockColorPickerListener(panelElement: HTMLElement) {
   //  Кнопка Применить
   if (elements.applyBtn) {
     elements.applyBtn.addEventListener('click', () => {
-      const color = getCurrentColorString();
+      const color = getRGBA(bpColorSettings.hue, bpColorSettings.s / 100, bpColorSettings.v / 100);
       applyColorToPreviews(panelElement, color);
       if (needToLog) console.log('Цвет применён →', color, bpColorSettings);
     });
@@ -131,10 +131,10 @@ export function setupBlockColorPickerListener(panelElement: HTMLElement) {
 
       if (isBorder) {
         blockAttributes.borderColor = null;
-        applyColorToPreviews(panelElement, 'rgba(128,128,128,0.2)');
+        applyColorToPreviews(panelElement, { r: 128, g: 128, b: 128, a: 0.2 });
       } else {
         blockAttributes.backgroundColor = null;
-        applyColorToPreviews(panelElement, 'transparent');
+        applyColorToPreviews(panelElement, { r: 0, g: 0, b: 0, a: 0 });
       }
 
       if (needToLog) console.log('Сброс цвета. Текущее состояние:', blockAttributes);
@@ -147,14 +147,20 @@ export function setupBlockColorPickerListener(panelElement: HTMLElement) {
   }
 }
 
-//  Вспомогательные функции
-function getCurrentColorString(): string {
-  const rgb = hsvToRgb(bpColorSettings.hue, bpColorSettings.s / 100, bpColorSettings.v / 100);
+function getRGBA(h: number, s: number, v: number) {
+  const rgb = hsvToRgb(h, s, v);
 
-  if (bpColorSettings.alpha === 1) {
-    return `#${rgbToHex(rgb.r, rgb.g, rgb.b)}`;
-  }
-  return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${bpColorSettings.alpha})`;
+  return {r: rgb.r, g: rgb.g, b: rgb.b, a: bpColorSettings.alpha};
+}
+
+function getRGBAString(r: number, g: number, b: number, a: number) {
+    return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+
+function getHEXString(r: number, g: number, b: number, a: number) {
+    const hex = rgbToHex(r, g, b);
+    const alphaHex = Math.round(a * 15).toString(16);
+    return `${hex}${alphaHex}`;
 }
 
 function updateApplyButtonUI(els: { applyBtn: HTMLElement | null; hexInput: HTMLInputElement | null }) {
@@ -177,7 +183,7 @@ function updateApplyButtonUI(els: { applyBtn: HTMLElement | null; hexInput: HTML
   els.applyBtn.style.color = isLight ? '#000' : '#fff';
 }
 
-function applyColorToPreviews(panel: HTMLElement, color: string) {
+function applyColorToPreviews(panel: HTMLElement, rgba: {r: number, g: number, b: number, a: number}) {
   const previews = panel.querySelectorAll<HTMLElement>('.zot-bp-example');
 
   previews.forEach(preview => {
@@ -187,17 +193,17 @@ function applyColorToPreviews(panel: HTMLElement, color: string) {
     if (bpColorSettings.currentTab === "Border") {
       if (preview.id === 'zot-divider-example') {
         preview.querySelectorAll<HTMLElement>('[role="separator"]').forEach(line => {
-          line.style.backgroundColor = color;
+          line.style.backgroundColor = getRGBAString(rgba.r, rgba.g, rgba.b, rgba.a);
         });
       } else {
-        content.style.borderColor = color;
+        content.style.borderColor = getRGBAString(rgba.r, rgba.g, rgba.b, rgba.a);
       }
-      blockAttributes.borderColor = color;
+      blockAttributes.borderColor = getHEXString(rgba.r, rgba.g, rgba.b, rgba.a);
     } else {
       if (preview.id !== 'zot-divider-example') {
-        content.style.backgroundColor = color;
+        content.style.backgroundColor = getRGBAString(rgba.r, rgba.g, rgba.b, rgba.a);
       }
-      blockAttributes.backgroundColor = color;
+      blockAttributes.backgroundColor = getHEXString(rgba.r, rgba.g, rgba.b, rgba.a);
     }
   });
 }
