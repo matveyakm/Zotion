@@ -1,4 +1,4 @@
-[![CI - Build, Lint, Type Check](https://github.com/matveyakm/Zotion/actions/workflows/ci.yml/badge.svg)](https://github.com/matveyakm/Zotion/actions/workflows/ci.yml) ![ESLint](https://img.shields.io/badge/lint-eslint-purple) ![tests](https://img.shields.io/badge/tests-vitest-green)
+[![CI - Build, Lint, Type Check](https://github.com/matveyakm/Zotion/actions/workflows/ci.yml/badge.svg)](https://github.com/matveyakm/Zotion/actions/workflows/ci.yml)     ![ESLint](https://img.shields.io/badge/lint-eslint-purple)     ![tests](https://img.shields.io/badge/tests-vitest-blue)
 # Zotion         
 
 Расширение для браузеров на базе Chromuim, призванное улучшить качество взаимодействия с Notion и расширить функциональность.  
