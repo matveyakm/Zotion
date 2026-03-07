@@ -20,7 +20,7 @@ const EXAM_CSS = `
   body.exam-mode-enabled .notion-equation-block {
     filter: blur(12px); /* Для больших формул блюр нужен чуть сильнее */
     transition: filter 0.2s ease, opacity 0.2s ease;
-    opacity: 0.3; /* Делаем их менее отвлекающими в скрытом состоянии */
+    opacity: 0.6;
     cursor: help;
   }
   
@@ -68,8 +68,6 @@ const updateRevealStyles = () => {
       transition: none !important;
     }
   `).join('\n');
-
-  console.log(activeReveals);
 };
 
 const handleBlockClick = (e: MouseEvent) => {
