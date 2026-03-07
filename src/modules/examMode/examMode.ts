@@ -1,6 +1,9 @@
 let isExamModeActive: boolean = false;
 const STYLE_ID = 'notion-exam-mode-styles';
+const REVEAL_STYLE_ID = 'notion-exam-mode-reveal-rules';
 let wasInjected = false;
+
+const activeReveals = new Map<string, ReturnType<typeof setTimeout>>();
 
 const EXAM_CSS = `
   body.exam-mode-enabled [contenteditable="true"]:not([aria-roledescription*="heading"]):not([placeholder*="Heading"]) {
@@ -40,6 +43,60 @@ const EXAM_CSS = `
   }
 `;
 
+const updateRevealStyles = () => {
+  let styleTag = document.getElementById(REVEAL_STYLE_ID) as HTMLStyleElement;
+  if (!styleTag) {
+    styleTag = document.createElement('style');
+    styleTag.id = REVEAL_STYLE_ID;
+    document.head.appendChild(styleTag);
+  }
+
+  const ids = Array.from(activeReveals.keys());
+  if (ids.length === 0) {
+    styleTag.innerHTML = '';
+    return;
+  }
+
+  styleTag.innerHTML = ids.map(id => `
+    body.exam-mode-enabled [data-block-id="${id}"][data-block-id="${id}"] [contenteditable="true"],
+    body.exam-mode-enabled [data-block-id="${id}"][data-block-id="${id}"].notion-equation-block {
+      filter: none !important;
+      color: var(--c-textPri) !important;
+      text-shadow: none !important;
+      opacity: 1 !important;
+      background-image: none !important;
+      transition: none !important;
+    }
+  `).join('\n');
+
+  console.log(activeReveals);
+};
+
+const handleBlockClick = (e: MouseEvent) => {
+  if (!isExamModeActive) return;
+
+  const target = e.target as HTMLElement;
+  const block = target.closest('[data-block-id]');
+  
+  if (block) {
+    const blockId = block.getAttribute('data-block-id');
+    if (!blockId) return;
+
+    if (block.querySelector('[aria-roledescription*="heading"]')) return;
+
+    if (activeReveals.has(blockId)) {
+      clearTimeout(activeReveals.get(blockId));
+    }
+
+    activeReveals.set(blockId, setTimeout(() => {
+      activeReveals.delete(blockId);
+      updateRevealStyles();
+    }, 30000));
+
+    updateRevealStyles();
+  }
+};
+
 const injectGlobalStyles = (): void => {
   if (document.getElementById(STYLE_ID)) return;
   const styleElement = document.createElement('style');
@@ -55,9 +112,13 @@ export const toggleExamMode = (): void => {
   if (isExamModeActive) {
     if (!wasInjected) injectGlobalStyles(); 
     document.body.classList.add('exam-mode-enabled');
+    document.addEventListener('click', handleBlockClick);
   } else {
     document.body.classList.remove('exam-mode-enabled');
+    document.removeEventListener('click', handleBlockClick);
   }
+  activeReveals.clear();
+  updateRevealStyles();
 };
 
 export const initExamMode = (): void => {
