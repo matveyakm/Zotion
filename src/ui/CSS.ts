@@ -491,3 +491,22 @@ export const examModePanelStyle = `
   pointer-events: auto !important;
   border: 1px solid #333 !important;
 `;
+
+export const timerMainPanelStyle = `
+  position: fixed !important;
+  left: 315px !important;
+  bottom: 20px !important;
+  width: 67px !important;
+  background: #191919 !important;
+  color: #d9d9d9 !important;
+  padding: 10px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.8) !important;
+  z-index: 2147483647 !important;
+  font-family: system-ui, -apple-system, sans-serif !important;
+  transform: scale(0.9) !important;
+  transform-origin: top left !important;
+  display: none;
+  pointer-events: auto !important;
+  border: 1px solid #333 !important;
+`;

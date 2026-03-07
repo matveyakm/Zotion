@@ -1,14 +1,14 @@
-import { uiCSS, examModePanelStyle } from '../CSS';
+import { uiCSS, timerMainPanelStyle } from '../CSS';
 
 let panelElement: HTMLElement | null = null;
 let uiInjected = false;
 
 const panelHTML = `
     <button title="Таймер" class="zot-main-panel-button" style="width:44px; height:44px; padding: 0">
-        <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" style="margin: 10px 8px;">
-            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5.5 10.25l6.5 3.55 6.5-3.55L12 13.75 5.5 10.25z"/>
-        <path d="M5 10v6c0 1.1 3.13 2 7 2s7-0.9 7-2v-6l-7 3.5L5 10z"/>
-            </svg>
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 11px 9px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
     </button>
 `;
 
@@ -25,7 +25,7 @@ function createPanel() {
     panelElement = document.createElement('div');
     panelElement.id = 'zot-timer-main-panel';
     panelElement.innerHTML = panelHTML;
-    panelElement.style.cssText = examModePanelStyle;
+    panelElement.style.cssText = timerMainPanelStyle;
   
     document.body.appendChild(panelElement);
     
@@ -42,7 +42,7 @@ function createPanel() {
 }
 
 
-export function initExamModePanel() {
+export function initTimerMainPanel() {
     if (uiInjected) return;
   
     console.log('Panel: init timer main panel');
