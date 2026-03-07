@@ -3,42 +3,38 @@ const STYLE_ID = 'notion-exam-mode-styles';
 let wasInjected = false;
 
 const EXAM_CSS = `
-  body.exam-mode-enabled [data-block-id] {
-    position: relative !important;
-  }
-
-  body.exam-mode-enabled [data-block-id] [contenteditable="true"],
-  body.exam-mode-enabled [data-block-id] [role="button"],
-  body.exam-mode-enabled .notion-image-block {
-    position: relative;
+  /* Состояние включенного режима */
+  body.exam-mode-enabled [data-block-id] [contenteditable="true"] {
+    /* Делаем текст нечитаемым, но сохраняем его геометрию */
     color: transparent !important;
-    transition: color 0.2s ease;
+    text-shadow: 0 0 8px rgba(0,0,0,0.5); /* Размытие текста */
+    transition: all 0.2s ease;
+    cursor: help;
   }
 
-  body.exam-mode-enabled [data-block-id] [contenteditable="true"]::after,
-  body.exam-mode-enabled [data-block-id] [role="button"]::after,
-  body.exam-mode-enabled .notion-image-block::after {
-    content: "";
-    position: absolute;
-    inset: 0; /* Растягиваем на весь блок */
-    background: #222;
-    border: 1px dashed var(--theme--divider, #e0e0e0);
-    backdrop-filter: blur(10px); /* Для пущей секретности */
-    z-index: 100;
-    pointer-events: none;
-    opacity: 1;
-    transition: opacity 0.2s ease;
+  /* Для темной темы меняем цвет тени */
+  body.dark.exam-mode-enabled [data-block-id] [contenteditable="true"] {
+    text-shadow: 0 0 8px rgba(255,255,255,0.5);
   }
 
-  body.exam-mode-enabled [data-block-id]:hover [contenteditable="true"],
-  body.exam-mode-enabled [data-block-id]:hover [role="button"] {
+  /* Фоновый паттерн, имитирующий "плашки" под словами */
+  body.exam-mode-enabled [data-block-id] [contenteditable="true"] {
+    background-image: linear-gradient(
+      90deg, 
+      var(--theme--bg-default) 0%, 
+      var(--theme--bg-default) 10%, 
+      transparent 10%, 
+      transparent 90%, 
+      var(--theme--bg-default) 90%
+    );
+    background-size: 0.5em 100%; /* Размер "пропуска" между словами */
+  }
+
+  /* Проявление конкретного блока при наведении */
+  body.exam-mode-enabled [data-block-id] [contenteditable="true"]:hover {
     color: inherit !important;
-  }
-
-  body.exam-mode-enabled [data-block-id]:hover [contenteditable="true"]::after,
-  body.exam-mode-enabled [data-block-id]:hover [role="button"]::after,
-  body.exam-mode-enabled [data-block-id]:hover .notion-image-block::after {
-    opacity: 0;
+    text-shadow: none !important;
+    background-image: none !important;
   }
 `;
 
