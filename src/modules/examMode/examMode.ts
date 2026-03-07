@@ -5,29 +5,38 @@ let wasInjected = false;
 const EXAM_CSS = `
   body.exam-mode-enabled [contenteditable="true"]:not([aria-roledescription*="heading"]):not([placeholder*="Heading"]) {
     color: transparent !important;
-    text-shadow: 0 0 6px rgba(0,0,0,0.5) !important;
+    text-shadow: 0 0 7px rgba(0,0,0,0.5) !important;
     transition: all 0.2s ease;
     cursor: help;
   }
 
   body.dark.exam-mode-enabled [contenteditable="true"]:not([aria-roledescription*="heading"]):not([placeholder*="Heading"]) {
-    text-shadow: 0 0 6px rgba(255,255,255,0.5) !important;
+    text-shadow: 0 0 7px rgba(255,255,255,0.5) !important;
   }
 
+  body.exam-mode-enabled .notion-equation-block {
+    filter: blur(12px); /* Для больших формул блюр нужен чуть сильнее */
+    transition: filter 0.2s ease, opacity 0.2s ease;
+    opacity: 0.3; /* Делаем их менее отвлекающими в скрытом состоянии */
+    cursor: help;
+  }
+  
   body.exam-mode-enabled [contenteditable="true"]:not([aria-roledescription*="heading"]):hover {
     color: inherit !important;
     text-shadow: none !important;
   }
 
-  body.exam-mode-enabled [contenteditable="true"]:hover .notion-text-equation-token {
-    filter: none;
+  body.exam-mode-enabled .notion-equation-block:hover {
+    filter: blur(0);
     opacity: 1;
   }
 
-  body.exam-mode-enabled [aria-roledescription*="heading"] {
+  body.exam-mode-enabled [aria-roledescription*="heading"],
+  body.exam-mode-enabled [placeholder*="Heading"] {
     color: inherit !important;
     text-shadow: none !important;
     filter: none !important;
+    opacity: 1 !important;
   }
 `;
 
