@@ -1,0 +1,19 @@
+import { changePlannedTime } from '../timerUtils';
+
+export function setupInputListeners(panelElement: HTMLElement) {
+    const studyInput = panelElement.querySelector('#zot-study-time-input') as HTMLInputElement;
+    studyInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const minutes = parseInt(studyInput.value);
+        changePlannedTime(panelElement, 'study', minutes);
+    }
+    });
+
+    const relaxInput = panelElement.querySelector('#zot-relax-time-input') as HTMLInputElement;
+    relaxInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const minutes = parseInt(relaxInput.value);
+        changePlannedTime(panelElement, 'relax', minutes);
+    }
+    });
+}

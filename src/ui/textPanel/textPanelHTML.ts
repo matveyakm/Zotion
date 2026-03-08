@@ -101,8 +101,8 @@ export const panelHTML = `
 
   <input type="text" placeholder="RRGGBB" id="zot-hex-input" class="zot-hex-input-style">
   <button id="zot-reset-color-btn" class="zot-reset-color-btn-style" title="Сброс">Сброс</button>
-  <button id="zot-apply-color-btn" class="zot-apply-color-btn-style" title="Применить цвет">↑</buuton>
-  </div>
+  <button id="zot-apply-color-btn" class="zot-apply-color-btn-style" title="Применить цвет">↑</button>
+</div>
 
 <!-- Ссылка -->
 <!input type="text" placeholder="Ссылка..." id="zot-external_hyperlink" style="width: 100%; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 0.9rem; margin-bottom: 8px;">
