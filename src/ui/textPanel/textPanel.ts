@@ -45,6 +45,7 @@ export const textAttributes: TextAttributes = {
   href: null,
 }
 
+// Создаёт и внедряет в DOM панель для форматирования текста
 function createPanel() {
   if (panelElement) return panelElement;
 
@@ -85,18 +86,22 @@ function createPanel() {
   return panelElement;
 }
 
+// Показывает панель
 export function showTextPanel() {
   const panel = createPanel();
   panel.style.display = 'block';
   monitorSelection();
 }
 
+// Скрывает панель
 export function hideTextPanel() {
   if (panelElement) {
     panelElement.style.display = 'none';
   }
 }
 
+// Проверяет, какое выделение сейчас установлено
+// Если в текущем выделении возможно применение форматирования текста, меняет цвет кнопки применения
 function monitorSelection() { // Конфликтует с применением стилей. TODO: разобраться и пофиксить
   const intervel = setInterval(() => {
     console.log('Monitoring selection...');
@@ -119,6 +124,7 @@ function monitorSelection() { // Конфликтует с применение�
   });
 }
 
+// Инициализирует панель форматирования текста
 export function initTextPanel() {
   if (uiInjected) return;
 

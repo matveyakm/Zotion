@@ -3,6 +3,7 @@ import { log } from '../../../utils/log';
 
 const needToLog = true;
 
+// Функция для добавления слушателей к ссылке и тултипу
 export function addTooltipListeners(link: HTMLAnchorElement, tooltip: HTMLDivElement, index: number): void {
     // Блокируем переход по ссылке через click
     link.addEventListener('click', (e) => {

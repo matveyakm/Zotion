@@ -7,6 +7,7 @@ import { hiddenBlocks } from '../constants';
 
 const needToLog = true;
 
+// Вспомогательная функция для применения стилей к тултипу и кнопке закрытия
 export function applyTooltipStyles(
   tooltip: HTMLElement,
   parentBlock: HTMLElement | null,
@@ -51,6 +52,7 @@ export function applyTooltipStyles(
   closeButton.style.lineHeight = '1';
 }
 
+// Функция для создания тултипа и добавления его в DOM, а также установки слушателей для ссылки
 export function createTooltip(
   link: HTMLAnchorElement,
   blockId: string,

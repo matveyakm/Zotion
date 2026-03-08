@@ -8,7 +8,10 @@ export const hrefLinkPrefix = "https://example.com/";
 
 let lastUsedID: number | null = null;
 
-export function applyHrefToSelection(href: string) { // TODO: isItABlock: boolean = false
+// Применяет к выделенному тексту заданный href путём эмуляции действий пользователя для обхода запретов Notion
+// TODO: иногда ссылка устанавливается на текущую открытую страницу Notion, а не то, что приняла функция
+// TODO: isItABlock: boolean = false
+export function applyHrefToSelection(href: string) {
     const selection = window.getSelection();
     if (!selection || selection.isCollapsed) {
       if (needToLog) console.log('Panel: Нет выделенного текста');
@@ -128,6 +131,7 @@ export function applyHrefToSelection(href: string) { // TODO: isItABlock: boolea
     }, 10);
 }
 
+// Генерация href для текста по данным атрибутам в виде, описанном в Wiki репозитория
 export function generateHrefFromTextAttributes(textAttributes: TextAttributes) : string {
     const href = hrefLinkPrefix + "#" + [ 
         `${textAttributes.type.toString(16)}`, // 0
@@ -149,6 +153,7 @@ export function generateHrefFromTextAttributes(textAttributes: TextAttributes) :
     return href;
 }
 
+// Получения нового ID для связи аннотации
 function generateAnnotationID() {
   if (textAttributes.type === 2) {
     if (lastUsedID) {
@@ -163,9 +168,10 @@ function generateAnnotationID() {
   }
 }
 
+// Генерация href для блоков по данным атрибутам в виде, описанном в Wiki репозитория
 export function generateHrefFromBlockAttributes(blockAttributes : BlockAttributes) {
   let href = '';
-    if (blockAttributes.type === 3) {
+    if (blockAttributes.type === 3) { // если это Divider
       href = hrefLinkPrefix + "#" + [ 
         '3', // 0
         blockAttributes.borderWidth ? `${blockAttributes.borderWidth.toString(16)}` : '', // 1
@@ -181,7 +187,7 @@ export function generateHrefFromBlockAttributes(blockAttributes : BlockAttribute
         '', // 11
         '', // 12
       ].join('.') + "#";
-    } else {
+    } else { // если это quote, callout, tablecell
       href = hrefLinkPrefix + "#" + [ 
         '3', // 0
         blockAttributes.radius ? `${blockAttributes.radius.toString(16)}` : '', // 1

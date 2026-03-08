@@ -12,6 +12,7 @@ let uiInjected = false;
 
 export let uiShown = false;
 
+// Создаёт и внедряет в DOM панель с настройкой таймера
 function createPanel() {
   if (panelElement) return panelElement;
 
@@ -40,6 +41,7 @@ function createPanel() {
   return panelElement;
 }
 
+// Показывает панель, меняет 'тикер' на точный, для качественного и оперативного показа времени
 export function showTimerPanel() {
   const panel = createPanel();
   panel.style.display = 'block';
@@ -48,6 +50,7 @@ export function showTimerPanel() {
   setStrictTimer(panel);
 }
 
+// Скрывает панель, меняет 'тикер' на ленивый, он менее точный, но сильно оптимизированнее
 export function hideTimerPanel() {
   uiShown = false;
   if (panelElement) {
@@ -56,6 +59,8 @@ export function hideTimerPanel() {
   }
 }
 
+// Инициализирует панель
+// Сразу запускает ленивый тикер
 export function initTimerPanel() {
   if (uiInjected) return;
 

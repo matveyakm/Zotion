@@ -13,6 +13,7 @@ const panelHTML = `
     </button>
 `;
 
+// Создание и внедрение в DOM панели с кнопкой для включения examMode
 function createPanel() {
     if (panelElement) return panelElement;
   
@@ -43,7 +44,7 @@ function createPanel() {
     return panelElement;
 }
 
-
+// Инициализация панели с кнопкой для включения examMode (внедрение в DOM и отображение)
 export function initExamModePanel() {
     if (uiInjected) return;
   

@@ -2,6 +2,7 @@ import { textAttributes } from "../textPanel";
 
 const needToLog = false;
 
+// Общая логика для кнопки "Дополнительно" и её контента, а также для всех контролов внутри этого блока (выравнивание, интервалы)
 export function setupMoreButtonListener(panelElement: HTMLElement) {
     const toggleBtn = panelElement.querySelector('#zot-advanced-toggle');
     const content = panelElement.querySelector('#zot-advanced-content') as HTMLElement;

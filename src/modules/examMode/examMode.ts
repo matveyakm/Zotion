@@ -43,6 +43,7 @@ const EXAM_CSS = `
   }
 `;
 
+// Логика раскрытия контента (используется при клике на блок)
 const updateRevealStyles = () => {
   let styleTag = document.getElementById(REVEAL_STYLE_ID) as HTMLStyleElement;
   if (!styleTag) {
@@ -70,6 +71,7 @@ const updateRevealStyles = () => {
   `).join('\n');
 };
 
+// Обработчик кликов по блокам для временного раскрытия содержимого
 const handleBlockClick = (e: MouseEvent) => {
   if (!isExamModeActive) return;
 
@@ -95,6 +97,8 @@ const handleBlockClick = (e: MouseEvent) => {
   }
 };
 
+
+// Внедрение CSS-инъекции для блюра текста в examMode
 const injectGlobalStyles = (): void => {
   if (document.getElementById(STYLE_ID)) return;
   const styleElement = document.createElement('style');
@@ -104,6 +108,7 @@ const injectGlobalStyles = (): void => {
   wasInjected = true;
 };
 
+// Включение/выключение режима экзамена
 export const toggleExamMode = (): void => {
   isExamModeActive = !isExamModeActive;
   
@@ -119,6 +124,7 @@ export const toggleExamMode = (): void => {
   updateRevealStyles();
 };
 
+// Инициализация модуля Exam Mode
 export const initExamMode = (): void => {
   injectGlobalStyles();
 

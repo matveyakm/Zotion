@@ -1,5 +1,6 @@
 import { blockAttributes} from "../blockPanel"; 
 
+// Устанавливает слушатели для всех "верхних" кнопок: горизонтальное и вертикальное выравнивание блока
 export function setupTopButtonListener(panelElement: HTMLElement) {
     panelElement.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;

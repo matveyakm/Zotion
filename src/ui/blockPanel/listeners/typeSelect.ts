@@ -1,6 +1,9 @@
 import { blockAttributes } from "../blockPanel";
 import { changeVisibilityOfTabs } from "./colorPicker";
 
+// Устанавливает слушатель для селекта "Type" в панели редактирования блока
+// Изменяет видимость кнопок и табов в зависимости от возможности применения соответствующих атрибутов
+// Меняет превью в зависимости от выбранного типа блока
 export function setupTypeSelectionListener(panelElement: HTMLElement) {
   const typeSelect = panelElement.querySelector('#zot-block-type-select') as HTMLSelectElement | null;
   const HIDDEN_CLASS = 'zot-bp-hidden';

@@ -4,6 +4,7 @@ import { colorPickerSettings,toggleColor } from '../../utils/colorPickerUtils';
 
 const needToLog = false;
 
+// Общая функция для установки всех листенеров, связанных с цветовым пикером (вкладки, hue-слайдер, SV-пикер, кнопки сброса и применения цвета)
 export function setupColorPickerListener(panelElement: HTMLElement, example: HTMLElement) {
   // -=-=-=-=-=-=-=-=-=- Вкладки -=-=-=-=-=-=-=-=-=- //
   const tabs = panelElement.querySelectorAll('.zot-tab');

@@ -24,6 +24,8 @@ export interface ParsedData {
 
 const needToLog = false;
 
+// Ищет все ссылки внутри блоков, которые содержат атрибуты в href, и которые ещё не были обработаны (не имеют data-styled). 
+// Возвращает массив таких ссылок.
 export function findStyledLinks(container: ParentNode = document): HTMLAnchorElement[] {
   const links = container.querySelectorAll<HTMLAnchorElement>(
     `.notion-text-block a[href*="#"]:not([data-styled]),
@@ -44,6 +46,9 @@ export function findStyledLinks(container: ParentNode = document): HTMLAnchorEle
   return Array.from(links);
 }
 
+// Обрабатывает ссылку, извлекая из неё атрибуты и применяя стили.
+// Если ссылка уже была обработана или не содержит атрибутов, возвращает null. 
+// Если ссылка содержит атрибуты, возвращает объект с массивом атрибутов.
 function processParsedData(link: HTMLAnchorElement): ParsedData | null {
   if (processedLinks.has(link)) return null;
 
@@ -60,6 +65,7 @@ function processParsedData(link: HTMLAnchorElement): ParsedData | null {
   return parsedData
 }
 
+// Главная функция для обработки ссылок с атрибутами. 
 export function processAttributedLinks(container: ParentNode = document): void {
   const links = findStyledLinks(container);
 

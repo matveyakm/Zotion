@@ -6,6 +6,7 @@ import { showBlockPanel, hideBlockPanel } from '../blockPanel/blockPanel';
 let panelElement: HTMLElement | null = null;
 let uiInjected = false;
 
+// Создание и внедрение в DOM панели для открытия панелей форматирования текста и блоков, а также переключения между ними
 function createPanel() {
     if (panelElement) return panelElement;
   
@@ -52,12 +53,11 @@ function createPanel() {
         } 
     });
     });
-    
   
     return panelElement;
 }
 
-
+// Инициализация панели для открытия панелей форматирования текста и блоков (внедрение в DOM и отображение)
 export function initMainPanel() {
     if (uiInjected) return;
   

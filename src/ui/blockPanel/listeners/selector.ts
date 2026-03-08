@@ -1,5 +1,6 @@
 import { blockAttributes } from "../blockPanel";
 
+// Устанавливает слушатели для селектов "Border Width" и "Radius" в панели редактирования блока
 export function setupSelectListeners(panelElement: HTMLElement) {
   const borderSelect = panelElement.querySelector('#zot-border-size-select') as HTMLSelectElement | null;
   const radiusSelect = panelElement.querySelector('#zot-radius-size-select') as HTMLSelectElement | null;

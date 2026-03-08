@@ -8,6 +8,10 @@ import { applyAlignmentStyles } from './alignmentStyle';
 
 const needToLog = true;
 
+// Общее применение стилей к блочным элементам (callout, quote, table) на основе атрибутов из ссылки
+// parsedData должен содержать массив атрибутов, объясняющих, какое форматирование требуется, извлечённых из href ссылки
+// Атрибуты обрабатываются согласно описанию, с которым можно ознакомиться на Wiki репозитория
+// index -- порядковый номер обрабатываемой ссылки в контексте всех ссылок, которые заданы в терминах расширения
 export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   log(`Trying to apply block styles for link ${index + 1}`, needToLog);
 
@@ -33,6 +37,8 @@ export function applyBlockStyles(link: HTMLAnchorElement, parsedData: ParsedData
   }
 }
 
+// Применение стилей к callout-блоку на основе переданных атрибутов
+// index -- порядковый номер обрабатываемой ссылки в контексте всех ссылок, которые заданы в терминах расширения
 function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
     log(`Applying styles (block) for link ${index + 1}`, needToLog);
     if (attributes[1]) {
@@ -73,6 +79,7 @@ function applyStylesToCallout(element: HTMLElement, attributes: (string | null)[
     applyAlignmentStyles(element, attributes[5], attributes[6], index, element.getAttribute('data-link-id') || '');
 }
 
+// Применение стилей к quote-блоку на основе переданных атрибутов
 function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
     if (needToLog) console.log(`Applying styles for link ${index + 1} with attributes:`, attributes);
 
@@ -107,6 +114,7 @@ function applyStylesToQuote(element: HTMLElement, attributes: (string | null)[],
       applyAlignmentStyles(element, attributes[5], attributes[6], index, element.getAttribute('data-link-id') || '');
 }
 
+// Применение стилей к ячейке таблицы на основе переданных атрибутов
 function applyStylesToTable(link: HTMLAnchorElement, attributes: (string | null)[], index: number, isDarkTheme: boolean): void {
   if (needToLog) console.log(`Applying styles (table) for link ${index + 1} with attributes:`, attributes);
 

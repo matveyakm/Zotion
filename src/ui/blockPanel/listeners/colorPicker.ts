@@ -11,6 +11,7 @@ export const bpColorSettings = {
   alpha: 1,         // 0–1
 };
 
+// Меняет видимость вкладок "Border" и "Background" в зависимости от типа блока (например, для у Divider не может быть background)
 export function changeVisibilityOfTabs(panelElement: HTMLElement, hideBackgroundTab: boolean) {
   const bgTab    = panelElement.querySelector<HTMLElement>('.zot-tab[data-key="Background"]');
   const borderTab = panelElement.querySelector<HTMLElement>('.zot-tab[data-key="Border"]');
@@ -27,6 +28,7 @@ export function changeVisibilityOfTabs(panelElement: HTMLElement, hideBackground
   }
 }
 
+// Устанавливает все слушатели для элементов панели цветового пикера панели
 export function setupBlockColorPickerListener(panelElement: HTMLElement) {
   const elements = {
     pickerBox:   panelElement.querySelector<HTMLElement>('#zot-bp-picker-box'),
@@ -147,22 +149,26 @@ export function setupBlockColorPickerListener(panelElement: HTMLElement) {
   }
 }
 
+// Преобразует текущие HSV-значения в RGBA, используя установленную прозрачность из настроек
 function getRGBA(h: number, s: number, v: number) {
   const rgb = hsvToRgb(h, s, v);
 
   return {r: rgb.r, g: rgb.g, b: rgb.b, a: bpColorSettings.alpha};
 }
 
+// Форматирует RGBA в строку для CSS
 function getRGBAString(r: number, g: number, b: number, a: number) {
     return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
 
+// Форматирует RGBA в HEXA для хранения в атрибутах блока (последний символ - это прозрачность от 0 до 15)
 function getHEXString(r: number, g: number, b: number, a: number) {
     const hex = rgbToHex(r, g, b);
     const alphaHex = Math.round(a * 15).toString(16);
     return `${hex}${alphaHex}`;
 }
 
+// Обновляет UI кнопки применения цвета в зависимости от текущего выбранного цвета (фон кнопки и цвет текста для контраста)
 function updateApplyButtonUI(els: { applyBtn: HTMLElement | null; hexInput: HTMLInputElement | null }) {
   if (!els.applyBtn) return;
 
@@ -183,6 +189,7 @@ function updateApplyButtonUI(els: { applyBtn: HTMLElement | null; hexInput: HTML
   els.applyBtn.style.color = isLight ? '#000' : '#fff';
 }
 
+// Применяет выбранный цвет ко всем примерам в панели (текст, фон или граница в зависимости от текущей вкладки)
 function applyColorToPreviews(panel: HTMLElement, rgba: {r: number, g: number, b: number, a: number}) {
   const previews = panel.querySelectorAll<HTMLElement>('.zot-bp-example');
 

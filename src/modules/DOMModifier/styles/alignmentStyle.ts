@@ -3,6 +3,9 @@ import { log } from '../../../utils/log';
 
 const needToLog = true;
 
+// Функция для применения стилей выравнивания к переданному элементу
+// index -- порядковый номер обрабатываемой ссылки в контексте всех ссылок, которые заданы в терминах расширения
+// linkeId -- уникальный идентификатор аннотации, который указывается в href
 export function applyAlignmentStyles(element: HTMLElement, textAlign: string | null, verticalAlign: string | null, index: number, linkId: string): void {
     log(`Applying alignment styles for link ${index + 1}, textAlign: ${textAlign}, verticalAlign: ${verticalAlign}`, needToLog);
   

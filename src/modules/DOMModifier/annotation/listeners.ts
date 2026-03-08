@@ -1,5 +1,6 @@
 // listeners.ts 
 
+// Глобальные слушатели для скрытия тултипов при смене видимости страницы и изменении размера окна
 export function setupGlobalListeners(): void {
     // Скрытие всех тултипов при смене видимости страницы
     document.addEventListener('visibilitychange', () => {

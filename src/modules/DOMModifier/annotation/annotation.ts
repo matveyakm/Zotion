@@ -8,6 +8,7 @@ import { ParsedData, indexOfTagID } from '../scanner';
 
 const needToLog = true;
 
+// Функция для скрытия блока, связанного с аннотацией. Она ищет блок по data-block-id, сохраняет его HTML в hiddenBlocks и скрывает его.
 export function hideAnnotationBlock(link: HTMLAnchorElement, parsedData: ParsedData, index: number): void {
   if (!('attributes' in parsedData) || !parsedData.attributes) return;
 
@@ -47,6 +48,8 @@ export function hideAnnotationBlock(link: HTMLAnchorElement, parsedData: ParsedD
   log(`Hidden block with data-block-id=${block.getAttribute('data-block-id')} and saved with key=${blockId} for link ${index + 1}`, needToLog);
 }
 
+// Функция для создания тултипа с содержимым аннотации. 
+// Она проверяет наличие скрытого блока по blockId и, если он есть, вызывает функцию createTooltip для отображения его содержимого при наведении на ссылку.
 export function createAnnotationTooltip(
   link: HTMLAnchorElement,
   parsedData: ParsedData,

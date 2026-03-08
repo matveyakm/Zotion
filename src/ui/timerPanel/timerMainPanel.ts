@@ -5,6 +5,7 @@ import { showTimerPanel, hideTimerPanel } from './timerPanel';
 let panelElement: HTMLElement | null = null;
 let uiInjected = false;
 
+// Создаёт и внедряет в DOM (нижнюю) панель с кнопкой, открывающей настройки таймера
 function createPanel() {
     if (panelElement) return panelElement;
   
@@ -36,6 +37,7 @@ function createPanel() {
     return panelElement;
 }
 
+// Меняет цвет кнопки для отображения статуса таймера
 export function setTimerButtonState(state: 'study' | 'relax' | 'pause' | 'ellapsed' | 'normal') {
     const button = panelElement?.querySelector('.zot-main-panel-button') as HTMLElement;
     if (state === 'study') {
@@ -51,7 +53,7 @@ export function setTimerButtonState(state: 'study' | 'relax' | 'pause' | 'ellaps
     }
 }
 
-
+// Инициализирует (нижнюю) панель с кнопкой, открывающей настройки таймера
 export function initTimerMainPanel() {
     if (uiInjected) return;
   

@@ -2,6 +2,11 @@ import { log } from '../../../utils/log';
 
 const needToLog = false;
 
+// Функция для корректировки вертикального выравнивания буллетов в списках
+// В текущей реализации Notion буллеты в списках не выравниваются по центру относительно текста, что особенно заметно при использовании KaTeX
+// Эта функция находит все блоки списков и корректирует отступы, чтобы буллеты были вертикально центрированы относительно текста
+// TODO: функция вызывается слишком часто, необходима оптимизация
+// TODO: текущая реализация просто вычисляет центр, что может не работать идеально для KaTeX формул, смещающих текст ассиметрично
 export function adjustBulletAlignment(container: ParentNode = document): void {
   const listBlocks = container.querySelectorAll(':where(.notion-bulleted_list-block, .notion-numbered_list-block):not(.notion-bulleted_list-block .notion-bulleted_list-block, .notion-numbered_list-block .notion-numbered_list-block)');
   

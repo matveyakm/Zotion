@@ -5,6 +5,7 @@ import { initBlockPanel } from "./blockPanel/blockPanel";
 import { initTimerMainPanel } from "./timerPanel/timerMainPanel";
 import { initTimerPanel } from "./timerPanel/timerPanel";
 
+// Инициализация всех панелей
 export function initUI() {
     initExamModePanel();
     initTimerMainPanel();

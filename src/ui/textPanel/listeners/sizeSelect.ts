@@ -2,11 +2,14 @@ import { textAttributes } from "../textPanel";
 
 const needToLog = false;
 
+// Массив соответствия размера шрифта и описания его атрибутом
+// Точно такой же должен быть в src/modules/DOMModifier/styles/textStyle.ts
 const fontSizes = [
     '8px', '9px', '10px', '11px', '12px', '13px', '14px', '15px',
     '16px', '18px', '20px', '24px', '28px', '32px', '40px', '48px'
 ];
 
+// Устанавливает слушатель для селекта размера шрифта. При изменении значения обновляет textAttributes.size и пример текста в панели.
 export function setupSizeSelectionListener(panelElement: HTMLElement, example: HTMLElement) {
   const sizeSelect = panelElement.querySelector('#zot-font-size-select') as HTMLSelectElement | null;
   if (sizeSelect) {

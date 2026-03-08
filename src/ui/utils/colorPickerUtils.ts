@@ -9,22 +9,11 @@ export const colorPickerSettings  = {
   SVPicker : { x: 0, y: 0 , width: 0, height: 0},
 }
 
-export function changeColorPickerSettings(
-  newTab: string | null = null, 
-  newHue: number | null = null, 
-  newSVPicker: { x: number, y: number , width: number, height: number} | null = null
-) {
-    if (newTab !== null) {
-        colorPickerSettings.currentTab = newTab;
-    }
-    if (newHue !== null) {
-        colorPickerSettings.currentHue = newHue;
-    }
-    if (newSVPicker !== null) {
-        colorPickerSettings.SVPicker = newSVPicker;
-    }
-}
-
+// Применение цвета (при нажатии на кнопку применения цвета)
+// Используется только в textPanel
+// needToApply:
+//      -- false: только визуально меняем части colorPicker-а
+//      -- true: применяем цвет к превью, устанавливаем значение в атрибутах
 export function toggleColor(
     panelElement: HTMLElement, 
     textAttributes: TextAttributes, 
@@ -66,11 +55,10 @@ export function toggleColor(
         console.warn('Неизвестная вкладка для выбора цвета:', colorPickerSettings.currentTab);
       }
     }
-  
+    
     hexInput.setAttribute('placeholder', seletedHexString.toUpperCase());
     applyColorBtn.style.setProperty('--current-color', selectedRgbString);
   
     const contrastRgb = hsvToRgb(colorPickerSettings.currentHue, 0, Math.round((1 - value)));
     applyColorBtn.style.color = `rgb(${contrastRgb.r}, ${contrastRgb.g}, ${contrastRgb.b})`
-  
   }

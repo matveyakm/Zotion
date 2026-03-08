@@ -9,6 +9,9 @@ import { applyAlignmentStyles } from './alignmentStyle';
 
 const needToLog = true;
 
+// Функция для применения стилей к текстовым элементам на основе атрибутов из ссылки
+// Атрибуты обрабатываются согласно описанию, с которым можно ознакомиться на Wiki репозитория
+// index -- порядковый номер обрабатываемой ссылки в контексте всех ссылок, которые заданы в терминах расширения
 export function applyLinkStylesToText(link: HTMLAnchorElement, parsedData: ParsedData, index: number, isDarkTheme: boolean): void {
   processedLinks.add(link);
   link.setAttribute('data-styled', 'true');

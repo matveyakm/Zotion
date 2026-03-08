@@ -2,6 +2,7 @@ import { textAttributes } from "../textPanel";
 
 const needToLog = false;
 
+// Общая функция логики всех "верхних" кнопок: жирный, курсив, подчеркивание, выравнивание и т.д.
 export function setupTopButtonListener(panelElement: HTMLElement, example: HTMLElement) {
     panelElement.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;

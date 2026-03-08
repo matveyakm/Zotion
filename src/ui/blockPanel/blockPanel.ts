@@ -30,6 +30,7 @@ export const blockAttributes: BlockAttributes = {
   verticalAlign: null,
 }
 
+// Создание и внедрение в DOM панели для форматирования блоков
 function createPanel() {
   if (panelElement) return panelElement;
 
@@ -60,17 +61,20 @@ function createPanel() {
   return panelElement;
 }
 
+// Показывает панель
 export function showBlockPanel() {
   const panel = createPanel();
   panel.style.display = 'block';
 }
 
+// Скрывает панель
 export function hideBlockPanel() {
   if (panelElement) {
     panelElement.style.display = 'none';
   }
 }
 
+// Инициализация панели
 export function initBlockPanel() {
   if (uiInjected) return;
 

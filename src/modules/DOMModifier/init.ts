@@ -8,6 +8,7 @@ import { adjustDividers } from './styles/dividerStyle';
 
 const UPDATE_INTERVAL = 2000; // milliseconds
 
+// Устанавливаем MutationObserver для отслеживания изменений в DOM и запускаем обработку ссылок и других элементов при изменениях
 export function setupMutationObserver(): void {
     const debouncedProcess = debounce((...args: unknown[]) => {
     // args[0] — mutations, args[1] — observer
