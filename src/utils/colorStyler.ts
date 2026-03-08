@@ -15,6 +15,11 @@ function hexToRGBA(hex: string): RGBA | null {
     return { r, g, b, a };
 }
 
+// Получить RGB из данного HEX
+// Алгоритм повышения контрастности цвета в зависимости от фона
+//    -- full: продвинутый
+//    -- simple: простой
+//    -- none: не использовать
 export function processRGB(hex: string, background: "dark" | "light", method: "full" | "simple" | "none"): string | null {
     const rgba = hexToRGBA(hex);
     if (!rgba) return null;
@@ -35,6 +40,8 @@ export function processRGB(hex: string, background: "dark" | "light", method: "f
     return `rgba(${contrasted.r}, ${contrasted.g}, ${contrasted.b}, ${contrasted.a})`;
 }
 
+// Простейший алгоритм повышения контрастности цвета в зависимости от цвета фона
+// Работает не очень точно, поэтому редко применяется
 function simpleAdjustRGBA({ r, g, b, a}: RGBA, background: "dark" | "light"): RGBA {
     const factor = background === "dark" ? 0.6 : 1.67;
     const bound = 80;
@@ -49,6 +56,7 @@ function simpleAdjustRGBA({ r, g, b, a}: RGBA, background: "dark" | "light"): RG
 type RGBA = { r: number; g: number; b: number; a: number };
 type RGB = { r: number; g: number; b: number };
 
+// Перевод RGB в HSL
 function rgbToHsl({ r, g, b }: RGB): [number, number, number] {
   const r1 = r / 255, g1 = g / 255, b1 = b / 255;
   const max = Math.max(r1, g1, b1), min = Math.min(r1, g1, b1);
@@ -66,6 +74,7 @@ function rgbToHsl({ r, g, b }: RGB): [number, number, number] {
   return [h, s, l];
 }
 
+// Перевод HSL в RGB
 function hslToRgb([h, s, l]: [number, number, number]): RGB {
   const c = (1 - Math.abs(2 * l - 1)) * s;
   const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
@@ -104,6 +113,7 @@ function blendOver(bg: RGB, fg: RGBA): RGB {
   };
 }
 
+// Продвинутый алгоритм повышения контраста цвета в зависимоти от фона
 function adjustRGBA(fg: RGBA, background: "light" | "dark", targetContrast = 4.5): RGBA {
   const bg: RGB = background === "dark" ? { r: 0, g: 0, b: 0 } : { r: 255, g: 255, b: 255 };
 
@@ -164,6 +174,7 @@ function adjustRGBA(fg: RGBA, background: "light" | "dark", targetContrast = 4.5
   return { ...resultRgb, a: fg.a };
 }
 
+// Вычисляет, является ли данный фон светлым или тёмным
 export function evaluateBackground(hex: string, isDarkTheme: boolean): "light" | "dark" {
     const background = hexToRGBA(hex);
     if (!background) return isDarkTheme ? "dark" : "light";
