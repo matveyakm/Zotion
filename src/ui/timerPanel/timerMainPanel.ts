@@ -1,16 +1,9 @@
 import { uiCSS, timerMainPanelStyle } from '../CSS';
+import { mainPanelHTML } from './timerPanelsHTML';
+import { showTimerPanel, hideTimerPanel } from './timerPanel';
 
 let panelElement: HTMLElement | null = null;
 let uiInjected = false;
-
-const panelHTML = `
-    <button title="Таймер" class="zot-main-panel-button" style="width:44px; height:44px; padding: 0">
-        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 11px 9px;">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-        </svg>
-    </button>
-`;
 
 function createPanel() {
     if (panelElement) return panelElement;
@@ -24,7 +17,7 @@ function createPanel() {
   
     panelElement = document.createElement('div');
     panelElement.id = 'zot-timer-main-panel';
-    panelElement.innerHTML = panelHTML;
+    panelElement.innerHTML = mainPanelHTML;
     panelElement.style.cssText = timerMainPanelStyle;
   
     document.body.appendChild(panelElement);
@@ -33,12 +26,29 @@ function createPanel() {
     button.addEventListener('click', () => {
         if (button.classList.contains('zot-main-panel-button-active')) {
             button.classList.remove('zot-main-panel-button-active');
+            hideTimerPanel();
         } else {
             button.classList.add('zot-main-panel-button-active');
+            showTimerPanel();
         }
     });
   
     return panelElement;
+}
+
+export function setTimerButtonState(state: 'study' | 'relax' | 'pause' | 'ellapsed' | 'normal') {
+    const button = panelElement?.querySelector('.zot-main-panel-button') as HTMLElement;
+    if (state === 'study') {
+        button.style.color = '#5660DD';
+    } else if (state === 'relax') {
+        button.style.color = '#56DD60';
+    } else if (state === 'pause') {
+        button.style.color = '#22DDDD';
+    } else if (state === 'ellapsed') {
+        button.style.color = '#DD2222';
+    } else {
+        button.style.color = '#888';
+    }
 }
 
 
