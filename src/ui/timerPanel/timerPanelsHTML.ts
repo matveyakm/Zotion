@@ -40,23 +40,23 @@ export const panelHTML = `
         <button id="zot-set-timer-btn" data-value="start" class="zot-reset-color-btn-style" title="Пуск">Пуск</button>
     </div>
 
-    <div id="zot-timer-advanced-toggle" style="font-size: 0.9rem; color: #888; cursor: pointer; user-select: none; padding: 4px 0;">▸  Дополнительно</div>
+    <div id="zot-timer-advanced-toggle" style="font-size: 0.9rem; color: #888; cursor: pointer; user-select: none; padding-top: 8px;">▸  Дополнительно</div>
 
     <div id="zot-timer-advanced-content" style="display: none; flex-direction: column; gap: 10px; padding-top: 10px;">
         
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <span style="font-size: 0.8rem; color: #aaa;">Всего на сайте:</span>
-            <span id="zot-stat-total" style="font-size: 0.75rem; color: #aaa; font-family: monospace;">00:00:00</span>
+            <span id="zot-timer-stat-total" style="font-size: 0.75rem; color: #aaa; font-family: monospace;">00:00:00</span>
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <span style="font-size: 0.8rem; color: #aaa;">Затрачено на учебу:</span>
-            <span id="zot-stat-study" style="font-size: 0.75rem; color: #aaa; font-family: monospace;">00:00:00</span>
+            <span id="zot-timer-stat-study" style="font-size: 0.75rem; color: #aaa; font-family: monospace;">00:00:00</span>
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <span style="font-size: 0.8rem; color: #aaa;">Затрачено на отдых:</span>
-            <span id="zot-stat-relax" style="font-size: 0.75rem; color: #aaa; font-family: monospace;">00:00:00</span>
+            <span id="zot-timer-stat-relax" style="font-size: 0.75rem; color: #aaa; font-family: monospace;">00:00:00</span>
         </div>
     </div>
 `;

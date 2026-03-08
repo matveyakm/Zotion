@@ -5,6 +5,7 @@ import { setTimerButtonState } from './timerMainPanel';
 let panelElement: HTMLElement | null = null;
 let uiInjected = false;
 let uiShown = false;
+let isAdvancedShown = false;
 
 let isTimerGoing = false;
 
@@ -82,10 +83,23 @@ function createPanel() {
   const anticipatorilyButton = panelElement.querySelector('#zot-anticipatorily-btn') as HTMLButtonElement;
   anticipatorilyButton.addEventListener('click', () => {
     console.log('Panel: anticipatorily switch phase');
-    isStudyPhase = !isStudyPhase;
-    resetTimer(panelElement);
+
+    resetTimer(panelElement, true);
   });
 
+
+  const toggleBtn = panelElement.querySelector('#zot-timer-advanced-toggle');
+  const content = panelElement.querySelector('#zot-timer-advanced-content') as HTMLElement;
+  if (toggleBtn && content) {
+    toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = content.style.display === 'none' || content.style.display === '';
+        
+        content.style.display = isHidden ? 'flex' : 'none';
+        toggleBtn.textContent = isHidden ? '▾  Дополнительно' : '▸  Дополнительно';
+        isAdvancedShown = isHidden;
+    });
+  }
 
   return panelElement;
 }
@@ -140,27 +154,33 @@ function makeTimerGo(panelElement: HTMLElement) {
     setTimerButtonState(isStudyPhase ? 'study' : 'relax');
 }
 
-function pauseTimer(panelElement: HTMLElement) {
+function pauseTimer(panelElement: HTMLElement, isAnticipatorily : boolean = false) {
     console.log('Panel: pause timer');
     if (!isTimerGoing) return;
 
     const setTimerButton = panelElement.querySelector('#zot-set-timer-btn') as HTMLButtonElement;
     const timerEndAt = panelElement.querySelector('#zot-timer-end-at') as HTMLElement;
 
-    session.phaseStart = 0;
+    session.studyActive += isStudyPhase ? Date.now() - session.phaseStart : 0;
+    session.relaxActive += !isStudyPhase ? Date.now() - session.phaseStart : 0;
 
+    session.phaseStart = 0;
+    
     setTimerButton.setAttribute('data-value', 'start');
     setTimerButton.textContent = 'Пуск';
     isTimerGoing = false;
-    if (isTimeElapsed) {
-        setTimerButtonState('ellapsed');
+    if (isTimeElapsed || isAnticipatorily) {
+        reminder = null;
         const timerDisplay = panelElement.querySelector('#zot-timer-phase') as HTMLElement;
         isStudyPhase = !isStudyPhase;
         timerDisplay.textContent = isStudyPhase ? 'Учёба' : 'Отдых';
-        if (uiShown) {
-            isTimeElapsed = false;
-            makeTimerGo(panelElement);
-            return;
+        if (isTimeElapsed) {
+            setTimerButtonState('ellapsed');
+            if (uiShown) {
+                isTimeElapsed = false;
+                makeTimerGo(panelElement);
+                return;
+            }
         }
     } else if (timerEndTimestamp){
         setTimerButtonState('pause');
@@ -170,8 +190,8 @@ function pauseTimer(panelElement: HTMLElement) {
     timerEndAt.textContent = '--:--';
 }
 
-function resetTimer(panelElement: HTMLElement) {
-    pauseTimer(panelElement);
+function resetTimer(panelElement: HTMLElement, isAnticipatorily : boolean = false) {
+    pauseTimer(panelElement, isAnticipatorily);
     reminder = null;
     displayTime(panelElement, isStudyPhase ? plannedStudyTime : plannedRelaxTime);
     setTimerButtonState('normal');
@@ -179,6 +199,9 @@ function resetTimer(panelElement: HTMLElement) {
 
 function setStrictTimer(panelElement: HTMLElement) {
   console.log('Panel: set strict timer');
+  const statsTotal = panelElement.querySelector('#zot-timer-stat-total') as HTMLElement;
+  const statsStudy = panelElement.querySelector('#zot-timer-stat-study') as HTMLElement;
+  const statsRelax = panelElement.querySelector('#zot-timer-stat-relax') as HTMLElement;
   
   const interval = setInterval(() => {
     if (!uiShown) {
@@ -187,6 +210,12 @@ function setStrictTimer(panelElement: HTMLElement) {
     
     if (isTimerGoing && timerEndTimestamp) {
         displayTime(panelElement, timerEndTimestamp - Date.now());
+    }
+
+    if (isAdvancedShown) {
+        displayStats(statsTotal, Date.now() - session.start);
+        displayStats(statsStudy, session.studyActive + (isStudyPhase && isTimerGoing ? Date.now() - session.phaseStart : 0));
+        displayStats(statsRelax, session.relaxActive + (!isStudyPhase && isTimerGoing ? Date.now() - session.phaseStart : 0));
     }
         
     checkTime(panelElement);
@@ -207,15 +236,26 @@ function setLazyTimer(panelElement: HTMLElement) {
     }, 20000);
 }
 
-function displayTime(panelElement: HTMLElement, time: number) {
-    const timerDisplay = panelElement.querySelector('#zot-timer-display');
-    if (timerDisplay){
-        if (time < 0) time = 0;
-        const totalMinutes = Math.floor(time / 60000);
-        const seconds = Math.floor((time % 60000) / 1000);
+function displayTime(panelElement: HTMLElement, ms: number) {
+    const timer = panelElement.querySelector('#zot-timer-display') as HTMLElement;
+    if (timer){
+        if (ms < 0) ms = 0;
+        const totalMinutes = Math.floor(ms / 60000);
+        const seconds = Math.floor((ms % 60000) / 1000);
 
-        timerDisplay.textContent = `${totalMinutes}:${seconds.toString().padStart(2, '0')}`;
+        timer.textContent = `${totalMinutes}:${seconds.toString().padStart(2, '0')}`;
     } 
+}
+
+function displayStats(stats: HTMLElement | null, ms: number) {
+  if (!stats) return;
+  const totalSeconds = Math.floor(ms / 1000);
+
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  stats.textContent = `${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
 }
 
 function checkTime(panelElement: HTMLElement) {
