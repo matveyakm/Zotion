@@ -36,6 +36,7 @@ export const panelHTML = `
     
     <div style="display: flex; gap: 8px; justify-content: center; padding-top: 8px">
         <button id="zot-reset-timer-btn" class="zot-reset-color-btn-style" title="Сброс">Сброс</button>
+        <button id="zot-anticipatorily-btn" class="zot-reset-color-btn-style" title="Досрочно" style="width: 80px">Досрочно</button>
         <button id="zot-set-timer-btn" data-value="start" class="zot-reset-color-btn-style" title="Пуск">Пуск</button>
     </div>
 

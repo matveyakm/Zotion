@@ -42,6 +42,28 @@ function createPanel() {
 
   document.body.appendChild(panelElement);
 
+  const studyInput = document.getElementById('zot-study-time-input') as HTMLInputElement;
+  studyInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const minutes = parseInt(studyInput.value);
+        if (!isNaN(minutes) && minutes > 0) {
+            plannedStudyTime = minutes * 60 * 1000;
+            if (isStudyPhase) resetTimer(panelElement);
+        }
+    }
+  });
+
+  const relaxInput = document.getElementById('zot-relax-time-input') as HTMLInputElement;
+  relaxInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const minutes = parseInt(relaxInput.value);
+        if (!isNaN(minutes) && minutes > 0) {
+            plannedRelaxTime = minutes * 60 * 1000;
+            if (!isStudyPhase) resetTimer(panelElement);
+        }
+    }
+  });
+
   const setTimerButton = panelElement.querySelector('#zot-set-timer-btn') as HTMLButtonElement;
   setTimerButton.addEventListener('click', () => {
     let setTimerButtonState = setTimerButton.getAttribute('data-value');
@@ -54,6 +76,13 @@ function createPanel() {
 
   const resetTimerButton = panelElement.querySelector('#zot-reset-timer-btn') as HTMLButtonElement;
   resetTimerButton.addEventListener('click', () => {
+    resetTimer(panelElement);
+  });
+
+  const anticipatorilyButton = panelElement.querySelector('#zot-anticipatorily-btn') as HTMLButtonElement;
+  anticipatorilyButton.addEventListener('click', () => {
+    console.log('Panel: anticipatorily switch phase');
+    isStudyPhase = !isStudyPhase;
     resetTimer(panelElement);
   });
 

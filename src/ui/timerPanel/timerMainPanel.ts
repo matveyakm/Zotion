@@ -43,7 +43,7 @@ export function setTimerButtonState(state: 'study' | 'relax' | 'pause' | 'ellaps
     } else if (state === 'relax') {
         button.style.color = '#56DD60';
     } else if (state === 'pause') {
-        button.style.color = '#22DDDD';
+        button.style.color = '#F9D71C';
     } else if (state === 'ellapsed') {
         button.style.color = '#DD2222';
     } else {
