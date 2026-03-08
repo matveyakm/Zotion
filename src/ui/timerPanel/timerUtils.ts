@@ -18,7 +18,7 @@ const plannedTime: { study: number; relax: number } = {
   };
 let timerEndTimestamp: number | null = null; // Когда таймер должен пропищать
 let isTimeElapsed = false; // Вышло ли время
-let reminder: number | null = null;
+let reminder: number | null = null; // Остаток (после паузы)
 
 export function changePlannedTime(panelElement: HTMLElement, key: 'study' | 'relax', minutes: number) {
     if (!isNaN(minutes) && minutes > 0) {
@@ -128,8 +128,6 @@ export function setLazyTimer(panelElement: HTMLElement) {
         }
         
         checkTime(panelElement);
-    
-          
     }, 20000);
 }
 

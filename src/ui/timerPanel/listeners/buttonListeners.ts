@@ -3,7 +3,7 @@ import { makeTimerGo, pauseTimer, resetTimer } from '../timerUtils';
 export function setupButtonListeners (panelElement: HTMLElement) {
     const setTimerButton = panelElement.querySelector('#zot-set-timer-btn') as HTMLButtonElement;
     setTimerButton.addEventListener('click', () => {
-        let setTimerButtonState = setTimerButton.getAttribute('data-value');
+        const setTimerButtonState = setTimerButton.getAttribute('data-value');
         if (setTimerButtonState === 'start') {
             makeTimerGo(panelElement);
         } else if (setTimerButtonState === 'pause') {
