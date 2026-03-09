@@ -53,6 +53,9 @@
 ### Режим экзамена
 ![Запись экрана 2026-03-09 в 04 58 28](https://github.com/user-attachments/assets/4412457f-1ace-40f4-b75b-39802cc072b5)
 
+### Вид панелей 
+<img width="1383" height="816" alt="Снимок экрана 2026-03-09 в 05 10 45" src="https://github.com/user-attachments/assets/6548007a-280b-4b52-8dfd-0e93eb7ad47e" />
+
 ## 🛫 Сборка и установка
 
 Чтобы начать пользоваться Zotion
