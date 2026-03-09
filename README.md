@@ -42,6 +42,15 @@
 - **Синхронизация с видео**  
   Дать возможность связывать контент с временными метками видео для обеспечения синхронизированного чтения и просмотра.
 
+## 🛫 Сборка и установка
+
+Чтобы начать пользоваться Zotion
+- скачайте [готовую сборку](https://github.com/matveyakm/Zotion/tags), следуя инструкциям
+- или соберите сами, пользуясь статьёй [Сборка, проверки, тесты](https://github.com/matveyakm/Zotion/wiki/Сборка,-проверки,-тесты)
+
+
 ## 📄 Лицензия
 
 This project is licensed under the [MIT License](LICENSE).
+
+See the [Dependencies and licenses](https://github.com/matveyakm/Zotion/wiki/Dependencies-and-licenses) wiki page for details about third-party dependencies.
