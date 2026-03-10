@@ -1,7 +1,7 @@
 [![CI - Build, Lint, Type Check](https://github.com/matveyakm/Zotion/actions/workflows/ci.yml/badge.svg)](https://github.com/matveyakm/Zotion/actions/workflows/ci.yml)     ![ESLint](https://img.shields.io/badge/lint-eslint-purple)     ![tests](https://img.shields.io/badge/tests-vitest-blue)
 # Zotion         
 
-Расширение для браузеров для Google Chrome, призванное улучшить качество взаимодействия с Notion и расширить функциональность.  
+Расширение для Google Chrome, призванное улучшить качество взаимодействия с Notion и расширить функциональность.  
 Оно приоритетно нацелено на использование обучающимися для продвинутого ведения учебных заметок.
 
 Этот проект выполняется в качестве **учебной практики** на Математико-механическом факультете Санкт-Петербургского государственного университета.
